@@ -7,6 +7,7 @@ import os
 #image_height = 480
 
 psd_image = gimp.Image(image_width,image_height)
+pdb.plug_in_icc_profile_apply(psd_image, "//isln-smb/aw_config/Git_Live_Code/Software/Nuke/ICC_Profiles/sRGB.icc", 0, False)
 
 for image_file in image_files:
 	layer_name = os.path.splitext(os.path.basename(image_file))[0]

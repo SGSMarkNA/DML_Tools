@@ -119,7 +119,6 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 				# check if write nodes should be crated for the shuffles
 				write_node=DML_Nuke.Nuke_Nodes.Standered_Nodes.Write(xpos=shuffle_node.x,
 																	 ypos=shuffle_node.y + yOffset,
-																	colorspace="sRGB_ICC(sRGB)",
 																	file_type="png",
 																	create_directories=True,
 																	channels="rgba")
@@ -129,6 +128,8 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 				write_node.knob("file").setValue("[value parent.dml_folder_destination]/Layers_Frames/%0[value parent.dml_frame_padding]d/[value input0.in].png")
 				write_node.knob("views").setValue('{{parent.dml_output_views}}')
 				write_node.knob("disable").setExpression('parent.disable')
+				if "ICC_knob" in write_node.knobs():
+					write_node.knob("ICC_knob").setValue('sRGB.icc')
 				write_nodes.append(write_node)
 		self._shuffle_nodes = shuffle_nodes
 		self._write_nodes   = write_nodes

@@ -206,7 +206,8 @@ def process_Gimp_PSD_Build(psd_file,image_files,image_width,image_height):
 	#python_script_path = r"//isln-smb/aw_config/Pipeline/Deadline/DeadlineRepository10/custom/plugins/GimpPSD/Files_To_PSD_Layers.py"
 	cmd = "\\\\isln-smb\\aw_config\\Apps\\GIMP\\bin\\gimp-2.10.exe -idf --batch-interpreter python-fu-eval -b "
 	cmd += '''"execfile('{}', dict(psd_file='{}',image_files={},image_width={},image_height={}),dict())"'''.format(python_script_path,psd_file,image_files,image_width,image_height)
-	pip = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	#pip = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	pip = subprocess.Popen(cmd)
 	return pip
 
 #----------------------------------------------------------------------
@@ -266,3 +267,4 @@ def run_Json_Build_Data(arg):
 					all_procs.remove(proc)
 					compleated+=1
 					task.setProgress( int( float(compleated)/build_count * 100 ) )
+	del task
