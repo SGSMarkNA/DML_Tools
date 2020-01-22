@@ -135,7 +135,14 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QSpinBox" name="Deadline_Priority"/>
+      <widget class="QSpinBox" name="Deadline_Priority">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>50</number>
+       </property>
+      </widget>
      </item>
      <item row="7" column="0">
       <widget class="QLabel" name="taskTimeoutLabel">
@@ -271,7 +278,11 @@
       </widget>
      </item>
      <item row="11" column="1">
-      <widget class="QLineEdit" name="Deadline_LimitGroups"/>
+      <widget class="QLineEdit" name="Deadline_LimitGroups">
+       <property name="text">
+        <string>nuke</string>
+       </property>
+      </widget>
      </item>
      <item row="12" column="0">
       <widget class="QPushButton" name="Deadline_DependenciesButton">
@@ -393,6 +404,9 @@
       <widget class="QSpinBox" name="Deadline_ChunkSize">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="minimum">
+        <number>1</number>
        </property>
       </widget>
      </item>
@@ -550,12 +564,18 @@
           <property name="text">
            <string>Continue On Error</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QCheckBox" name="Deadline_BatchMode">
           <property name="text">
            <string>Use Batch Mode</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -567,28 +587,8 @@
           <property name="text">
            <string>Render With NukeX</string>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <property name="leftMargin">
-         <number>5</number>
-        </property>
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <property name="rightMargin">
-         <number>5</number>
-        </property>
-        <property name="bottomMargin">
-         <number>5</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="SubmitButton">
-          <property name="text">
-           <string>Submit</string>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>

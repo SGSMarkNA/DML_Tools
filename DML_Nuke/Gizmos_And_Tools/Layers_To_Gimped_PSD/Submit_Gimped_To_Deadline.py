@@ -193,8 +193,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 				if not view in self._render_data_views_to_render:
 					self._render_data_views_to_render.append(view)
 	#----------------------------------------------------------------------
-	@DML_PYQT.Slot()
-	def on_SubmitButton_clicked(self):
+	def Submit_To_Deadline(self):
 		""""""
 		write_node_names = [node.fullName() for node in self._render_data_all_write_nodes]
 		NukeVersionMajor = int(nuke.env.get( 'NukeVersionMajor', '6' ))
@@ -244,9 +243,10 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		frame_ranges = nuke.FrameRanges(self.Deadline_FrameList.text())
 		
 		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info(frame_ranges.toFrameList(), gimped_psd_data=self._render_data_gimped_psd_node_data)
+		build_cont  = len(psd_build_data["builds"])
 		psd_build_data = json.dumps(psd_build_data)
 		job_info = DML_Tools.DML_Deadline.Job_Data_Model.Job_Info_File(Plugin="GimpPSD",
-														Frames=self.Deadline_FrameList.text(), 
+														Frames="0-{}".format(build_cont-1), 
 														Name=self.Deadline_JobName.text()+"_Gimped_PSD",
 														Department=self.Deadline_Department.text(),
 														Comment=self.Deadline_Comment.text(),
@@ -259,7 +259,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 														ForceReloadPlugin=self.Deadline_ReloadPlugin.isChecked(),
 														LimitGroups=self.Deadline_LimitGroups.text(),
 														MachineLimit=self.Deadline_MachineLimit.value(),
-														Machinelist=self.Deadline_MachineLimit.text(),
+														Machinelist=self.Deadline_MachineList.text(),
 														OnJobComplete=self.Deadline_OnComplete.currentText(),
 														ConcurrentTasks=1,
 														LimitTasksToNumberOfCpus=True,
@@ -376,11 +376,16 @@ class DeadlineDialog( nukescripts.PythonPanel ):
 		cmd = __name__+'.Submit_Gimped_To_Deadline_Widget()'
 		knb = nuke.PyCustom_Knob("submit_widget", "", cmd)
 		self.addKnob(knb)
-		self.setMinimumSize( 625, 625 )
+		self.setMinimumSize( 625, 550 )
 		
 	def ShowDialog( self ):
 		return nukescripts.PythonPanel.showModalDialog( self )
 
 def submit_Gimped_To_DeadLine():
 	dialog = DeadlineDialog()
-	dialog.ShowDialog()
+	# Show the dialog.
+	success = dialog.ShowDialog()
+	if success:
+		wig_knob = dialog.knobs()["submit_widget"]
+		wig_obj = wig_knob.getObject()
+		wig_obj.Submit_To_Deadline()
