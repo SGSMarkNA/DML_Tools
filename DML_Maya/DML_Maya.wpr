@@ -1,0 +1,198 @@
+#!wing
+#!version=7.0
+##################################################################
+# Wing project file                                              #
+##################################################################
+[project attributes]
+debug.launch-configs = (2,
+                        {'launch-hAvyXw6e4O8xURld': ({'shared': True},
+        {'buildcmd': ('project',
+                      None),
+         'env': ('merge',
+                 [u'PYTHONSTARTUP = $(WING:PROJECT_DIR)\\standalone.py']),
+         'name': 'Maya Standaone',
+         'pyexec': ('custom',
+                    u'$(MAYA_PY_EXE)'),
+         'pypath': ('project',
+                    []),
+         'pyrunargs': ('project',
+                       '-u'),
+         'runargs': u'',
+         'rundir': ('project',
+                    u'')})})
+debug.named-entry-points = (1,
+                            {'Maya Standalone': ({},
+        {'auto-show': False,
+         'launch-id': ('custom',
+                       (u'',
+                        'launch-7V9oWCMpEZNhIT8N')),
+         'loc': loc('standalone.py')})})
+proj.directory-list = [{'dirloc': loc('.'),
+                        'excludes': (),
+                        'filter': u'*',
+                        'include_hidden': False,
+                        'recursive': True,
+                        'watch_for_changes': True}]
+proj.file-type = 'shared'
+proj.launch-config = {loc('file://Blue/app_config/deadline/DeadlineRepository6/events/ArmstrongWhite/ArmstrongWhite.param'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file://Blue/app_config/python/Other/AW_System_Tray_Tools/screenshot.awpyexe'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file://blue/app_config/Git_Live_Code/Shotgun/Shotgun_ActionMenu_Items/action_handler.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file://isln-smb.armstrong-white.com/aw_config/Git_Live_Code/Shotgun/Schema_Entity_Model.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file://isln-smb.armstrong-white.com/aw_config/Git_Live_Code/Shotgun/Shotgun_ActionMenu_Items/Multi_Nuke_Slate_Maker.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file://isln-smb.armstrong-white.com/aw_config/Git_Live_Code/Shotgun/Shotgun_ActionMenu_Items/UI/Multi_Slate_Builder_UI.ui'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file://isln-smb.armstrong-white.com/aw_config/houdini14.0/houdini.env'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:N:/Common/scripts/app_runners/System_Tray/Tray_Tools/screenshot.awpyexe'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:N:/User/dloveridge/Maya_App_Prefs/plugins/AW_Display_Layer_Visibility_States.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:N:/User/dloveridge/_User_Examples/sbromley/Kohler_Kitchen_Faucet_Trielle.ma'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:Z:/python/AW_site_packages/reg_editor.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:Z:/python/Other/AW_System_Tray_Tools/screenshot.awpyexe'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../AW_Systems_Code/Software/Shotgun/Shotgun_ActionMenu_Items/CPG_Contact_Sheet_Maker_UI.py'): ('p'\
+        'roject',
+        (u'13793',
+         '')),
+                      loc('../AW_Systems_Code/Software/Shotgun/Shotgun_ActionMenu_Items/CPG_Shot_Contact_Sheet.py'): ('c'\
+        'ustom',
+        (u'',
+         'launch-4mQMJs7JbY93J5As')),
+                      loc('../ROBLOX/Extrated_Objects/Tools/Wepons/AssaultRifle.rbxmx'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Program Files/Autodesk/Maya2015/devkit/other/pymel/extras/completion/pi/maya/api/OpenMaya.pi'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Program Files/Autodesk/Maya2015/scripts/AETemplates/AEswatchDisplay.mel'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../ProgramData/Autodesk/ApplicationPlugins/MayaBonusTools/Contents/scripts-2015/shelfToMenu.mel'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/declarative/usingmodel.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/desktop/systray/systray.awpyexe'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/mainwindows/application/application.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/phonon/videoplayer.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/state-machine/factstates.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/state-machine/pingpong.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/state-machine/rogue.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('../../../../Python27/Lib/site-packages/PySide/examples/state-machine/twowaybutton.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/Common/scripts/app_runners/System_Tray/systray.awpyexe'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/Internal_icons/maya_Internal_icons.qrc'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/Internal_icons/maya_Internal_icons2.qrc'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/Selection_Set_Manager/AW_Selection_Set_Editor.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/Selection_Set_Manager/AW_Selection_Set_Editor.ui'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/Selection_Set_Manager/Icons/Master_Icon_Resource_File.qrc'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/State_Machine/Machine_Settings_Parser.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/Unifed_Uvs.ui'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/2015-x64/scripts/nuke_icons/SVG/nuke_Internal_icons.qrc'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/Maya_App_Prefs/scripts/Generic_UI_Widgets/Node_Attribute_Info.py'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('file:n:/User/dloveridge/_User_Examples/sbromley/Kohler_Faucet_Trielle_Set.ma'): ('p'\
+        'roject',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('unknown:<untitled> #360'): ('project',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('unknown:<untitled> #358'): ('project',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('unknown:<untitled> #359'): ('project',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX')),
+                      loc('unknown:<untitled> #361'): ('project',
+        (u'',
+         'launch-7Mzz9l5UxKtBACPX'))}
+testing.auto-test-file-specs = (('glob',
+                                 'DML_Data_Prep_Tools/Unit_Tests/test_*.py'),)

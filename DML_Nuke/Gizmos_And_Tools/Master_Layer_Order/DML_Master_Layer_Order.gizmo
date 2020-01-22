@@ -1,0 +1,19 @@
+#! C:/Program Files/Nuke10.5v7/nuke-10.5.7.dll -nx
+version 10.5 v7
+Gizmo {
+ addUserKnob {20 "Master Layer Order"}
+ addUserKnob {52 dml_master_layer_order l "" -STARTLINE T "DML_Tools.DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.load_Widget_command(\"Master_Layer_Order_Widget_Knob\",\"DML_Tools.DML_Nuke.Gizmos_And_Tools.Master_Layer_Order.Widget_Knob\")"}
+ addUserKnob {1 DML_Layer_Order_layers l "layer Order" +HIDDEN}
+ addUserKnob {1 DML_Layer_Order_Layer_Icons l "layer Icons" +HIDDEN}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 300
+ }
+end_group

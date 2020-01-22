@@ -1,0 +1,31 @@
+#! C:/Program Files/Nuke10.5v7/nuke-10.5.7.dll -nx
+version 10.5 v7
+Gizmo {
+ addUserKnob {20 "Gimped PSD Builder"}
+ addUserKnob {52 dml_gimped_psd_builder l "" -STARTLINE T "DML_Tools.DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.load_Widget_command(\"Nuke_To_Gimped_PSD_Builder_UI\",\"DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Widget_Knob\")"}
+ addUserKnob {1 DML_Layer_Order_layers l "layer Order" +HIDDEN}
+ DML_Layer_Order_layers "\[]"
+ addUserKnob {1 DML_Layer_Order_Layer_Icons l "layer Icons" +HIDDEN}
+ DML_Layer_Order_Layer_Icons "\{\}"
+ addUserKnob {45 DML_Nuke_View_Selection l Views}
+ addUserKnob {1 dml_raw_folder_destination t "No Touchy"}
+ dml_raw_folder_destination "U:/dloveridge/_For Drew/from_Bruce"
+ addUserKnob {2 dml_folder_destination t "No Touchy"}
+ dml_folder_destination "U:/dloveridge/_For Drew/from_Bruce/\[metadata version]/Drew_Is_Awsome"
+ addUserKnob {3 dml_frame_padding t "No Touchy"}
+ dml_frame_padding 3
+ addUserKnob {1 dml_file_name t "No Touchy"}
+ dml_file_name Drew_Is_Awsome
+ addUserKnob {6 dml_enable_views t "No Touchy" -STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 300
+ }
+end_group

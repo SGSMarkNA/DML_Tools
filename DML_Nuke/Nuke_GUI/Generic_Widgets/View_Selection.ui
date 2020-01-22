@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Nuke_Views_Selector_Widget</class>
+ <widget class="QWidget" name="Nuke_Views_Selector_Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>371</width>
+    <height>378</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="2">
+    <widget class="QPushButton" name="BNT_Set_To_Filtered">
+     <property name="text">
+      <string>Set To Filtered</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="DML_Nuke_View_Selection_List_View" name="nuke_view_list_view">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLineEdit" name="View_Filter">
+     <property name="placeholderText">
+      <string>Filter Views With Wildcard * Expression</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="BNT_This_Does_Nothing">
+     <property name="text">
+      <string>This Does Noting</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="BNT_Disable_Selected">
+     <property name="text">
+      <string>Disable Selected</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="BNT_Enable_Selected">
+     <property name="text">
+      <string>Enable Selected</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QCheckBox" name="CHKB_Use_Image_Name">
+     <property name="text">
+      <string>Use Image Name</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DML_Nuke_View_Selection_List_View</class>
+   <extends>QListView</extends>
+   <header>dml_nuke_view_selection_list_view.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
