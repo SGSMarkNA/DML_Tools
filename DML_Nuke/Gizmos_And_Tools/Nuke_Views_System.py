@@ -225,7 +225,7 @@ class Nuke_View(object):
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
-		return "{" + "{} {} {} {}".format(self.name,self.hex_color,self.image_name,self.uid) + "}"
+		return "{" + '"{}" {} "{}" {}'.format(self.name,self.hex_color,self.image_name,self.uid) + "}"
 	#----------------------------------------------------------------------
 	def __repr__(self):
 		""""""
@@ -448,6 +448,7 @@ class Nuke_Views(object):
 	#----------------------------------------------------------------------
 	def __str__(self):
 		""""""
+		
 		return " ".join([str(v) for v in self])
 	
 
