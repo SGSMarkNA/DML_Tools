@@ -91,18 +91,13 @@ def get_Nuke_View_Model_Items(root_item=None,active_views=[]):
 	""""""
 	isinstance(root_item,Standered_Item_Data)
 	res   =[]
-	nuke_view_names = nuke.views()
 	views = nuke.root().knob("views").toScript()
 	views = views.replace("{","").replace("}","")
 	views = views.splitlines()
-	for line,nuke_view_name in zip(views,nuke_view_names):
-		
-		if len(nuke_view_name.split()) > 1:
-			line = line.replace('"'+nuke_view_name+'" ',"")
-		else:
-			view = view.replace(nuke_view_name+' ',"")
-		name = nuke_view_name
-		color = line.split()[0]
+	for line in views:
+		items = line.split()
+		name = items[0]
+		color = items[1]
 		if name in active_views:
 			model_item = DML_Nuke_View_Model_Item(name, color,checked=True,tree_item=root_item)
 		else:
@@ -125,7 +120,7 @@ class DML_Nuke_View_Selection_Item_Model(DML_Tools.DML_PYQT.BASE_CLASS_DEFINITIO
 		""""""
 		if len(self.rootItem.childItems):
 			self.rootItem.clear_Children()
-		active_views = self._multi_view_knob.value()
+		active_views = self._multi_view_knob.value().split()
 		# iterate over each layer and create an item for it
 		views = nuke.DML_Nuke_View_System.views
 		for view in views:
@@ -148,7 +143,7 @@ class DML_Nuke_View_Selection_Item_Model(DML_Tools.DML_PYQT.BASE_CLASS_DEFINITIO
 		if not len(active):
 			self._multi_view_knob.setValue(" ")
 		else:
-			self._multi_view_knob.setValue(" ".join('"'+a+'"' for a in active))
+			self._multi_view_knob.setValue(" ".join(active))
 
 
 ########################################################################
