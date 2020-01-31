@@ -63,7 +63,6 @@ def on_Nuke_Root_View_Knob_Changed():
 #----------------------------------------------------------------------
 def parse_Nuke_Views(knob=None):
 	""""""
-	nuke_view_names = nuke.views()
 	view_data = []
 	try:
 		if knob == None:
@@ -72,18 +71,11 @@ def parse_Nuke_Views(knob=None):
 			views = knob.toScript()
 		views = views.replace("{","").replace("}","")
 		views = views.splitlines()
-		for view,nuke_view in zip(views,nuke_view_names):
-			items = [nuke_view]
-			if len(nuke_view.split()) > 1:
-				view = view.replace('"'+nuke_view+'" ',"")
-			else:
-				view = view.replace(nuke_view+' ',"")
-			view_items = view.split()
-			items.extend(view_items)
+		for line in views:
+			items = line.split()
 			if len(items)==2:
 				items.extend([items[0],str(uuid.uuid4())])
 			view_data.append(items)
-			
 	except:
 		pass
 	return view_data

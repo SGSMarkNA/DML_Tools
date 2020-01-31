@@ -133,7 +133,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	#----------------------------------------------------------------------
 	def _create_PSD_Group(self):
 		""""""
-		dependent = [n for n in self._nuke_node.dependent(nuke.INPUTS, forceEvaluate=True) if not n.nuke_object.Class() == "Viewer"]
+		dependent = self._nuke_node.dependent(nuke.INPUTS, forceEvaluate=True)
 		self._psd_build_group = None
 		if not len(dependent):
 			this_parent = nuke.thisParent()
