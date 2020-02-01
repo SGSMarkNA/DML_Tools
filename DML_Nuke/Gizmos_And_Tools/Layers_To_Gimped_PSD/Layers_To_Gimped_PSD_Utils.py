@@ -103,7 +103,10 @@ def _generate_Json_Data(psd_node,writeNode,frame):
 		view_layer_folders = []
 		# this will be a prebuilt forder path with built in formating that will replaced with view names  
 		layers_folder_exp = None
-
+		
+		if nuke.root().knob("DML_nuke_views_system_use_image_name")==None:
+			nuke.showSettings()
+		
 		# check the root node to determan if view names or image names are to be used
 		if nuke.root().knob("DML_nuke_views_system_use_image_name").value():
 			# get a list of the image name for each view
@@ -206,8 +209,8 @@ def process_Gimp_PSD_Build(psd_file,image_files,image_width,image_height):
 	#python_script_path = r"//isln-smb/aw_config/Pipeline/Deadline/DeadlineRepository10/custom/plugins/GimpPSD/Files_To_PSD_Layers.py"
 	cmd = "\\\\isln-smb\\aw_config\\Apps\\GIMP\\bin\\gimp-2.10.exe -idf --batch-interpreter python-fu-eval -b "
 	cmd += '''"execfile('{}', dict(psd_file='{}',image_files={},image_width={},image_height={}),dict())"'''.format(python_script_path,psd_file,image_files,image_width,image_height)
-	#pip = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	pip = subprocess.Popen(cmd)
+	pip = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	#pip = subprocess.Popen(cmd)
 	return pip
 
 #----------------------------------------------------------------------

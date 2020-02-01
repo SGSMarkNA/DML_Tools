@@ -220,6 +220,8 @@ class Nuke_Views_Selector_UI(DML_PYQT.QWidget):
 		""""""
 		global _use_Image_Name_As_Display_Name
 		_use_Image_Name_As_Display_Name = value
+		for child in self.nuke_view_list_view.Model.SourceModel.rootItem.all_childern:
+			child.column_items.items[0]._update_Changed_Data(DML_PYQT.Qt.ItemDataRole.DisplayRole)
 	#----------------------------------------------------------------------
 	def _rebuild(self):
 		""""""

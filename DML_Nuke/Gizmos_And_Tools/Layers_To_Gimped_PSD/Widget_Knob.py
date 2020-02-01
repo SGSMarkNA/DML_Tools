@@ -10,7 +10,7 @@ import Layers_To_Gimped_PSD_Group
 import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection
 
 #----------------------------------------------------------------------
-def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
+def get_Folder_Dialog(label="Output Folder", UseNativeDialog=True, folder="", parent=None):
 	""""""
 	options = DML_PYQT.QFileDialog.Options()
 	# options |= PYQT.QFileDialog.Option.
@@ -76,6 +76,8 @@ def channel_Layers_To_Shuffles(start_node, layer_order=[], include_missing=True,
 			                                                    file_type="png",
 			                                                    create_directories=True,
 			                                                    channels="rgba")
+			if "ICC_knob" in write_node.knobs():
+				write_node.knob("ICC_knob").setValue('sRGB.icc')
 			# connect the write nodes input to the current shuffle node
 			write_node.setInput(0,shuffle_node)
 			write_nodes.append(write_node)
@@ -133,21 +135,34 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	#----------------------------------------------------------------------
 	def _create_PSD_Group(self):
 		""""""
-		dependent =  [n for n in self._nuke_node.dependent(nuke.INPUTS, forceEvaluate=True) if not n.nuke_object.Class() == "Viewer"]
-		self._psd_build_group = None
-		if not len(dependent):
+		#----------------------------------------------------------------------
+		def create_group():
 			this_parent = nuke.thisParent()
 			with this_parent:
-				self._psd_build_group = Layers_To_Gimped_PSD_Group.DML_Gimped_PSD_Group(xpos = self._nuke_node.x, ypos=self._nuke_node.y + 100)
+				self._nuke_node.selectOnly()
+				self._nuke_node.selected = False
+				grp = nuke.createNode("Group","tile_color 0x7f0000ff name Layers_To_PSD")
+				self._psd_build_group = Layers_To_Gimped_PSD_Group.DML_Gimped_PSD_Group(nuke_node=grp)
+				self._psd_build_group.x = self._nuke_node.x
+				self._psd_build_group.y = self._nuke_node.y + 100
 				self._psd_build_group.setInput(0,self._nuke_node)
 			self._psd_build_group.assign_knob_links(self._folder_destination_knob, self._file_name_knob, self._frame_padding_knob, self.Nuke_Views_Selector._imbeded_data_View_Selection_knob)
 			return self._psd_build_group
+		
+		# get all the nodes connected to this nuke node that are of type Group
+		dependent =  [n for n in self._nuke_node.dependent(nuke.INPUTS, forceEvaluate=True) if n.nuke_object.Class() == "Group"]
+		
+		self._psd_build_group = None
+		
+		if not len(dependent):
+			return create_group()
 		else:
 			for node in DML_Nuke.dml.to_DML_Nodes(dependent):
 				if node.__class__.__name__ == 'DML_Gimped_PSD_Group':
 					self._psd_build_group = node
 					self._psd_build_group.assign_knob_links(self._folder_destination_knob, self._file_name_knob, self._frame_padding_knob, self.Nuke_Views_Selector._imbeded_data_View_Selection_knob)
 					return self._psd_build_group
+			return create_group()
 		raise LookupError("Cound Not Find PSD Build Node Connected to this node")
 		
 	#----------------------------------------------------------------------

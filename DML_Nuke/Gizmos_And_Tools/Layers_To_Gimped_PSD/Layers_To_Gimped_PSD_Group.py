@@ -79,7 +79,6 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 		self._folder_destination_knob.setLink(folder_destination.fullyQualifiedName())
 		self._frame_padding_knob.setLink(frame_padding.fullyQualifiedName())
 		self._output_views_knob.setValue("{{" + output_views.fullyQualifiedName() + "}}")
-
 	#----------------------------------------------------------------------
 	def create_Layers_To_Render(self, layers, xOffset=200, xSpaceing=150, yOffset=100):
 		# set the node to be the only thing selected
