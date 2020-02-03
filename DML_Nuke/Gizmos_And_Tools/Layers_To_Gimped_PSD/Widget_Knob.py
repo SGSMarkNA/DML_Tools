@@ -116,9 +116,6 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		self._file_name_knob = self.add_data_knob("dml_file_name", nuke.String_Knob)
 		self._enable_views_knob = self.add_data_knob("dml_enable_views", nuke.Boolean_Knob)
 		
-		if len(nuke.views()) == 1:
-			tab = self.Views_Tab.parent().parent()
-			tab.setTabEnabled(1,False)
 		self._create_PSD_Group()
 		self._raw_folder_destination_knob.setVisible(False)
 		self._enable_views_knob.setVisible(False)
@@ -211,9 +208,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		
 		if self._nuke_node.metadata(key="version") != None:
 			folder = os.path.join(folder, "[metadata version]").replace("\\","/")
-		
-		folder = os.path.join(folder, "PNGS").replace("\\","/")
-		
+			
 		if self.enable_Views_CheckBox.isChecked():
 			folder = os.path.join(folder, "%V").replace("\\","/")
 		else:

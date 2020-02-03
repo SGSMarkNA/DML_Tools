@@ -16,10 +16,6 @@ for image_file in image_files:
 	layer.name = layer_name
 	psd_image.add_layer(layer)
 
-psd_folder = os.path.dirname(psd_file)
-if not os.path.exists(psd_folder):
-	os.makedirs(psd_folder)
-
 pdb.file_psd_save(psd_image, None, psd_file,"", 0, 0)
 gimp.delete(psd_image)
 
