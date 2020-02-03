@@ -124,7 +124,7 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 				# connect the write nodes input to the current shuffle node
 				write_node.setInput(0,shuffle_node)
 				#write_node.knob("render_order").setValue(index+1)
-				write_node.knob("file").setValue("[value parent.dml_folder_destination]/Layers_Frames/%0[value parent.dml_frame_padding]d/[value input0.in].png")
+				write_node.knob("file").setValue("[value parent.dml_folder_destination]/%0[value parent.dml_frame_padding]d/[value input0.in].png")
 				write_node.knob("views").setValue('{{parent.dml_output_views}}')
 				write_node.knob("disable").setExpression('parent.disable')
 				if "ICC_knob" in write_node.knobs():
