@@ -1,4 +1,3 @@
-
 from gimpfu import *
 import os
 #psd_file    = 'U:/dloveridge/_For Drew/from_Bruce/PSD_Layered_Output_TEST_v07_psd_build_info.json'
@@ -15,6 +14,10 @@ for image_file in image_files:
 	layer = pdb.gimp_file_load_layer(psd_image, image_file)
 	layer.name = layer_name
 	psd_image.add_layer(layer)
+
+psd_folder = os.path.dirname(psd_file)
+if not os.path.exists(psd_folder):
+	os.makedirs(psd_folder)
 
 pdb.file_psd_save(psd_image, None, psd_file,"", 0, 0)
 gimp.delete(psd_image)

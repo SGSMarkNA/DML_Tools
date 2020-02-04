@@ -1,4 +1,3 @@
-
 import json
 import nuke
 import DML_Tools
@@ -48,6 +47,12 @@ def create_PSD_Build_Info(frames,gimped_psd_data=None):
 	if gimped_psd_data is None:
 		gimped_psd_data = get_Enabled_DML_Layers_To_Gimped_PSD_Dict()
 
+	root = nuke.root()
+	first_frame,last_frame = root.knob("first_frame").value(),root.knob("last_frame").value()
+	if first_frame == last_frame:
+		multi=False
+	else:
+		multi=True
 	image_formate                 = nuke.root().format()
 	# store the width and height in a list
 	Image_Size                    = [image_formate.width(),image_formate.height()]
@@ -58,7 +63,7 @@ def create_PSD_Build_Info(frames,gimped_psd_data=None):
 		psd = data_item['psd']
 		wn  = data_item['wn']
 		for frame in frames:
-			frame_build_data = _generate_Json_Data(psd, wn, frame)
+			frame_build_data = _generate_Json_Data(psd, wn, frame,multi)
 			for build in frame_build_data:
 				baked_data["builds"].append(build)
 	return baked_data
@@ -71,7 +76,7 @@ def Bake_PSD_Build_Info(gimped_psd_data):
 		json.dump(gimped_psd_data, fp)
 
 #----------------------------------------------------------------------
-def _generate_Json_Data(psd_node,writeNode,frame):
+def _generate_Json_Data(psd_node,writeNode,frame,multi_frame=True):
 	""""""
 	res = []
 	# can a list of all the nuke views
@@ -103,10 +108,10 @@ def _generate_Json_Data(psd_node,writeNode,frame):
 		view_layer_folders = []
 		# this will be a prebuilt forder path with built in formating that will replaced with view names  
 		layers_folder_exp = None
-		
+
 		if nuke.root().knob("DML_nuke_views_system_use_image_name")==None:
 			nuke.showSettings()
-		
+
 		# check the root node to determan if view names or image names are to be used
 		if nuke.root().knob("DML_nuke_views_system_use_image_name").value():
 			# get a list of the image name for each view
@@ -146,29 +151,54 @@ def _generate_Json_Data(psd_node,writeNode,frame):
 
 		# iterate over each view folder
 		for view_layer_folder in view_layer_folders:
+			# exam : C:/User_Input_Folder/verions/PNGS/view_folder/frame_folder
+			# exam : C:/Psd_Local_output/v06/PNGS/Background/001
+
 			# stores the path for each image to be used in the psd build in the older that it should be added
 			Layer_Order_Paths = []
 
 			# iterate over each layer name
 			for layer_name in layer_order_names:
+				# exam : Background
+
 				# build the path to the image using the current view folder and layer name
+				# exam : C:/User_Input_Folder/verions/PNGS/view_folder/frame_folder
+				# exam : C:/Psd_Local_output/v06/PNGS/Background/001
 				layer_path = os.path.join(view_layer_folder,layer_name+".png")
+				# exam : C:/User_Input_Folder/verions/PNGS/view_folder/frame_folder/layer_name.png
+				# exam : C:/Psd_Local_output/v06/PNGS/Background/001/Background.png
+
 				# normalize the path 
 				layer_path = os.path.normpath(layer_path)
 				# force consistent pathings
 				layer_path = layer_path.replace("\\","/")
 				# add it to the collection
 				Layer_Order_Paths.append(layer_path)
+			# exam : C:/Psd_Local_output/v06/PNGS/Background/001/Background.png
+			# exam : C:/Psd_Local_output/v06
+			# exam : folder_end: Blurred_Oval_Bloo/001
+			folder_start,folder_end = view_layer_folder.split("/PNGS/",1)
+			# exam : Blurred_Oval_Bloo/001
+			# exam : Blurred_Oval_Bloo
+			image_name              = folder_end.split("/")[0]
 
-			# get the folder that the psd files should be created in
-			psd_folder_path               = os.path.dirname(view_layer_folder.split("Layers_Frames",1)[0])
-			# this gets the folder that contains the frame folders witch is also the view name and combines it with the frame padding
-			psd_file_name                 = psd_folder_path.split("/")[-1] + psd_padded_frame_sufix
+			if multi_frame:
+				# exam : C:/Psd_Local_output/v06/Blurred_Oval_Bloo
+				psd_folder_path         = os.path.join(folder_start,image_name).replace("\\","/")
+				# exam : Blurred_Oval_Bloo_001.psd
+				psd_file_name                 = psd_folder_path.split("/")[-1] + "_" + padded_frame + ".psd"
+			else:
+				# exam : C:/Psd_Local_output/v06/Blurred_Oval_Bloo
+				psd_folder_path         = os.path.join(folder_start).replace("\\","/")
+				# exam : Blurred_Oval_Bloo_001.psd
+				psd_file_name                 = image_name+".psd"
 			# last combine the psd folder path with the psd file name for this view
+			# exam : C:/Psd_Local_output/v06/Blurred_Oval_Bloo/Blurred_Oval_Bloo_001.psd
 			PSD_File_Path                 = os.path.join(psd_folder_path,psd_file_name).replace("\\","/")
+
 			# create the data to be writen to json
 			data = dict(PSD_File_Path     = PSD_File_Path,
-						Layer_Order_Paths = Layer_Order_Paths)
+                        Layer_Order_Paths = Layer_Order_Paths)
 			res.append(data)
 
 	else:
@@ -187,18 +217,27 @@ def _generate_Json_Data(psd_node,writeNode,frame):
 			# add it to the collection
 			Layer_Order_Paths.append(layer_file_path)
 
-		# get the folder that the psd files should be created in
-		psd_folder_path               = os.path.dirname(layers_folder.split("Layers_Frames",1)[0])
-		## this gets the folder that contains the images witch is also the frame with its frame padding exp '001.psd'
-		#psd_file_frame_padding        = padded_frame + ".psd"
-		# this gets the folder that contains the frame folders witch is also the view name and combines it with the frame padding
-		psd_file_name                 = psd_folder_path.split("/")[-1] + psd_padded_frame_sufix
-		# last combine the psd folder path with the psd file name for this view
+		folder_start,folder_end = layers_folder.split("/PNGS/",1)
+		# exam : Blurred_Oval_Bloo/001
+		# exam : Blurred_Oval_Bloo
+		image_name              = folder_end.split("/")[0]
+
+		psd_folder_path         = os.path.join(folder_start).replace("\\","/")
+
+		if multi_frame:
+			psd_file_name                 = image_name + "_" + padded_frame + ".psd"
+			#psd_file_name                 = psd_folder_path.split("/")[-1] + "_" + padded_frame + ".psd"
+		else:
+			# exam : C:/Psd_Local_output/v06/Blurred_Oval_Bloo
+			#psd_folder_path         = os.path.join(folder_start).replace("\\","/")
+			# exam : Blurred_Oval_Bloo_001.psd
+			psd_file_name                 = image_name+".psd"
+
 		PSD_File_Path                 = os.path.join(psd_folder_path,psd_file_name).replace("\\","/")
 
 		# create the data to be writen to json
 		data = dict(PSD_File_Path     = PSD_File_Path,
-					Layer_Order_Paths = Layer_Order_Paths)
+                    Layer_Order_Paths = Layer_Order_Paths)
 		res.append(data)
 	return res
 
@@ -215,7 +254,7 @@ def process_Gimp_PSD_Build(psd_file,image_files,image_width,image_height):
 
 #----------------------------------------------------------------------
 def run_Json_Build_Data(arg):
-	""""""
+	"""This Runs The Gimp Psd Builder For Local Renders"""
 	all_procs = []
 	if isinstance(arg,str):
 		with file(arg,"r") as fp:
@@ -241,6 +280,7 @@ def run_Json_Build_Data(arg):
 			while len(all_procs) >= max_sub_process_count:
 				for proc in all_procs:
 					if not proc.poll() == None:
+						print proc.returncode
 						all_procs.remove(proc)
 						compleated+=1
 						task.setProgress( int( float(compleated)/build_count * 100 ) )
@@ -267,7 +307,7 @@ def run_Json_Build_Data(arg):
 				break				
 			for proc in all_procs:
 				if not proc.poll() == None:
+					print proc.returncode
 					all_procs.remove(proc)
 					compleated+=1
 					task.setProgress( int( float(compleated)/build_count * 100 ) )
-	del task

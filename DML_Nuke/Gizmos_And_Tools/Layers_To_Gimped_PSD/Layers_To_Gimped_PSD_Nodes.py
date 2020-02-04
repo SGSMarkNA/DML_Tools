@@ -151,8 +151,8 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		#self._enable_views_knob = self.knob("dml_enable_views", nuke.Boolean_Knob)
 		#self._imbeded_data_layer_Order_knob = self.knob("DML_Layer_Order_layers","layer Order")
 		#self._imbeded_data_layer_Icons_knob = self.knob("DML_Layer_Order_Layer_Icons")
-		#if False:
-			#isinstance(self._raw_folder_destination_knob, nuke.String_Knob)
+		if False:
+			isinstance(self._raw_folder_destination_knob, nuke.String_Knob)
 			#isinstance(self._folder_destination_knob, nuke.File_Knob)
 			#isinstance(self._frame_padding_knob, nuke.Int_Knob)
 			#isinstance(self._file_name_knob , nuke.String_Knob)
@@ -160,62 +160,52 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 			#isinstance(self._imbeded_data_layer_Order_knob , nuke.String_Knob)
 			#isinstance(self._imbeded_data_layer_Icons_knob , nuke.String_Knob)
 		self.Initialize_build_Layers()
-	##----------------------------------------------------------------------
-	#def get_Imbeded_Data_Layer_Icons(self):
-		#""""""
-		#try:
-			#return eval(self._imbeded_data_layer_Icons_knob.getText())
-		#except:
-			#return {}
-	##----------------------------------------------------------------------
-	#def set_Imbeded_Data_Layer_Icons(self,data):
-		#""""""
-		#self._imbeded_data_layer_Icons_knob.setText(repr(data))
-	##----------------------------------------------------------------------
-	#imbeded_data_layer_icons = property(get_Imbeded_Data_Layer_Icons,set_Imbeded_Data_Layer_Icons)
-	##----------------------------------------------------------------------
-	#def get_Imbeded_Data_Layer_Order(self):
-		#""""""
-		#try:
-			#return eval(self._imbeded_data_layer_Order_knob.getText())
-		#except:
-			#return []
-	##----------------------------------------------------------------------
-	#def set_Imbeded_Data_Layer_Order(self,data):
-		#""""""
-		#self._imbeded_data_layer_Order_knob.setText(repr(data))
-	##----------------------------------------------------------------------
-	#imbeded_data_layer_order = property(get_Imbeded_Data_Layer_Order,set_Imbeded_Data_Layer_Order)
-	##----------------------------------------------------------------------
-	#def set_Layer_Data_From_Master_Layer_Order(self):
-		#""""""
-		#match = self.find_upstream_node("DML_Master_Layer_Order")
-		#if match is not None:
-			#if not match.name == self.name:
-				#knob = match.knob("dml_master_layer_order")
-				#if not knob == None:
-					#layer_order_knob = match.knob("DML_Layer_Order_layers")
-					#layer_icons_knob = match.knob("DML_Layer_Order_Layer_Icons")
-					#if layer_order_knob != None and layer_icons_knob != None:
-						#layers = eval(layer_order_knob.getText())
-						#icons  = eval(layer_icons_knob.getText())
-						
-						#nuke_node_layers = self.layers
-						#nuke_node_icons  = self.imbeded_data_layer_icons
-						
-						#for icon in nuke_node_icons:
-							#if not icon in icons:
-								#icons[icon] = nuke_node_icons[icon]
-								
-						#for layer in nuke_node_layers:
-							#if not layer in layers:
-								#layers.insert(0, layer)
-								
-						#for layer in layers:
-							#if not layer in nuke_node_layers:
-								#layers.remove(layer)
-						
-						#self.imbeded_data_layer_order = layers
-						#self.imbeded_data_layer_icons = icons
-						#return True
-		#return False
+
+	#----------------------------------------------------------------------
+	@property
+	def psd_build_group(self):
+		""""""
+		if self._psd_build_group == None:
+			self._create_PSD_Group()
+		return self._psd_build_group
+	#----------------------------------------------------------------------
+	def _create_PSD_Group(self):
+		""""""
+		#----------------------------------------------------------------------
+		def create_group():
+			this_parent = nuke.thisParent()
+			if this_parent == None:
+				this_parent = nuke.root()
+				
+			with this_parent:
+				self.selectOnly()
+				self.selected = False
+				grp = nuke.createNode("Group","tile_color 0x7f0000ff name Layers_To_PSD")
+				self._psd_build_group = DML_Gimped_PSD_Group(nuke_node=grp)
+				self._psd_build_group.x = self.x
+				self._psd_build_group.y = self.y + 100
+				self._psd_build_group.setInput(0,self)
+			self._psd_build_group.assign_knob_links(self._folder_path_knob, self._file_name_knob, self._frame_padding_knob, self._imbeded_data_View_Selection_knob)
+			return self._psd_build_group
+		
+		# get all the nodes connected to this nuke node that are of type Group
+		dependent =  [n for n in self.dependent(nuke.INPUTS, forceEvaluate=True) if n.nuke_object.Class() == "Group"]
+		
+		self._psd_build_group = None
+		
+		if not len(dependent):
+			return create_group()
+		else:
+			for node in DML_Nuke.dml.to_DML_Nodes(dependent):
+				if node.__class__.__name__ == 'DML_Gimped_PSD_Group':
+					self._psd_build_group = node
+					self._psd_build_group.assign_knob_links(self._folder_path_knob, self._file_name_knob, self._frame_padding_knob, self._imbeded_data_View_Selection_knob)
+					return self._psd_build_group
+			return create_group()
+		raise LookupError("Cound Not Find PSD Build Node Connected to this node")
+		
+	#----------------------------------------------------------------------
+	def create_Layers_To_Render(self):
+		""""""
+		layer_order = list(reversed(self.imbeded_data_layer_order))
+		self.psd_build_group.create_Layers_To_Render(layer_order, xOffset=200, xSpaceing=150, yOffset=100)
