@@ -5,7 +5,7 @@ Gizmo {
  addUserKnob {52 dml_layer_merge_build l "" -STARTLINE T "DML_Tools.DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.load_Widget_command(\"Layer_Merge_Builder_Widget_Knob\",\"DML_Tools.DML_Nuke.Gizmos_And_Tools.Nuke_Layer_Merge_Builder.Widget_Knob\")"}
  addUserKnob {1 DML_Layer_Order_layers l "layer Order" +HIDDEN}
  addUserKnob {1 DML_Layer_Order_Layer_Icons l "layer Icons" +HIDDEN}
- addUserKnob {1 dml_folder_path t "No Touchy" +HIDDEN}
+ addUserKnob {1 dml_folder_destination t "No Touchy" +HIDDEN}
  addUserKnob {3 dml_frame_padding t "No Touchy" +HIDDEN}
  dml_frame_padding 3
  addUserKnob {1 dml_file_name t "No Touchy" +HIDDEN}

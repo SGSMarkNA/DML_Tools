@@ -6,7 +6,7 @@ import DML_Tools
 
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
-import Layers_To_Gimped_PSD_Group
+import Layers_To_Gimped_PSD_Nodes
 import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection
 
 #----------------------------------------------------------------------
@@ -95,6 +95,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	def __init__(self,node,parent=None):
 		DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.External_UI_Base_Widget_Knob.__init__(self,node,parent)
 		self._psd_build_group = None
+		isinstance(self._nuke_node,Layers_To_Gimped_PSD_Nodes.DML_Layers_To_Gimped_PSD)
 		if False:
 			self._nuke_node = DML_Nuke.Nuke_Nodes.Nodes.Group()
 			self.channel_layers_list    = DML_Nuke.Nuke_GUI.Generic_Widgets.Layer_Order.DML_Nuke_Layer_Order_List_Widget()
@@ -107,14 +108,14 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 			self.Layers_Order_Widget    = DML_Nuke.Nuke_GUI.Generic_Widgets.Layer_Order.Layer_Order_UI()
 			self.Nuke_Views_Selector    = DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection.Nuke_Views_Selector_UI()
 			self.tabWidget              = DML_PYQT.QTabWidget()
-			self.psd_build_group        = Layers_To_Gimped_PSD_Group.DML_Gimped_PSD_Group()
+			self.psd_build_group        = Layers_To_Gimped_PSD_Nodes.DML_Gimped_PSD_Group()
 			self.group_folder_destination_knob = nuke.String_Knob()
 			
 		self._raw_folder_destination_knob = self.add_data_knob("dml_raw_folder_destination", nuke.String_Knob)
 		self._folder_destination_knob = self.add_data_knob("dml_folder_destination", nuke.File_Knob)
-		self._frame_padding_knob = self.add_data_knob("dml_frame_padding", nuke.Int_Knob)
-		self._file_name_knob = self.add_data_knob("dml_file_name", nuke.String_Knob)
-		self._enable_views_knob = self.add_data_knob("dml_enable_views", nuke.Boolean_Knob)
+		self._frame_padding_knob = self._nuke_node._frame_padding_knob
+		self._file_name_knob = self._nuke_node._file_name_knob
+		self._enable_views_knob = self._nuke_node._enable_views_knob
 		
 		self._create_PSD_Group()
 		self._raw_folder_destination_knob.setVisible(False)
@@ -142,7 +143,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 				self._nuke_node.selectOnly()
 				self._nuke_node.selected = False
 				grp = nuke.createNode("Group","tile_color 0x7f0000ff name Layers_To_PSD")
-				self._psd_build_group = Layers_To_Gimped_PSD_Group.DML_Gimped_PSD_Group(nuke_node=grp)
+				self._psd_build_group = Layers_To_Gimped_PSD_Nodes.DML_Gimped_PSD_Group(nuke_node=grp)
 				self._psd_build_group.x = self._nuke_node.x
 				self._psd_build_group.y = self._nuke_node.y + 100
 				self._psd_build_group.setInput(0,self._nuke_node)

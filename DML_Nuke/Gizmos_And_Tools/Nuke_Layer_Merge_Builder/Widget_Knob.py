@@ -2,6 +2,7 @@ import os
 import nuke
 import nuke
 import DML_Tools
+import Nuke_Layer_Merge_Builder_Nodes
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
 
@@ -135,10 +136,11 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		#self.Layers_Order_Widget._set_nuke_node(self._nuke_node)
 		self.build_button.clicked.connect(self.build_Layer_Merge_Output)
 		
-		self._folder_path_knob = self.add_data_knob("dml_folder_path", nuke.String_Knob)
-		self._frame_padding_knob = self.add_data_knob("dml_frame_padding", nuke.Int_Knob)
-		self._file_name_knob = self.add_data_knob("dml_file_name", nuke.String_Knob)
-		self._enable_views_knob = self.add_data_knob("dml_enable_views", nuke.Boolean_Knob)
+		self._folder_path_knob = self._nuke_node._folder_path_knob #self.add_data_knob("dml_folder_destination", nuke.String_Knob)
+		self._frame_padding_knob = self._nuke_node._frame_padding_knob #self.add_data_knob("dml_frame_padding", nuke.Int_Knob)
+		self._file_name_knob = self._nuke_node._file_name_knob #self.add_data_knob("dml_file_name", nuke.String_Knob)
+		self._enable_views_knob = self._nuke_node._enable_views_knob #self.add_data_knob("dml_enable_views", nuke.Boolean_Knob)
+		
 		self._enable_views_knob.setVisible(False)
 		self._folder_path_knob.setVisible(False)
 		self._frame_padding_knob.setVisible(False)
@@ -185,7 +187,7 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	 
 	def _update_Write_Node_File_Path(self):
 		if not self._nuke_write_node == None:
-			folder  = "[value {}.dml_folder_path]".format(self._nuke_node.name)
+			folder  = "[value {}.dml_folder_destination]".format(self._nuke_node.name)
 			name    = "[value {}.dml_file_name]".format(self._nuke_node.name)
 			padding = "%0[value {}.dml_frame_padding]".format(self._nuke_node.name)
 			version = "[metadata version]/" if self._nuke_write_node.metadata(key="version") != None  else ""

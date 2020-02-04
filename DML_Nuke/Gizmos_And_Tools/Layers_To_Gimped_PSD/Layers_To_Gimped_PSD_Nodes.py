@@ -1,5 +1,6 @@
 import nuke
 import DML_Tools
+import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes
 DML_Nuke = DML_Tools.DML_Nuke
 
 ################################################################################
@@ -133,3 +134,88 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 		self._shuffle_nodes = shuffle_nodes
 		self._write_nodes   = write_nodes
 		return shuffle_nodes,write_nodes
+	
+	
+################################################################################
+class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes.Layer_Order_Views_Selector_Output_Builder_Node):
+	NODE_TYPE_RELATION  = "DML_Layers_To_Gimped_PSD"
+	
+	#----------------------------------------------------------------------
+	def __init__(self,*args,**kwargs):
+		""""""
+		DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes.Layer_Order_Views_Selector_Output_Builder_Node.__init__(self,*args,**kwargs)
+		self._raw_folder_destination_knob = self.knob("dml_raw_folder_destination")
+		#self._folder_destination_knob = self.knob("dml_folder_destination")
+		#self._frame_padding_knob = self.knob("dml_frame_padding", nuke.Int_Knob)
+		#self._file_name_knob = self.knob("dml_file_name", nuke.String_Knob)
+		#self._enable_views_knob = self.knob("dml_enable_views", nuke.Boolean_Knob)
+		#self._imbeded_data_layer_Order_knob = self.knob("DML_Layer_Order_layers","layer Order")
+		#self._imbeded_data_layer_Icons_knob = self.knob("DML_Layer_Order_Layer_Icons")
+		#if False:
+			#isinstance(self._raw_folder_destination_knob, nuke.String_Knob)
+			#isinstance(self._folder_destination_knob, nuke.File_Knob)
+			#isinstance(self._frame_padding_knob, nuke.Int_Knob)
+			#isinstance(self._file_name_knob , nuke.String_Knob)
+			#isinstance(self._enable_views_knob, nuke.Boolean_Knob)
+			#isinstance(self._imbeded_data_layer_Order_knob , nuke.String_Knob)
+			#isinstance(self._imbeded_data_layer_Icons_knob , nuke.String_Knob)
+		self.Initialize_build_Layers()
+	##----------------------------------------------------------------------
+	#def get_Imbeded_Data_Layer_Icons(self):
+		#""""""
+		#try:
+			#return eval(self._imbeded_data_layer_Icons_knob.getText())
+		#except:
+			#return {}
+	##----------------------------------------------------------------------
+	#def set_Imbeded_Data_Layer_Icons(self,data):
+		#""""""
+		#self._imbeded_data_layer_Icons_knob.setText(repr(data))
+	##----------------------------------------------------------------------
+	#imbeded_data_layer_icons = property(get_Imbeded_Data_Layer_Icons,set_Imbeded_Data_Layer_Icons)
+	##----------------------------------------------------------------------
+	#def get_Imbeded_Data_Layer_Order(self):
+		#""""""
+		#try:
+			#return eval(self._imbeded_data_layer_Order_knob.getText())
+		#except:
+			#return []
+	##----------------------------------------------------------------------
+	#def set_Imbeded_Data_Layer_Order(self,data):
+		#""""""
+		#self._imbeded_data_layer_Order_knob.setText(repr(data))
+	##----------------------------------------------------------------------
+	#imbeded_data_layer_order = property(get_Imbeded_Data_Layer_Order,set_Imbeded_Data_Layer_Order)
+	##----------------------------------------------------------------------
+	#def set_Layer_Data_From_Master_Layer_Order(self):
+		#""""""
+		#match = self.find_upstream_node("DML_Master_Layer_Order")
+		#if match is not None:
+			#if not match.name == self.name:
+				#knob = match.knob("dml_master_layer_order")
+				#if not knob == None:
+					#layer_order_knob = match.knob("DML_Layer_Order_layers")
+					#layer_icons_knob = match.knob("DML_Layer_Order_Layer_Icons")
+					#if layer_order_knob != None and layer_icons_knob != None:
+						#layers = eval(layer_order_knob.getText())
+						#icons  = eval(layer_icons_knob.getText())
+						
+						#nuke_node_layers = self.layers
+						#nuke_node_icons  = self.imbeded_data_layer_icons
+						
+						#for icon in nuke_node_icons:
+							#if not icon in icons:
+								#icons[icon] = nuke_node_icons[icon]
+								
+						#for layer in nuke_node_layers:
+							#if not layer in layers:
+								#layers.insert(0, layer)
+								
+						#for layer in layers:
+							#if not layer in nuke_node_layers:
+								#layers.remove(layer)
+						
+						#self.imbeded_data_layer_order = layers
+						#self.imbeded_data_layer_icons = icons
+						#return True
+		#return False

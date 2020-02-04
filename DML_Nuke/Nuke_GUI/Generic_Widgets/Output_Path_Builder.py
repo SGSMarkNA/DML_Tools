@@ -25,6 +25,8 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 	def __init__(self,parent=None):
 		DML_PYQT.QWidget.__init__(self,parent=parent)
 		self._nuke_node = nuke.thisNode()
+		self._dml_node = DML_Nuke.dml.to_DML_Node(self._nuke_node)
+		
 		if False:
 			self.input_folder_path      = DML_PYQT.QLineEdit()
 			self.input_file_name        = DML_PYQT.QLineEdit()
@@ -43,8 +45,6 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 		self._frame_padding_knob = Utils.add_data_knob(self._nuke_node, "dml_frame_padding", nuke.Int_Knob, visable=False, defalutValue=3)
 		self._file_name_knob = Utils.add_data_knob(self._nuke_node, "dml_file_name", nuke.String_Knob, visable=False, defalutValue="Drew_Is_Awsome") 
 		self._enable_views_knob = Utils.add_data_knob(self._nuke_node, "dml_enable_views", nuke.Boolean_Knob, visable=False, defalutValue=False)
-		self._enable_views_knob = Utils.add_data_knob(self._nuke_node, "dml_enable_views", nuke.Boolean_Knob, visable=False, defalutValue=False)
-		self._channel_input_knob = Utils.add_data_knob(self._nuke_node, "dml_enable_views", nuke.Boolean_Knob, visable=False, defalutValue=False)
 		self._file_type_knob
 		self._rebuild()
 
