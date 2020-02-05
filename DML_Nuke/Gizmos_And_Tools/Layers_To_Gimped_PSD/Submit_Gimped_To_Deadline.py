@@ -194,7 +194,8 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 	#----------------------------------------------------------------------
 	def Submit_To_Deadline(self):
 		""""""
-		write_node_names = [node.fullName() for node in self._render_data_all_write_nodes]
+		nuke.scriptSave()
+		write_node_names = [node.fullName for node in self._render_data_all_write_nodes]
 		NukeVersionMajor = int(nuke.env.get( 'NukeVersionMajor', '6' ))
 		NukeVersionMinor = int(nuke.env.get( 'NukeVersionMinor', '0' ))
 		
@@ -240,7 +241,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		
 		frame_ranges = nuke.FrameRanges(self.Deadline_FrameList.text())
 		
-		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList(), gimped_psd_data=self._render_data_gimped_psd_node_data)
+		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList())
 		build_cont  = len(psd_build_data["builds"])
 		psd_build_data = json.dumps(psd_build_data)
 		job_info = DML_Tools.DML_Deadline.Job_Data_Model.Job_Info_File(Plugin="GimpPSD",
