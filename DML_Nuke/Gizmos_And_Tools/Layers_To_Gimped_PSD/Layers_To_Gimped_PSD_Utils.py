@@ -4,33 +4,58 @@ import DML_Tools
 DML_Nuke = DML_Tools.DML_Nuke
 import os
 import subprocess
+import Layers_To_Gimped_PSD_Nodes
 
 #----------------------------------------------------------------------
-def get_Enabled_DML_Gimped_PSD_Group_Nodes():
+def is_Single_Frame_Comp():
+	""""""
+	root = nuke.root()
+	first_frame,last_frame = root.knob("first_frame").value(),root.knob("last_frame").value()
+	if first_frame == last_frame:
+		return True
+	else:
+		return False
+
+#----------------------------------------------------------------------
+def find_All_DML_Layers_To_Gimped_PSD():
+	""""""
+	return DML_Nuke.dml.to_DML_Nodes(nuke.allNodes("DML_Layers_To_Gimped_PSD",nuke.root(),recurseGroups=True))
+#----------------------------------------------------------------------
+def find_All_DML_Gimped_PSD_Groups():
+	""""""
+	res = [node for node in nuke.allNodes("Group",nuke.root(),recurseGroups=True) if "DML_NODE_CLASS" in node.knobs() and node.knob("DML_NODE_CLASS").getText() == "DML_Gimped_PSD_Group"]
+	res = DML_Nuke.dml.to_DML_Nodes(res)
+	return res
+#----------------------------------------------------------------------
+def rebuild_Errored_DML_Layers_To_Gimped_PSD():
+	""""""
+	for node in find_All_DML_Layers_To_Gimped_PSD():
+		if node.error():
+			node.create_Layers_To_Render()
+#----------------------------------------------------------------------
+def get_Enabled_DML_Layers_To_Gimped_PSD_Nodes():
 	""""""
 	res = []
-	for node in nuke.allNodes("Group",nuke.root(),recurseGroups=True):
-		if not node.knob("disable") == None:
-			if not node.knob("disable").value():
-				knb = node.knob("DML_NODE_CLASS")
-				if not knb == None:
-					if knb.getText()== "DML_Gimped_PSD_Group":
-						res.append(node)
+	for node in find_All_DML_Layers_To_Gimped_PSD():		
+		if False:
+			isinstance(node,Layers_To_Gimped_PSD_Nodes.DML_Layers_To_Gimped_PSD)
+			
+		if not node.psd_build_group.knob("disable").value():
+			res.append(node)
 	return res
-
 #----------------------------------------------------------------------
 def get_Enabled_DML_Layers_To_Gimped_PSD_Dict():
 	""""""
 	res = []
-	gimped_psd_nodes = get_Enabled_DML_Gimped_PSD_Group_Nodes()
-	for group in gimped_psd_nodes:
-		psd_node = DML_Nuke.Nuke_Scripts.find_upstream_node(group,"DML_Layers_To_Gimped_PSD")
-		if psd_node is not None:
-			write_nodes = nuke.allNodes("Write",group)
-			write_nodes.sort(key=lambda n:n.knob("render_order").value())
-			write_node = write_nodes[-1]
-			data = dict(psd=psd_node,grp=group,wn=write_node,allwrns=write_nodes)
-			res.append(data)
+	psd_nodes = get_Enabled_DML_Layers_To_Gimped_PSD_Nodes()
+	for psd_node in psd_nodes:
+		if False:
+			isinstance(psd_node,Layers_To_Gimped_PSD_Nodes.DML_Layers_To_Gimped_PSD)			
+		
+		write_nodes = psd_node.psd_build_group.get_Write_Nodes()
+		write_node = write_nodes[-1]
+		data = dict(psd=psd_node,grp=psd_node.psd_build_group,wn=write_node,allwrns=write_nodes)
+		res.append(data)
 	return res
 
 #----------------------------------------------------------------------
@@ -42,29 +67,20 @@ def get_Json_File_Path():
 	return json_file_path
 
 #----------------------------------------------------------------------
-def create_PSD_Build_Info(frames,gimped_psd_data=None):
+def create_PSD_Build_Info_V2(frames):
 	""""""
-	if gimped_psd_data is None:
-		gimped_psd_data = get_Enabled_DML_Layers_To_Gimped_PSD_Dict()
-
-	root = nuke.root()
-	first_frame,last_frame = root.knob("first_frame").value(),root.knob("last_frame").value()
-	if first_frame == last_frame:
-		multi=False
-	else:
-		multi=True
+	rebuild_Errored_DML_Layers_To_Gimped_PSD()
+	psd_nodes = get_Enabled_DML_Layers_To_Gimped_PSD_Nodes()
+	multi = not is_Single_Frame_Comp()
 	image_formate                 = nuke.root().format()
 	# store the width and height in a list
-	Image_Size                    = [image_formate.width(),image_formate.height()]
+	baked_data = dict(builds=[], image_size=[image_formate.width(),image_formate.height()])
 
-	baked_data = dict(builds=[],image_size=Image_Size)
-
-	for data_item in gimped_psd_data:
-		psd = data_item['psd']
-		wn  = data_item['wn']
+	for psd_node in psd_nodes:
+		isinstance(psd_node,Layers_To_Gimped_PSD_Nodes.DML_Layers_To_Gimped_PSD)
+		
 		for frame in frames:
-			frame_build_data = _generate_Json_Data(psd, wn, frame,multi)
-			for build in frame_build_data:
+			for build in psd_node.generate_Json_Data(frame,multi):
 				baked_data["builds"].append(build)
 	return baked_data
 
@@ -92,8 +108,6 @@ def _generate_Json_Data(psd_node,writeNode,frame,multi_frame=True):
 
 	# using the current frame and the padding create a padded_frame for use in file path image createion
 	padded_frame  = str(frame).zfill(frame_padding)
-
-	psd_padded_frame_sufix = "_" + padded_frame + ".psd"
 
 	# get the folder path that this write node will render the image to
 	layers_folder                 = os.path.dirname(nuke.filename(writeNode,nuke.REPLACE))
@@ -280,7 +294,6 @@ def run_Json_Build_Data(arg):
 			while len(all_procs) >= max_sub_process_count:
 				for proc in all_procs:
 					if not proc.poll() == None:
-						print proc.returncode
 						all_procs.remove(proc)
 						compleated+=1
 						task.setProgress( int( float(compleated)/build_count * 100 ) )
@@ -290,12 +303,14 @@ def run_Json_Build_Data(arg):
 						proc.kill()
 					all_procs = []
 					break
+				
 		image_files = list(reversed(build["Layer_Order_Paths"]))
 		psd_file    = build["PSD_File_Path"]
 		proc = process_Gimp_PSD_Build(psd_file,image_files,image_width,image_height)
 		all_procs.append(proc)
 		compleated+=1
 		task.setProgress( int( float(compleated)/build_count * 100 ) )
+		
 
 
 	if not stoped:
@@ -306,6 +321,8 @@ def run_Json_Build_Data(arg):
 				all_procs = []
 				break				
 			for proc in all_procs:
+				print proc.stdout.read()
+				print proc.returncode
 				if not proc.poll() == None:
 					print proc.returncode
 					all_procs.remove(proc)

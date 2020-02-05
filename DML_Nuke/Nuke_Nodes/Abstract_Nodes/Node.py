@@ -21,14 +21,22 @@ class Node_Connection_Types(object):
 	#"""
 	#return self.nuke_node.maximumInputs()
 	
-##----------------------------------------------------------------------
-#def down_stream_nodes(node,nlist=[],stop_on_class=False):
-	#for n in nodes.dependent():
-		#nlist.append(n)
-			#others = n.dependent()
-			#if len(others):
-				#down_stream_nodes(others,nlist,stop_on_class)
-	#return nlist
+#----------------------------------------------------------------------
+def down_stream_nodes(node,matchclass=None,nlist=None):
+	if nlist == None:
+		nlist = []
+	if matchclass is not None:
+		if node.Class() == matchclass:
+			nlist.append(node)
+	else:
+		nlist.append(node)
+	if node.Class() == "Group":
+		dependent = nuke.allNodes("Input",node)
+	else:
+		dependent = node.dependent()
+	for n in dependent:
+		down_stream_nodes(n,matchclass,nlist)
+	return nlist
 	
 #===============================================================================
 def find_upstream_node(startnode,matchclass):
@@ -758,9 +766,15 @@ class Node(DML_Node):
 		
 	#----------------------------------------------------------------------
 	@node_Return_Wrapper
-	def find_upstream_node(self,matchClass):
+	def find_Upstream_Node(self,matchClass):
 		""""""
 		return find_upstream_node(self.nuke_object, matchClass)
+	
+	#----------------------------------------------------------------------
+	@node_Return_Wrapper
+	def find_Down_Stream_Nodes(self,matchclass=None):
+		""""""
+		return down_stream_nodes(self.nuke_object,matchclass=matchclass,nlist=None)
 
 	#----------------------------------------------------------------------
 	y  = property(fget=ypos, fset=setYpos)

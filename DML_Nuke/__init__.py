@@ -1,3 +1,9 @@
+
+import os
+
+os.environ["W_HOTBOX_REPO_PATHS"] = os.path.join(os.path.dirname(__file__),"App_Storage","W_Hotbox","AW").replace("\\","/")
+os.environ["W_HOTBOX_REPO_NAMES"] = "AW"
+
 import nuke
 import Nuke_Scripts
 import nukescripts
@@ -10,12 +16,4 @@ import Decorators
 import Nuke_GUI
 import Gizmos_And_Tools
 import callbacks
-
-def create_menus():
-	if nuke.GUI:
-		AW_TOOLS_MENU = nuke.menu("Nuke").addMenu("AW Tools")
-		Gimp_menu = AW_TOOLS_MENU.addMenu("Gimped To PSD Nodes")
-		Gimp_menu.addCommand("Master Layer Order",'nuke.createNode("DML_Master_Layer_Order")')
-		Gimp_menu.addCommand("Layers To PSD",'nuke.createNode("DML_Layers_To_Gimped_PSD")')
-		Gimp_menu.addCommand("Layer Order Builder",'nuke.createNode("DML_Layer_Order_Builder")')
 		

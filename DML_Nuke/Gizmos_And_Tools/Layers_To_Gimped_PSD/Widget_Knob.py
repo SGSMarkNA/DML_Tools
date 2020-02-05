@@ -111,19 +111,8 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 			self.tabWidget              = DML_PYQT.QTabWidget()
 			self.psd_build_group        = Layers_To_Gimped_PSD_Nodes.DML_Gimped_PSD_Group()
 			self.group_folder_destination_knob = nuke.String_Knob()
-			
-		#self._raw_folder_destination_knob = self._nuke_node._raw_folder_destination_knob #self.add_data_knob("dml_raw_folder_destination", nuke.String_Knob)
-		#self._folder_destination_knob = self._nuke_node._folder_path_knob #self.add_data_knob("dml_folder_destination", nuke.File_Knob)
-		#self._frame_padding_knob = self._nuke_node._frame_padding_knob
-		self._file_name_knob = self._nuke_node._file_name_knob
-		#self._enable_views_knob = self._nuke_node._enable_views_knob
 		
-		self._create_PSD_Group()
-		#self._raw_folder_destination_knob.setVisible(False)
-		#self._enable_views_knob.setVisible(False)
-		#self._folder_destination_knob.setVisible(False)
-		#self._frame_padding_knob.setVisible(False)
-		self._file_name_knob.setVisible(False)
+		#self._create_PSD_Group()
 		self._rebuild()
 		
 	#----------------------------------------------------------------------
@@ -137,35 +126,6 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	#----------------------------------------------------------------------
 	def _create_PSD_Group(self):
 		""""""
-		##----------------------------------------------------------------------
-		#def create_group():
-			#this_parent = nuke.thisParent()
-			#with this_parent:
-				#self._nuke_node.selectOnly()
-				#self._nuke_node.selected = False
-				#grp = nuke.createNode("Group","tile_color 0x7f0000ff name Layers_To_PSD")
-				#self._psd_build_group = Layers_To_Gimped_PSD_Nodes.DML_Gimped_PSD_Group(nuke_node=grp)
-				#self._psd_build_group.x = self._nuke_node.x
-				#self._psd_build_group.y = self._nuke_node.y + 100
-				#self._psd_build_group.setInput(0,self._nuke_node)
-			#self._psd_build_group.assign_knob_links(self._folder_destination_knob, self._file_name_knob, self._frame_padding_knob, self.Nuke_Views_Selector._imbeded_data_View_Selection_knob)
-			#return self._psd_build_group
-		
-		## get all the nodes connected to this nuke node that are of type Group
-		#dependent =  [n for n in self._nuke_node.dependent(nuke.INPUTS, forceEvaluate=True) if n.nuke_object.Class() == "Group"]
-		
-		#self._psd_build_group = None
-		
-		#if not len(dependent):
-			#return create_group()
-		#else:
-			#for node in DML_Nuke.dml.to_DML_Nodes(dependent):
-				#if node.__class__.__name__ == 'DML_Gimped_PSD_Group':
-					#self._psd_build_group = node
-					#self._psd_build_group.assign_knob_links(self._folder_destination_knob, self._file_name_knob, self._frame_padding_knob, self.Nuke_Views_Selector._imbeded_data_View_Selection_knob)
-					#return self._psd_build_group
-			#return create_group()
-		#raise LookupError("Cound Not Find PSD Build Node Connected to this node")
 		return self._nuke_node._create_PSD_Group()
 		
 	#----------------------------------------------------------------------
@@ -174,56 +134,42 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		self.Layers_Order_Widget._rebuild()
 		#self.Nuke_Views_Selector._rebuild()
 		
-		if self._nuke_node._raw_folder_destination_knob.value() == "":
-			self._nuke_node._raw_folder_destination_knob.setValue(nuke.script_directory())
+		#if self._nuke_node._raw_folder_destination_knob.value() == "":
+			#self._nuke_node._raw_folder_destination_knob.setValue(nuke.script_directory())
 			
-		if self._nuke_node._file_name_knob.value() == "":
-			self._nuke_node._file_name_knob.setValue("Drew_Is_Awsome")
+		#if self._nuke_node._file_name_knob.value() == "":
+			#self._nuke_node._file_name_knob.setValue("Drew_Is_Awsome")
+
+		
+		#if self._nuke_node._frame_padding_knob.value() == 0:
+			#self.input_frame_padding.setValue(3)
+			#self._nuke_node._frame_padding_knob.setValue(3)
+		#else:
+			#self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 
 		self.input_folder_path.setText(self._nuke_node._raw_folder_destination_knob.value())
-		
-		if self._nuke_node._frame_padding_knob.value() == 0:
-			self.input_frame_padding.setValue(3)
-			self._nuke_node._frame_padding_knob.setValue(3)
-		else:
-			self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
-
-		self.input_file_name.setText(self._nuke_node._file_name_knob.value())
-		
+		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
+		self.input_file_name.setText(self._nuke_node._file_name_knob.value())		
 		self.enable_Views_CheckBox.setChecked(self._nuke_node._enable_views_knob.value())
-		
 		self.fileNameLabel.setHidden(self.enable_Views_CheckBox.isChecked())
 		self.input_file_name.setHidden(self.enable_Views_CheckBox.isChecked())
-		
 		DML_PYQT.QMetaObject.connectSlotsByName(self)
-		self._update_Folder_Path()
+		#self._update_Folder_Path()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot(bool)
 	def on_enable_Views_CheckBox_clicked(self,value):
 		self._nuke_node._enable_views_knob.setValue(value)
-		self._update_Folder_Path()
 		
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def _update_Folder_Path(self):
 		folder  = self.input_folder_path.text()
-		self._nuke_node._raw_folder_destination_knob.setText(folder)
-
-		if self._nuke_node.metadata(key="version") != None:
-			folder = os.path.join(folder, "[metadata version]").replace("\\","/")
-
-		folder = os.path.join(folder, "PNGS").replace("\\","/")
-
-		if self.enable_Views_CheckBox.isChecked():
-			folder = os.path.join(folder, "%V").replace("\\","/")
-		else:
-			folder = os.path.join(folder, self.input_file_name.text()).replace("\\","/")
-
-		self._nuke_node._folder_path_knob.setValue(folder)
+		if folder != self._nuke_node._raw_folder_destination_knob.getText():
+			self._nuke_node._raw_folder_destination_knob.setText(folder)
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_input_folder_path_textChanged(self):
-		self._update_Folder_Path()
+		self._nuke_node._raw_folder_destination_knob.setText(self.input_folder_path.text())
 	
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot(int)
@@ -234,7 +180,6 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	@DML_PYQT.Slot()
 	def on_input_file_name_textChanged(self):
 		self._nuke_node._file_name_knob.setValue(self.input_file_name.text())
-		self._update_Folder_Path()
 	#----------------------------------------------------------------------
 	def _get_ui_file(self):
 		""""""
@@ -251,6 +196,4 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	@DML_PYQT.Slot()
 	def on_build_button_clicked(self):
 		""""""
-		#layer_order = list(reversed(self.Layers_Order_Widget.channel_layers_list.imbeded_data_layer_order))
-		#self.psd_build_group.create_Layers_To_Render(layer_order, xOffset=200, xSpaceing=150, yOffset=100)
 		self._nuke_node.create_Layers_To_Render()

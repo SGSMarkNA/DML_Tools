@@ -168,7 +168,7 @@ class DML_Nuke_Layer_Order_List_Widget(DML_PYQT.QListWidget):
 	#----------------------------------------------------------------------
 	def set_Layer_Data_From_Master_Layer_Order(self):
 		""""""
-		match = self._nuke_node.find_upstream_node("DML_Master_Layer_Order")
+		match = self._nuke_node.find_Upstream_Node("DML_Master_Layer_Order")
 		if match is not None:
 			if not match.name == self._nuke_node.name:
 				knob = match.knob("dml_master_layer_order")
@@ -211,6 +211,14 @@ class DML_Nuke_Layer_Order_List_Widget(DML_PYQT.QListWidget):
 			item = self.item(index)
 			data.append(item.text())
 		self.imbeded_data_layer_order = data
+	#----------------------------------------------------------------------
+	def get_Layer_Names(self):
+		""""""
+		data = []
+		for index in range(self.count()):
+			item = self.item(index)
+			data.append(item.text())
+		return data
 	#----------------------------------------------------------------------
 	def move_Selected_Up(self):
 		"""Move The Currently Selcted Item Up One Item"""

@@ -2,11 +2,10 @@ import nuke, os
 import DML_Tools
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
-
+import nukescripts
 import json
 import time
 import nuke
-import nukescripts
 import Layers_To_Gimped_PSD_Utils
 import DML_Tools.DML_Deadline.Command_Access
 import DML_Tools.DML_Deadline.Deadline_Commands
@@ -238,11 +237,10 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		
 		nuke_deadline_submiter = DML_Tools.DML_Deadline.Job_Data_Model.Job_Submitter(job_info, plugin_info)
 		nuke_deadline_submiter.Submit_the_job_to_Deadline()
-		nuke.executeInMainThread( nuke.message, "Job Submission complete. "+str(nuke_deadline_submiter.jobId)+" Job submitted to Deadline." )
 		
 		frame_ranges = nuke.FrameRanges(self.Deadline_FrameList.text())
 		
-		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info(frame_ranges.toFrameList(), gimped_psd_data=self._render_data_gimped_psd_node_data)
+		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList(), gimped_psd_data=self._render_data_gimped_psd_node_data)
 		build_cont  = len(psd_build_data["builds"])
 		psd_build_data = json.dumps(psd_build_data)
 		job_info = DML_Tools.DML_Deadline.Job_Data_Model.Job_Info_File(Plugin="GimpPSD",
@@ -270,6 +268,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		plugin_info = DML_Tools.DML_Deadline.Job_Data_Model.GimpPSD_Plugin_Info(jsondata=psd_build_data)
 		gimp_deadline_submiter = DML_Tools.DML_Deadline.Job_Data_Model.Job_Submitter(job_info, plugin_info)
 		gimp_deadline_submiter.Submit_the_job_to_Deadline()
+		nuke.executeInMainThread( nuke.message, "2 Jobs Submissions complete. "+str(nuke_deadline_submiter.jobId) + "," + str(gimp_deadline_submiter.jobId) +" Job submitted to Deadline." )
 		
 	#----------------------------------------------------------------------
 	def _make_Save_Settings_Connections(self):
@@ -338,7 +337,11 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		
 		if "submit_gimped_to_deadline_settings" in nuke_root.knobs():
 			settings_knb = nuke_root.knobs()["submit_gimped_to_deadline_settings"]
-			data = eval(settings_knb.getText())
+			data = settings_knb.getText()
+			if data == '':
+				data={}
+			else:
+				data = eval(settings_knb.getText())
 			LineEdits = data.get("LineEdits",{})
 			SpinBoxs  = data.get("SpinBoxs",{})
 			CheckBoxs = data.get("CheckBoxs",{})

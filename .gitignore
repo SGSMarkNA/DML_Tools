@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/DML_Nuke/Gizmos_And_Tools/Layers_To_Gimped_PSD/Submit_Gimped_To_Deadline_backup.ui
+*.hotbox
+/DML_Nuke/App_Storage/W_Hotbox/AW/*/_old/
+/DML_Nuke/Gizmos_And_Tools/Layers_To_Gimped_PSD/Gizmos/
+/DML_Nuke/Gizmos_And_Tools/Layers_To_Gimped_PSD/DML_Layers_To_Gimped_PSD_New.gizmo

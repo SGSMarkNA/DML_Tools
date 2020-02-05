@@ -62,10 +62,10 @@ class DML_Nuke_RenderDialog(nukescripts.RenderDialog):
 		
 		frame_ranges = nuke.FrameRanges(self._frameRange.value().split(','))
 		
-		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info(frame_ranges.toFrameList(), gimped_psd_data=self.gimped_psd_node_data)
+		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList())
 		Layers_To_Gimped_PSD_Utils.Bake_PSD_Build_Info(psd_build_data)
 		try:
-			nuke.executeMultiple(self.all_write_nodes, frame_ranges, self.views_to_render, continueOnError = self._continueOnError.value())
+			nuke.executeMultiple([n.nuke_object for n in self.all_write_nodes], frame_ranges, self.views_to_render, continueOnError = self._continueOnError.value())
 			rendered_check = True
 		except RuntimeError, e:
 			rendered_check = False

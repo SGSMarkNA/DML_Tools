@@ -14,6 +14,10 @@ class Output_Path_Builder_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 		self._file_name_knob     = self.knob("dml_file_name") 
 		self._enable_views_knob  = self.knob("dml_enable_views")
 		
+		self._folder_path_knob.setVisible(False)
+		self._frame_padding_knob.setVisible(False)
+		self._file_name_knob.setVisible(False)
+		self._enable_views_knob.setVisible(False)
 		if False:
 			isinstance(self._folder_path_knob,nuke.String_Knob)
 			isinstance(self._frame_padding_knob,nuke.Int_Knob)
@@ -29,6 +33,8 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 		""""""
 		self._imbeded_data_layer_Order_knob = self.knob("DML_Layer_Order_layers")
 		self._imbeded_data_layer_Icons_knob = self.knob("DML_Layer_Order_Layer_Icons")
+		self._imbeded_data_layer_Icons_knob.setVisible(False)
+		self._imbeded_data_layer_Icons_knob.setVisible(False)
 		if False:
 			isinstance(self._imbeded_data_layer_Order_knob , nuke.String_Knob)
 			isinstance(self._imbeded_data_layer_Icons_knob , nuke.String_Knob)
@@ -76,7 +82,7 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 	#----------------------------------------------------------------------
 	def set_Layer_Data_From_Master_Layer_Order(self):
 		""""""
-		match = self.find_upstream_node("DML_Master_Layer_Order")
+		match = self.find_Upstream_Node("DML_Master_Layer_Order")
 		if match is not None:
 			if not match.name == self.name:
 				knob = match.knob("dml_master_layer_order")
@@ -136,7 +142,6 @@ class Views_Selector_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 			self._imbeded_data_View_Selection_knob.setValue(" ".join(active_views))
 			
 	active_views = property(get_Active_Views,set_Active_Views)
-	
 	
 ########################################################################
 class Layer_Order_Views_Selector_Node(Layer_Order_Node,Views_Selector_Node):
