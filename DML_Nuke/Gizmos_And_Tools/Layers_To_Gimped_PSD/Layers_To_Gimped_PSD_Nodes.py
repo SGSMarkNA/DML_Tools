@@ -182,7 +182,6 @@ def _update_DML_Layers_To_Gimped_PSD_Folder_Path(node):
 		folder = os.path.join(folder, node.knob("dml_file_name").getText()).replace("\\","/")
 	
 	node.knob("dml_folder_destination").setText(folder)
-
 #----------------------------------------------------------------------
 def does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
 	""""""
@@ -190,15 +189,14 @@ def does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
 		psd_node = DML_Layers_To_Gimped_PSD(nuke_node=psd_node)
 	layer_order      = psd_node.imbeded_data_layer_order
 	last_build_order = psd_node._psd_build_group.last_layer_build_order
-	
+
 	if not layer_order == last_build_order and len(last_build_order):
 		return True
-	
+
 	if len(psd_node.layers) != len(last_build_order):
 		return True
-	
-	return False
 
+	return False
 #----------------------------------------------------------------------
 def on_DML_Layers_To_Gimped_PSD_Knob_Changed():
 	""""""
@@ -213,18 +211,9 @@ def on_DML_Layers_To_Gimped_PSD_Knob_Changed():
 			#if knob.value():
 				#psd_node.psd_build_group.knob("tile_color").setValue(16711935)
 				
-		elif not knob.name() in ["selected","ypos","xpos","name"]:
-			if knob.name() == "DML_Layer_Order_layers":
-				psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
-				psd_node.do_Error_Check()
-				#has_error = does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node)
-				#if has_error:
-					#if not node.error():
-						#psd_node._needs_rebuild.setValue(False)
-						#psd_node.psd_build_group.knob("tile_color").setValue(4278190335L)	
-				#elif node.error():
-					#psd_node._needs_rebuild.setValue(True)
-					#psd_node.psd_build_group.knob("tile_color").setValue(16711935)
+		elif knob.name() == "DML_Layer_Order_layers":
+			psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
+			psd_node.do_Error_Check()
 	except:
 		pass
 
@@ -251,12 +240,12 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		if has_error:
 			self._needs_rebuild.setValue(False)
 			self.psd_build_group.knob("tile_color").setValue(4278190335L)
-			try:
-				wig_knob = self.knob("dml_gimped_psd_builder")
-				wig_object = wig_knob.getObject()
-				wig_object.channel_layers_list.rebuild_Items()
-			except:
-				pass
+			#try:
+				#wig_knob = self.knob("dml_gimped_psd_builder")
+				#wig_object = wig_knob.getObject()
+				#wig_object.channel_layers_list.rebuild_Items()
+			#except:
+				#pass
 		else:
 			self._needs_rebuild.setValue(True)
 			self.psd_build_group.knob("tile_color").setValue(16711935)

@@ -45,12 +45,13 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		
 		self.build_button.clicked.connect(self.build_Layer_Merge_Output)
 		self.imbeded_data_knob.setVisible(False)
-		self._rebuild()
 		self._nuke_node = Nuke_Layer_Merge_Builder_Nodes.DML_Layer_Order_Builder(nuke_node=self._nuke_node.nuke_object)
+		self._rebuild()
 	#----------------------------------------------------------------------
 	def _rebuild(self):
 		""""""
 		self.Layers_Order_Widget._rebuild()
+		
 		if self._nuke_node._folder_path_knob.value() == "":
 			self._nuke_node._folder_path_knob.setValue(nuke.script_directory())
 		if self._nuke_node._file_name_knob.value() == "":
@@ -63,9 +64,9 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		#else:
 			#self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 		
-		self.input_folder_path.setText(self._nuke_node._folder_path_knob.value())	
+		self.input_folder_path.setText(self._nuke_node._folder_path_knob.getText())	
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
-		self.input_file_name.setText(self._nuke_node._file_name_knob.value())
+		self.input_file_name.setText(self._nuke_node._file_name_knob.getText())
 		self.enableViewsCheckBox.setChecked(self._nuke_node._enable_views_knob.value())
 		
 		self.input_file_name.textChanged.connect(self.on_input_file_name_textChanged)
@@ -91,7 +92,7 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_input_folder_path_textChanged(self):
-		self._nuke_node._folder_path_knob.setValue(self.input_folder_path.text())
+		self._nuke_node._folder_path_knob.setText(self.input_folder_path.text())
 
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
@@ -111,7 +112,7 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_input_file_name_textChanged(self):
-		self._nuke_node._file_name_knob.setValue(self.input_file_name.text())
+		self._nuke_node._file_name_knob.setText(self.input_file_name.text())
 		
 	#----------------------------------------------------------------------
 	def _get_ui_file(self):

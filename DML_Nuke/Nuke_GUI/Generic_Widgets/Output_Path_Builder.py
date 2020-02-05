@@ -46,7 +46,7 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 		self._file_name_knob = Utils.add_data_knob(self._nuke_node, "dml_file_name", nuke.String_Knob, visable=False, defalutValue="Drew_Is_Awsome") 
 		self._enable_views_knob = Utils.add_data_knob(self._nuke_node, "dml_enable_views", nuke.Boolean_Knob, visable=False, defalutValue=False)
 		self._file_type_knob
-		self._rebuild()
+		self. ()
 
 	#----------------------------------------------------------------------
 	def _rebuild(self):
@@ -57,14 +57,14 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 		if self._file_name_knob.value() == "":
 			self._file_name_knob.setValue("Drew_Is_Awsome")
 
-		self.input_folder_path.setText(self._folder_path_knob.value())
+		self.input_folder_path.setText(self._folder_path_knob.getText())
 		if self._frame_padding_knob.value() == 0:
 			self.input_frame_padding.setValue(3)
 			self._frame_padding_knob.setValue(3)
 		else:
 			self.input_frame_padding.setValue(self._frame_padding_knob.value())
 
-		self.input_file_name.setText(self._file_name_knob.value())
+		self.input_file_name.setText(self._file_name_knob.getText())
 
 		self.enableViewsCheckBox.setChecked(self._enable_views_knob.value())
 

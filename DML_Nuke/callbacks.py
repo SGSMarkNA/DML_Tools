@@ -29,6 +29,7 @@ def on_root_created():
 	if dml_nuke_views == None:
 		Nuke_Views_modeual.Nuke_Views_Widget_Knob.add_Widget_Knob(nuke.root())
 	if nuke.GUI:
+		import DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Widget_Knob
 		create_Gimp_Render_Menu_Items()
 		#import DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.DML_Layers_To_Gimped_PSD_Render_Dialog
 	nuke.removeOnCreate(on_root_created, args=(), kwargs={}, nodeClass="Root")
@@ -39,6 +40,7 @@ def on_Nuke_Views_Related_Node_Created():
 			nuke.root().knob("views")
 			import DML_Tools.DML_Nuke.Gizmos_And_Tools.Nuke_Views_System
 			import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Nuke_Views
+			import DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Widget_Knob
 			Nuke_Views_modeual = DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Nuke_Views
 			#if nuke.GUI:
 				#import DML_Tools.DML_Nuke.Gizmos_And_Tools.Nuke_Views_System
@@ -49,6 +51,7 @@ def on_Nuke_Views_Related_Node_Created():
 				#nuke.executeInMainThread(__import__,"DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Nuke_Views")
 				#Nuke_Views_modeual = os.sys.modules["DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Nuke_Views"]
 			if nuke.GUI:
+				import DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Widget_Knob
 				create_Gimp_Render_Menu_Items()
 				#import DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.DML_Layers_To_Gimped_PSD_Render_Dialog
 				#nuke.executeInMainThread(__import__,"DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.DML_Layers_To_Gimped_PSD_Render_Dialog")

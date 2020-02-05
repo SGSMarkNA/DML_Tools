@@ -7,7 +7,26 @@ import DML_Tools
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
 import Layers_To_Gimped_PSD_Nodes
+import Layers_To_Gimped_PSD_Utils
 import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection
+
+########################################################################
+class Check_For_Errors_QTimer(DML_PYQT.QTimer):
+	""""""
+	def __init__(self,parent=None):
+		"""Constructor"""
+		super(Check_For_Errors_QTimer, self).__init__(parent)
+		self.timeout.connect(self.do_check)
+		self.start(5000)
+		
+	#----------------------------------------------------------------------
+	def do_check(self):
+		""""""
+		for psd_node in Layers_To_Gimped_PSD_Utils.find_All_DML_Layers_To_Gimped_PSD():
+			psd_node.do_Error_Check()
+		print "ran Layers_To_Gimped_PSD error check"
+	
+DML_Layers_To_Gimped_PSD_Error_Check_Timmer = Check_For_Errors_QTimer()
 
 #----------------------------------------------------------------------
 def get_Folder_Dialog(label="Output Folder", UseNativeDialog=True, folder="", parent=None):
@@ -147,9 +166,9 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		#else:
 			#self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 
-		self.input_folder_path.setText(self._nuke_node._raw_folder_destination_knob.value())
+		self.input_folder_path.setText(self._nuke_node._raw_folder_destination_knob.getText())
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
-		self.input_file_name.setText(self._nuke_node._file_name_knob.value())		
+		self.input_file_name.setText(self._nuke_node._file_name_knob.getText())		
 		self.enable_Views_CheckBox.setChecked(self._nuke_node._enable_views_knob.value())
 		self.fileNameLabel.setHidden(self.enable_Views_CheckBox.isChecked())
 		self.input_file_name.setHidden(self.enable_Views_CheckBox.isChecked())

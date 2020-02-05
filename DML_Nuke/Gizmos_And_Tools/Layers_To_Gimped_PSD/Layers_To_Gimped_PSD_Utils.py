@@ -2,6 +2,7 @@ import json
 import nuke
 import DML_Tools
 DML_Nuke = DML_Tools.DML_Nuke
+DML_PYQT = DML_Tools.DML_PYQT
 import os
 import subprocess
 import Layers_To_Gimped_PSD_Nodes

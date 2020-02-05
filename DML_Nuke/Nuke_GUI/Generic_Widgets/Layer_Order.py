@@ -260,8 +260,12 @@ class DML_Nuke_Layer_Order_List_Widget(DML_PYQT.QListWidget):
 	#----------------------------------------------------------------------
 	def hideEvent(self,event):
 		""""""
-		self._update_Imbeded_Data_Layer_Order()
-		super(DML_Nuke_Layer_Order_List_Widget, self).hideEvent(event)
+		try:
+			self._update_Imbeded_Data_Layer_Order()
+		except:
+			pass
+		finally:
+			super(DML_Nuke_Layer_Order_List_Widget, self).hideEvent(event)
 	#----------------------------------------------------------------------
 	def showEvent(self,event):
 		""""""
