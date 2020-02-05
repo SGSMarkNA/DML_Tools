@@ -196,4 +196,6 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	@DML_PYQT.Slot()
 	def on_build_button_clicked(self):
 		""""""
+		self.channel_layers_list._update_Imbeded_Data_Layer_Order()
 		self._nuke_node.create_Layers_To_Render()
+		self._nuke_node.do_Error_Check()

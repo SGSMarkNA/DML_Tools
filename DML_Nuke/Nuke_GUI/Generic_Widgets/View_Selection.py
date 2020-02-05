@@ -114,7 +114,7 @@ class DML_Nuke_View_Selection_Item_Model(DML_Tools.DML_PYQT.BASE_CLASS_DEFINITIO
 		isinstance(multiview_knob,nuke.MultiView_Knob)
 		self._nuke_node = dml.to_DML_Node(nuke.thisNode())
 		self._multi_view_knob = multiview_knob
-		self._rebuild()
+		#self._rebuild()
 	#----------------------------------------------------------------------
 	def _rebuild(self):
 		""""""
@@ -213,7 +213,11 @@ class Nuke_Views_Selector_UI(DML_PYQT.QWidget):
 		if nuke.GUI:
 			nuke.DML_NUKE_VIEWS_CALLBACK_SINGLES.Root_Views_Knob_Chaged.connect(self._model._rebuild)
 		self._rebuild()
-		
+	#----------------------------------------------------------------------
+	def showEvent(self,event):
+		""""""
+		self._model._rebuild()
+		super(Nuke_Views_Selector_UI, self).showEvent(event)
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot(bool)
 	def on_CHKB_Use_Image_Name_clicked(self,value):

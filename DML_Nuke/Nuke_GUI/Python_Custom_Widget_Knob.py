@@ -162,6 +162,7 @@ class External_UI_Base_Widget_Knob(Python_Widget_Knob):
 		""""""
 		wig = Default_Ui_Loader.load(self._get_ui_file(), parent_widget=self)
 		isinstance(wig,DML_PYQT.QWidget)
+		wig.setParent(self)
 		return wig
 
 	#----------------------------------------------------------------------

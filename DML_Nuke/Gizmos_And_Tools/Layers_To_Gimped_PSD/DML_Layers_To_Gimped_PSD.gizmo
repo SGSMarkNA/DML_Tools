@@ -1,14 +1,14 @@
 #! C:/Program Files/Nuke10.5v7/nuke-10.5.7.dll -nx
 version 10.5 v7
 Gizmo {
- knobChanged "try:\n    DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Layers_To_Gimped_PSD_Nodes.on_DML_Layers_To_Gimped_PSD_Knob_Changed()\nexcept:\n    nuke.error(\"\{\}:\\n\\tCould Not Execute The Function\\n\\ton_DML_Layers_To_Gimped_PSD_Knob_Changed\\n\\tIn module DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Layers_To_Gimped_PSD_Nodes\".format(nuke.thisNode().name()))"
+ knobChanged "try:\n    DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Layers_To_Gimped_PSD_Nodes.on_DML_Layers_To_Gimped_PSD_Knob_Changed()\nexcept:\n    pass"
  gl_color 0x7fff00ff
  lifetimeStart 1
  lifetimeEnd 1
  addUserKnob {20 "Gimped PSD Builder"}
  addUserKnob {52 dml_gimped_psd_builder l "" -STARTLINE T "DML_Tools.DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.load_Widget_command(\"Nuke_To_Gimped_PSD_Builder_UI\",\"DML_Tools.DML_Nuke.Gizmos_And_Tools.Layers_To_Gimped_PSD.Widget_Knob\")"}
  addUserKnob {1 DML_Layer_Order_layers l "layer Order" +HIDDEN}
- DML_Layer_Order_layers "\[u'Background', u'Oval', u'TEXT', u'Triangle']"
+ DML_Layer_Order_layers "\[]"
  addUserKnob {1 DML_Layer_Order_Layer_Icons l "layer Icons" +HIDDEN}
  DML_Layer_Order_Layer_Icons "\{\}"
  addUserKnob {45 DML_Nuke_View_Selection l Views}

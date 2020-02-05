@@ -202,32 +202,35 @@ def does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
 #----------------------------------------------------------------------
 def on_DML_Layers_To_Gimped_PSD_Knob_Changed():
 	""""""
-	knob = nuke.thisKnob()
-	node = nuke.thisNode()
-	if knob.name() in ["dml_raw_folder_destination","dml_enable_views","dml_file_name","dml_frame_padding"]:
-		_update_DML_Layers_To_Gimped_PSD_Folder_Path(node)
-	if knob.name() == "dml_needs_rebuild":
-		psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
-		if knob.value():
-			psd_node.psd_build_group.knob("tile_color").setValue(16711935)
-			
-	elif not node.error():
-		if not knob.name() in ["ypos","xpos","name"]:
-			psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
-			has_error = False
-			if knob.name() == "DML_Layer_Order_layers":
-				has_error = True 
-			elif does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
-				has_error = True
-			if has_error:
-				psd_node._needs_rebuild.setValue(False)
-				psd_node.psd_build_group.knob("tile_color").setValue(4278190335L)
+	try:
+		knob = nuke.thisKnob()
+		node = nuke.thisNode()
+		if knob.name() in ["dml_raw_folder_destination","dml_enable_views","dml_file_name","dml_frame_padding"]:
+			_update_DML_Layers_To_Gimped_PSD_Folder_Path(node)
 		
+		#elif knob.name() == "dml_needs_rebuild":
+			#psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
+			#if knob.value():
+				#psd_node.psd_build_group.knob("tile_color").setValue(16711935)
+				
+		elif not knob.name() in ["selected","ypos","xpos","name"]:
+			if knob.name() == "DML_Layer_Order_layers":
+				psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
+				psd_node.do_Error_Check()
+				#has_error = does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node)
+				#if has_error:
+					#if not node.error():
+						#psd_node._needs_rebuild.setValue(False)
+						#psd_node.psd_build_group.knob("tile_color").setValue(4278190335L)	
+				#elif node.error():
+					#psd_node._needs_rebuild.setValue(True)
+					#psd_node.psd_build_group.knob("tile_color").setValue(16711935)
+	except:
+		pass
 
 ################################################################################
 class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes.Layer_Order_Views_Selector_Output_Builder_Node):
 	NODE_TYPE_RELATION  = "DML_Layers_To_Gimped_PSD"
-	
 	#----------------------------------------------------------------------
 	def __init__(self,*args,**kwargs):
 		""""""
@@ -235,12 +238,29 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		self._raw_folder_destination_knob = self.knob("dml_raw_folder_destination")
 		self._needs_rebuild = self.knob("dml_needs_rebuild")
 		self._raw_folder_destination_knob.setVisible(False)
-		self._psd_build_group = self._find_Psd_Build_Group()
-		self.Initialize_build_Layers()
+		self._psd_build_group = None#self._find_Psd_Build_Group()
+		self._create_PSD_Group()
 		
 		if False:
 			isinstance(self._raw_folder_destination_knob, nuke.String_Knob)
 			isinstance(self._needs_rebuild, nuke.Boolean_Knob)
+	#----------------------------------------------------------------------
+	def do_Error_Check(self):
+		""""""
+		has_error = does_DML_Layers_To_Gimped_PSD_Need_Rebuild(self)
+		if has_error:
+			self._needs_rebuild.setValue(False)
+			self.psd_build_group.knob("tile_color").setValue(4278190335L)
+			try:
+				wig_knob = self.knob("dml_gimped_psd_builder")
+				wig_object = wig_knob.getObject()
+				wig_object.channel_layers_list.rebuild_Items()
+			except:
+				pass
+		else:
+			self._needs_rebuild.setValue(True)
+			self.psd_build_group.knob("tile_color").setValue(16711935)
+			
 	#----------------------------------------------------------------------
 	def _update_Folder_Path(self):
 		_update_DML_Layers_To_Gimped_PSD_Folder_Path(self.nuke_object)
@@ -278,6 +298,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 				self._psd_build_group.y = self.y + 100
 				self._psd_build_group.setInput(0,self)
 			self._psd_build_group.assign_knob_links(self._folder_path_knob, self._file_name_knob, self._frame_padding_knob, self._imbeded_data_View_Selection_knob)
+			self.Initialize_build_Layers()
 			self.create_Layers_To_Render()
 			return self._psd_build_group
 		
@@ -299,10 +320,10 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 	#----------------------------------------------------------------------
 	def create_Layers_To_Render(self):
 		""""""
-		self._needs_rebuild.setValue(True)
 		layer_order = list(reversed(self.imbeded_data_layer_order))
 		self.psd_build_group.create_Layers_To_Render(layer_order, xOffset=200, xSpaceing=150, yOffset=100)
-		
+		self._needs_rebuild.setValue(True)
+				
 	#----------------------------------------------------------------------
 	def generate_Json_Data(self,frame,multi_frame=True):
 		""""""

@@ -38,7 +38,7 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 		if False:
 			isinstance(self._imbeded_data_layer_Order_knob , nuke.String_Knob)
 			isinstance(self._imbeded_data_layer_Icons_knob , nuke.String_Knob)
-		self.Initialize_build_Layers()
+		self.rebuild_Items()
 	#----------------------------------------------------------------------
 	def Initialize_build_Layers(self):
 		""""""
@@ -82,7 +82,16 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 	#----------------------------------------------------------------------
 	def set_Layer_Data_From_Master_Layer_Order(self):
 		""""""
-		match = self.find_Upstream_Node("DML_Master_Layer_Order")
+		try:
+			if self.Class() == "DML_Master_Layer_Order":
+				if self.inputs:
+					match = self.input(0).find_Upstream_Node("DML_Master_Layer_Order")
+				else:
+					match = None
+			else:
+				match = self.find_Upstream_Node("DML_Master_Layer_Order")
+		except:
+			match = None
 		if match is not None:
 			if not match.name == self.name:
 				knob = match.knob("dml_master_layer_order")
@@ -112,7 +121,41 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 						self.imbeded_data_layer_icons = icons
 						return True
 		return False
-	
+	#----------------------------------------------------------------------
+	def sync_To_Master_Layer_Order(self):
+		""""""
+		if self.set_Layer_Data_From_Master_Layer_Order():
+			self.rebuild_Items()
+	#----------------------------------------------------------------------
+	def rebuild_Items(self):
+		""""""
+		# get the imbeded layer order data
+		layers = self.imbeded_data_layer_order
+		# get the imbeded layer icon data
+		icons  = self.imbeded_data_layer_icons
+		# check if both imbeded data items are empty
+		if len(layers) == 0:
+			# if so set it to a master layer order and check if it was set
+			check = self.set_Layer_Data_From_Master_Layer_Order()
+			# if so reaquire the imbeded information
+			if check:
+				layers = self.imbeded_data_layer_order
+				icons  = self.imbeded_data_layer_icons
+			# if not then just use the layers as is
+			else:
+				layers = self.layers
+				
+		if len(layers) != len(self.layers):
+			nuke_node_layers = self.layers
+			for layer in nuke_node_layers:
+				if not layer in layers:
+					layers.insert(0, layer)
+				
+			for layer in layers:
+				if not layer in nuke_node_layers:
+					layers.remove(layer)
+		
+		self.imbeded_data_layer_order = layers
 ########################################################################
 class Views_Selector_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 	NODE_TYPE_RELATION  = None

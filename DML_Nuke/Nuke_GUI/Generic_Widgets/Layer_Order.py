@@ -93,35 +93,35 @@ class DML_Nuke_Layer_Order_List_Widget(DML_PYQT.QListWidget):
 			self._nuke_node.addKnob(self._imbeded_data_layer_Icons_knob)
 			# set a default value of a empty dict
 			self.imbeded_data_layer_icons = dict()
-		self.rebuild_Items()
+		#self.rebuild_Items()
 	
 	#----------------------------------------------------------------------
 	@property
 	def imbeded_data_layer_icons(self):
 		""""""
 		try:
-			return eval(self._imbeded_data_layer_Icons_knob.getText())
+			return self._nuke_node.imbeded_data_layer_icons
 		except:
 			return {}
 	#----------------------------------------------------------------------
 	@imbeded_data_layer_icons.setter
 	def imbeded_data_layer_icons(self,data):
 		""""""
-		self._imbeded_data_layer_Icons_knob.setText(repr(data))
+		self._nuke_node.imbeded_data_layer_icons = data
 	
 	#----------------------------------------------------------------------
 	@property
 	def imbeded_data_layer_order(self):
 		""""""
 		try:
-			return eval(self._imbeded_data_layer_Order_knob.getText())
+			return self._nuke_node.imbeded_data_layer_order
 		except:
 			return []
 	#----------------------------------------------------------------------
 	@imbeded_data_layer_order.setter
 	def imbeded_data_layer_order(self,data):
 		""""""
-		self._imbeded_data_layer_Order_knob.setText(repr(data))
+		self._nuke_node.imbeded_data_layer_order = data
 	
 	#----------------------------------------------------------------------
 	def rebuild_Items(self):
@@ -257,8 +257,16 @@ class DML_Nuke_Layer_Order_List_Widget(DML_PYQT.QListWidget):
 				self.setCurrentItem(current_item)
 				# emit a notification that an item has moved
 				self._update_Imbeded_Data_Layer_Order()
-
-
+	#----------------------------------------------------------------------
+	def hideEvent(self,event):
+		""""""
+		self._update_Imbeded_Data_Layer_Order()
+		super(DML_Nuke_Layer_Order_List_Widget, self).hideEvent(event)
+	#----------------------------------------------------------------------
+	def showEvent(self,event):
+		""""""
+		self.rebuild_Items()
+		super(DML_Nuke_Layer_Order_List_Widget, self).showEvent(event)
 Python_Custom_Widget_Knob.Default_Ui_Loader.registerCustomWidget(DML_Nuke_Layer_Order_List_Widget)
 
 ########################################################################
