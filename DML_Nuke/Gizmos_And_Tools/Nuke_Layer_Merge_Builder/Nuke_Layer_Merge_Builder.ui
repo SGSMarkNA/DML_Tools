@@ -31,12 +31,21 @@
        <item>
         <widget class="QLineEdit" name="input_folder_path">
          <property name="toolTip">
-          <string>The Destination For The Output Image</string>
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The Destination For The Output Image&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Make Sure To Include A %V In the Destinoation or File Name&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For Views To Be Enabled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="browse_Button">
+         <property name="toolTip">
+          <string>Open A File Exploer Window To Set The Path</string>
+         </property>
          <property name="text">
           <string>Browse</string>
          </property>
@@ -54,7 +63,7 @@
      <item row="1" column="1">
       <widget class="QLineEdit" name="input_file_name">
        <property name="toolTip">
-        <string>The Rended Image File Name</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Rended Image File Name&lt;/p&gt;&lt;p&gt;Make Sure To Include A %V In the Destinoation or File Name&lt;/p&gt;&lt;p&gt;For Views To Be Enabled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -125,6 +134,9 @@
      </item>
      <item row="4" column="1">
       <widget class="QComboBox" name="fileTypeComboBox">
+       <property name="toolTip">
+        <string>The Image Format To Use</string>
+       </property>
        <item>
         <property name="text">
          <string>png</string>
@@ -165,7 +177,7 @@
      <item>
       <widget class="QCheckBox" name="active_view_checkBox">
        <property name="toolTip">
-        <string>Will reset the active view to the write node if active</string>
+        <string>Will reset the active viewer to the write node if active</string>
        </property>
        <property name="text">
         <string>Active View</string>

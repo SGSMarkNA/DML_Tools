@@ -41,7 +41,6 @@ def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", p
 		return folder_name
 	else:
 		return False
-
 #----------------------------------------------------------------------
 def channel_Layers_To_Shuffles(start_node, layer_order=[], include_missing=True, xOffset=200, xSpaceing=150,createWrites=False, yOffset=100):
 	# convert the input node into a DML Nuke Node
@@ -155,11 +154,6 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		self.input_file_name.setText(self._nuke_node._file_name_knob.getText())
 		DML_PYQT.QMetaObject.connectSlotsByName(self)
 		#self._update_Folder_Path()
-	#----------------------------------------------------------------------
-	@DML_PYQT.Slot(bool)
-	def on_enable_Views_CheckBox_clicked(self,value):
-		""""""
-		
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def _update_Folder_Path(self):

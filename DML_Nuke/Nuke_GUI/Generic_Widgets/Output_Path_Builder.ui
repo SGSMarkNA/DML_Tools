@@ -62,12 +62,15 @@
      <item>
       <widget class="QLineEdit" name="destination_folder">
        <property name="toolTip">
-        <string>The Destination For The Output Image</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Destination For The Output Image&lt;/p&gt;&lt;p&gt;Make Sure To Include A %V In the Destinoation or File Name&lt;/p&gt;&lt;p&gt;For Views To Be Enabled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="browse_Button">
+       <property name="toolTip">
+        <string>Open A File Exploer Window To Set The Path</string>
+       </property>
        <property name="text">
         <string>Browse</string>
        </property>
@@ -98,12 +101,15 @@
    <item row="1" column="2">
     <widget class="QLineEdit" name="destination_file">
      <property name="toolTip">
-      <string>The Rended Image File Name</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Rended Image File Name&lt;/p&gt;&lt;p&gt;Make Sure To Include A %V In the Destinoation or File Name&lt;/p&gt;&lt;p&gt;For Views To Be Enabled&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
    <item row="5" column="2">
     <widget class="QComboBox" name="fileTypeComboBox">
+     <property name="toolTip">
+      <string>The Image Format To Use</string>
+     </property>
      <item>
       <property name="text">
        <string>png</string>

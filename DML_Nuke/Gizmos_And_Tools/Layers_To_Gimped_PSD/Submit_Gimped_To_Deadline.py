@@ -15,6 +15,30 @@ Ui_Loader = DML_PYQT.QT.QUiLoader()
 
 
 ########################################################################
+class GimpPSD_Plugin_Info(DML_Tools.DML_Deadline.Job_Data_Model.Base_Plugin_Info):
+	""""""
+
+	def __init__(self,jsonfile=None,jsondata=None):
+		"""
+			Options
+
+				--JsonFile
+					| The filename to the json file used to build the psd.
+					|
+					"""
+		self.jsonfile = jsonfile
+		self.jsondata = jsondata
+
+	def create_Submit_String(self):
+		lines = []
+		if self.jsonfile == None:
+			lines.append(DML_Tools.DML_Deadline.Job_Data_Model.build_Options_Line("JsonData", self.jsondata))
+		else:
+			lines.append(DML_Tools.DML_Deadline.Job_Data_Model.build_Options_Line("JsonFile", self.jsonfile))
+		return "\n".join(lines)
+
+
+########################################################################
 class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 	def __init__(self, parent=None):
 		DML_PYQT.QWidget.__init__(self, parent=parent)
@@ -198,14 +222,14 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		write_node_names = [node.fullName for node in self._render_data_all_write_nodes]
 		NukeVersionMajor = int(nuke.env.get( 'NukeVersionMajor', '6' ))
 		NukeVersionMinor = int(nuke.env.get( 'NukeVersionMinor', '0' ))
-		
+		BatchName = self.Deadline_JobName.text()+" Nuke To PSD"
 		job_info = DML_Tools.DML_Deadline.Job_Data_Model.Job_Info_File(Plugin="Nuke",
 														Frames=self.Deadline_FrameList.text(), 
 														Name=self.Deadline_JobName.text(),
 														Department=self.Deadline_Department.text(),
 														Comment=self.Deadline_Comment.text(),
 														Group=self.Deadline_Group.currentText(),
-														BatchName="",
+														BatchName=BatchName,
 														Pool=self.Deadline_Pool.currentText(),
 														SecondaryPool=self.Deadline_SecondaryPool.currentText(),
 														Priority=self.Deadline_Priority.value(),
@@ -221,6 +245,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 														JobDependencies=self.Deadline_Dependencies.text(),
 														IsBlacklist=self.Deadline_IsBlacklist.isChecked()
 														)
+		job_info.EnvironmentKeyValue["NUKE_PATH"] = "//isln-smb.ad.sgsco.int/aw_config/Git_Live_Code/Software/Nuke"
 		
 		plugin_info = DML_Tools.DML_Deadline.Job_Data_Model.Nuke_Plugin_Info(SceneFile=nuke.root().name(),
 																   Version="{}.{}\n".format( NukeVersionMajor, NukeVersionMinor ) ,
@@ -250,7 +275,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 														Department=self.Deadline_Department.text(),
 														Comment=self.Deadline_Comment.text(),
 														Group=self.Deadline_Group.currentText(),
-														BatchName="",
+														BatchName=BatchName,
 														Pool=self.Deadline_Pool.currentText(),
 														SecondaryPool=self.Deadline_SecondaryPool.currentText(),
 														Priority=self.Deadline_Priority.value(),
@@ -266,10 +291,10 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 														IsBlacklist=self.Deadline_IsBlacklist.isChecked()
 														)
 		
-		plugin_info = DML_Tools.DML_Deadline.Job_Data_Model.GimpPSD_Plugin_Info(jsondata=psd_build_data)
+		plugin_info = GimpPSD_Plugin_Info(jsondata=psd_build_data)
 		gimp_deadline_submiter = DML_Tools.DML_Deadline.Job_Data_Model.Job_Submitter(job_info, plugin_info)
 		gimp_deadline_submiter.Submit_the_job_to_Deadline()
-		nuke.executeInMainThread( nuke.message, "2 Jobs Submissions complete. "+str(nuke_deadline_submiter.jobId) + "," + str(gimp_deadline_submiter.jobId) +" Job submitted to Deadline." )
+		nuke.executeInMainThread( nuke.message, "2 Jobs Submissions complete. " + str(nuke_deadline_submiter.jobId) + "," + str(gimp_deadline_submiter.jobId) +" Job submitted to Deadline." )
 		
 	#----------------------------------------------------------------------
 	def _make_Save_Settings_Connections(self):

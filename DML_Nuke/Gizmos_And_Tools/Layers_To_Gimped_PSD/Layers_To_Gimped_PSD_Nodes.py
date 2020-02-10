@@ -172,7 +172,7 @@ def _update_DML_Layers_To_Gimped_PSD_Folder_Path(node):
 		isinstance(node,DML_Layers_To_Gimped_PSD)
 	folder = node.knob("dml_raw_folder_destination").getText() 
 	file_name = node.knob("dml_file_name").getText()
-	folder_path = os.path.join(folder,"PNGS",file_name).replace("\\","/")
+	folder_path = os.path.join(folder,"_PNGs",file_name).replace("\\","/")
 	node.knob("dml_folder_destination").setText(folder_path)
 #----------------------------------------------------------------------
 def does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
@@ -406,7 +406,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 				# exam : C:/Psd_Local_output/v06/PNGS/Background/001/Background.png
 				# exam : C:/Psd_Local_output/v06
 				# exam : folder_end: Blurred_Oval_Bloo/001
-				folder_start,folder_end = view_layer_folder.split("/PNGS/",1)
+				folder_start,folder_end = view_layer_folder.split("/_PNGs/",1)
 				# exam : Blurred_Oval_Bloo/001
 				# exam : Blurred_Oval_Bloo
 				image_name              = folder_end.split("/")[0]
@@ -446,7 +446,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 				# add it to the collection
 				Layer_Order_Paths.append(layer_file_path)
 	
-			folder_start,folder_end = layers_folder.split("/PNGS/",1)
+			folder_start,folder_end = layers_folder.split("/_PNGs/",1)
 			# exam : Blurred_Oval_Bloo/001
 			# exam : Blurred_Oval_Bloo
 			image_name              = folder_end.split("/")[0]

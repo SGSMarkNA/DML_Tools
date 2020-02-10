@@ -322,8 +322,6 @@ def run_Json_Build_Data(arg):
 				all_procs = []
 				break				
 			for proc in all_procs:
-				print proc.stdout.read()
-				print proc.returncode
 				if not proc.poll() == None:
 					print proc.returncode
 					all_procs.remove(proc)

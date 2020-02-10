@@ -199,6 +199,9 @@ down</string>
          <property name="contextMenuPolicy">
           <enum>Qt::PreventContextMenu</enum>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If A Master Layer Order is within the pipe will set its layer order&lt;/p&gt;&lt;p&gt;to the oder contained with in the Master Layer Order&lt;/p&gt;&lt;p&gt;If You Have Removed Layers After That Master Layer Order&lt;/p&gt;&lt;p&gt;It respect that and rebuild the order and leave the removed layers out&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Sync To Master</string>
          </property>
@@ -206,6 +209,9 @@ down</string>
        </item>
        <item>
         <widget class="QPushButton" name="BNT_Set_To_Active_Viewer">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Set To Active Viewer</string>
          </property>
