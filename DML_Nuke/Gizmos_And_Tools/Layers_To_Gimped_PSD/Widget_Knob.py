@@ -29,11 +29,10 @@ class Check_For_Errors_QTimer(DML_PYQT.QTimer):
 #DML_Layers_To_Gimped_PSD_Error_Check_Timmer = Check_For_Errors_QTimer()
 
 #----------------------------------------------------------------------
-def get_Folder_Dialog(label="Output Folder", UseNativeDialog=True, folder="", parent=None):
+def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
 	""""""
-	options = DML_PYQT.QFileDialog.Options()
-	# options |= PYQT.QFileDialog.Option.
-	if not UseNativeDialog:
+	options = DML_PYQT.QFileDialog.DontResolveSymlinks | DML_PYQT.QFileDialog.ShowDirsOnly
+	if UseNativeDialog:
 		options |= DML_PYQT.QFileDialog.DontUseNativeDialog
 	if folder == "":
 		folder = nuke.script_directory()
@@ -151,21 +150,6 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	def _rebuild(self):
 		""""""
 		self.Layers_Order_Widget._rebuild()
-		#self.Nuke_Views_Selector._rebuild()
-		
-		#if self._nuke_node._raw_folder_destination_knob.value() == "":
-			#self._nuke_node._raw_folder_destination_knob.setValue(nuke.script_directory())
-			
-		#if self._nuke_node._file_name_knob.value() == "":
-			#self._nuke_node._file_name_knob.setValue("Drew_Is_Awsome")
-
-		
-		#if self._nuke_node._frame_padding_knob.value() == 0:
-			#self.input_frame_padding.setValue(3)
-			#self._nuke_node._frame_padding_knob.setValue(3)
-		#else:
-			#self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
-
 		self.input_folder_path.setText(self._nuke_node._raw_folder_destination_knob.getText())
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 		self.input_file_name.setText(self._nuke_node._file_name_knob.getText())

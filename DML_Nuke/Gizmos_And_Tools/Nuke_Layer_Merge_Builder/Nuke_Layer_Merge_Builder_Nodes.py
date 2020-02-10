@@ -3,6 +3,16 @@ import DML_Tools
 import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes
 DML_Nuke = DML_Tools.DML_Nuke
 
+#----------------------------------------------------------------------
+def is_Single_Frame_Comp():
+	""""""
+	root = nuke.root()
+	first_frame,last_frame = root.knob("first_frame").value(),root.knob("last_frame").value()
+	if first_frame == last_frame:
+		return True
+	else:
+		return False
+
 ################################################################################
 class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes.Layer_Order_Output_Builder_Node):
 	NODE_TYPE_RELATION  = "DML_Layer_Order_Builder"
@@ -27,9 +37,12 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 		if not self.write_node == None:
 			folder    = "[value {}.dml_folder_destination]".format(self.name)
 			name      = "[value {}.dml_file_name]".format(self.name)
-			padding   = "%0[value {}.dml_frame_padding]".format(self.name)
+			if is_Single_Frame_Comp():
+				padding   = ""
+			else:
+				padding   = "_%0[value {}.dml_frame_padding]d".format(self.name)
 			file_type = self.write_node.knob("file_type").value()
-			value     = '{}/{}{}d.{}'.format(folder,name,padding,file_type)
+			value     = '{}/{}{}.{}'.format(folder,name,padding,file_type)
 			self.write_node.knob("file").setText(value)
 	
 	def create_Client_Approval_Setup(self, layer_order=[]):
@@ -115,7 +128,7 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 				text_node.y = text_node.y + 50
 				nodes_for_backdrop_createion.append(text_node)
 				DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(name=backdrop_name,
-																 label="PNG Sequence out to Client Approval",
+																 label="Render Flattened Images\nfor Client Approval",
 																 note_font_size=25,
 																 note_font_color=255,
 																 note_font='Verdana Bold',

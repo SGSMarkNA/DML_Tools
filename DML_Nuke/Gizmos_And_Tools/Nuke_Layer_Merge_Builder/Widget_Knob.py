@@ -9,9 +9,8 @@ DML_Nuke = DML_Tools.DML_Nuke
 #----------------------------------------------------------------------
 def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
 	""""""
-	options = DML_PYQT.QFileDialog.Options()
-	# options |= PYQT.QFileDialog.Option.
-	if not UseNativeDialog:
+	options = DML_PYQT.QFileDialog.DontResolveSymlinks | DML_PYQT.QFileDialog.ShowDirsOnly
+	if UseNativeDialog:
 		options |= DML_PYQT.QFileDialog.DontUseNativeDialog
 	if folder == "":
 		folder = nuke.script_directory()
@@ -55,13 +54,6 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 			self._nuke_node._folder_path_knob.setValue(nuke.script_directory())
 		if self._nuke_node._file_name_knob.value() == "":
 			self._nuke_node._file_name_knob.setValue("Drew_Is_Awsome")
-			
-		#self.input_folder_path.setText(self._nuke_node._folder_path_knob.value())
-		#if self._nuke_node._frame_padding_knob.value() == 0:
-			#self.input_frame_padding.setValue(3)
-			#self._nuke_node._frame_padding_knob.setValue(3)
-		#else:
-			#self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 		
 		self.input_folder_path.setText(self._nuke_node._folder_path_knob.getText())
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
@@ -83,12 +75,9 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
-	def on_enable_views_valueChanged(self):
-		self._nuke_node._update_Write_Node_File_Path()
-	#----------------------------------------------------------------------
-	@DML_PYQT.Slot()
 	def on_input_folder_path_textChanged(self):
 		self._nuke_node._folder_path_knob.setText(self.input_folder_path.text())
+		self._nuke_node._update_Write_Node_File_Path()
 
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
@@ -101,14 +90,17 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	def on_input_channels_currentIndexChanged(self):
 		if self._nuke_node.write_node != None:
 			self._nuke_node.write_node.knob("channels").setValue(self.input_channels.currentText())
+			self._nuke_node._update_Write_Node_File_Path()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot(int)
 	def on_input_frame_padding_changed(self,value):
 		self._nuke_node._frame_padding_knob.setValue(value)
+		self._nuke_node._update_Write_Node_File_Path()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_input_file_name_textChanged(self):
 		self._nuke_node._file_name_knob.setText(self.input_file_name.text())
+		self._nuke_node._update_Write_Node_File_Path()
 		
 	#----------------------------------------------------------------------
 	def _get_ui_file(self):
