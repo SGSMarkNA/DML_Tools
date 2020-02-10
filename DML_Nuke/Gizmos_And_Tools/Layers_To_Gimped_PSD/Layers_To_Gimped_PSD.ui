@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
+    <width>844</width>
     <height>847</height>
    </rect>
   </property>
@@ -170,7 +170,7 @@
      <item row="1" column="0" colspan="2">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="Layers_Tab">
         <attribute name="title">
@@ -227,54 +227,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>enable_Views_CheckBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>input_file_name</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>133</x>
-     <y>9</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>133</x>
-     <y>61</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>enable_Views_CheckBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>input_file_name</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>148</x>
-     <y>11</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>148</x>
-     <y>69</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>enable_Views_CheckBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>fileNameLabel</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>114</x>
-     <y>11</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>47</x>
-     <y>60</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

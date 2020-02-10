@@ -125,22 +125,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>enableViewsCheckBox</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>Nuke_Views_Selector</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>95</x>
-     <y>152</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>113</x>
-     <y>198</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

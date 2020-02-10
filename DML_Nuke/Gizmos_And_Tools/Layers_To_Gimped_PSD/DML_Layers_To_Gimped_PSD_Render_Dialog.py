@@ -65,14 +65,15 @@ class DML_Nuke_RenderDialog(nukescripts.RenderDialog):
 		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList())
 		Layers_To_Gimped_PSD_Utils.Bake_PSD_Build_Info(psd_build_data)
 		try:
-			nuke.executeMultiple([n.nuke_object for n in self.all_write_nodes], frame_ranges, self.views_to_render, continueOnError = self._continueOnError.value())
+			#nuke.executeMultiple([n.nuke_object for n in self.all_write_nodes], frame_ranges, self.views_to_render, continueOnError = self._continueOnError.value())
 			rendered_check = True
 		except RuntimeError, e:
 			rendered_check = False
 			if self._exceptOnError or e.args[0][0:9] != "Cancelled":   # TO DO: change this to an exception type
 				raise
 		if rendered_check:
-			Layers_To_Gimped_PSD_Utils.run_Json_Build_Data(psd_build_data)
+			pass
+			#Layers_To_Gimped_PSD_Utils.run_Json_Build_Data(psd_build_data)
 			#threading.Thread( None, target=run_Json_Build_Data ,args=[psd_build_data]).start()
 		
 def showRenderDialog(exceptOnError = True):

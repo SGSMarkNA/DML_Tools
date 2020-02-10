@@ -90,7 +90,7 @@ def Bake_PSD_Build_Info(gimped_psd_data):
 	""""""
 	json_file_path = get_Json_File_Path()
 	with file(json_file_path,"w") as fp:
-		json.dump(gimped_psd_data, fp)
+		json.dump(gimped_psd_data, fp,indent=4)
 
 #----------------------------------------------------------------------
 def _generate_Json_Data(psd_node,writeNode,frame,multi_frame=True):

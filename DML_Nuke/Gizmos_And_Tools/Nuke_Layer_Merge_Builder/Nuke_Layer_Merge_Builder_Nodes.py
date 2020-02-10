@@ -28,11 +28,9 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 			folder    = "[value {}.dml_folder_destination]".format(self.name)
 			name      = "[value {}.dml_file_name]".format(self.name)
 			padding   = "%0[value {}.dml_frame_padding]".format(self.name)
-			version   = "[metadata version]/" if self.metadata(key="version") != None  else ""
-			views     = "%V/" if self._enable_views_knob.value() else ""
 			file_type = self.write_node.knob("file_type").value()
-			value     = '{}/{}{}{}_{}d.{}'.format(folder,version,views,name,padding,file_type)
-			self.write_node.knob("file").setValue(value)
+			value     = '{}/{}{}d.{}'.format(folder,name,padding,file_type)
+			self.write_node.knob("file").setText(value)
 	
 	def create_Client_Approval_Setup(self, layer_order=[]):
 		res = None

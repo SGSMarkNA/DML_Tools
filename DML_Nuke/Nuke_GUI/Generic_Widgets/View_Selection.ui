@@ -59,7 +59,7 @@
    <item row="0" column="0">
     <widget class="QCheckBox" name="CHKB_Use_Image_Name">
      <property name="text">
-      <string>Use Image Name</string>
+      <string>Show Image Name</string>
      </property>
     </widget>
    </item>

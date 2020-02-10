@@ -34,12 +34,19 @@ class _CallBack_Singles(DML_PYQT.QObject):
 CallBack_Singles = _CallBack_Singles()
 nuke.__dict__["DML_NUKE_VIEWS_CALLBACK_SINGLES"] = CallBack_Singles
 
+def lenght_compare(x, y):
+	return len(y) - len(x)
 #----------------------------------------------------------------------
 def view_To_Image_Name(filepath):
-	for key in DML_Nuke_View_System._name_to_image.keys():
-		if key in filepath.split("/"):
-			filepath = filepath.replace(key,DML_Nuke_View_System.get_Image_Name_From_View_Name(key))
+	if False:#nuke.GUI:
+		if nuke.thisView() in DML_Nuke_View_System._name_to_image:
+			filepath = filepath.replace(nuke.thisView(),DML_Nuke_View_System.get_Image_Name_From_View_Name(nuke.thisView()))
 			return filepath
+	else:
+		for view in sorted(nuke.views(),cmp=lenght_compare):
+			if view in filepath:
+				filepath = filepath.replace(view,DML_Nuke_View_System.get_Image_Name_From_View_Name(view))
+				return filepath
 	return None
 #----------------------------------------------------------------------
 def on_Nuke_Root_View_Knob_Changed():
@@ -64,20 +71,28 @@ def on_Nuke_Root_View_Knob_Changed():
 def parse_Nuke_Views(knob=None):
 	""""""
 	view_data = []
-	try:
-		if knob == None:
-			views = nuke.root().knob("views").toScript()
+	
+	if knob == None:
+		views = nuke.root().knob("views").toScript()
+	else:
+		views = knob.toScript()
+	
+	views = nuke.root().knob("views").toScript()
+	view_moded = views.replace("{","").replace("}","")
+	view_lines = view_moded.splitlines()
+	for line in view_lines:
+		view_name,view_color = line.split(" ",2)[0:2]
+		normal_views_data = " ".join([view_name,view_color])
+		extra_view_data = line.replace(normal_views_data,"").strip()
+		if len(extra_view_data):
+			uid = extra_view_data.split()[-1]
+			extra_view_data_moded = extra_view_data.replace(uid,"").strip()
+			image_name = extra_view_data_moded
 		else:
-			views = knob.toScript()
-		views = views.replace("{","").replace("}","")
-		views = views.splitlines()
-		for line in views:
-			items = line.split()
-			if len(items)==2:
-				items.extend([items[0],str(uuid.uuid4())])
-			view_data.append(items)
-	except:
-		pass
+			uid = str(uuid.uuid4())
+			image_name = view_name
+		view_data.append([view_name,view_color,image_name,uid])
+	
 	return view_data
 
 #----------------------------------------------------------------------
@@ -96,15 +111,11 @@ def RGB_To_Hex(*args):
 	else:
 		raise ValueError("Cound Not Convert {} to hex value".format(args))
 	return hexCol
-
 #----------------------------------------------------------------------
 def Hex_to_RGB(value):
 	value = value.lstrip('#')
 	lv = len(value)
 	return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
-
-
-
 #----------------------------------------------------------------------
 def get_QColor(arg):
 	if isinstance(arg,DML_PYQT.QColor):
@@ -187,12 +198,12 @@ class Nuke_View(object):
 	@name.setter
 	def name(self, value):
 		try:
-			del self._nuke_views.self._name_to_image[self._view_name]
+			del self._nuke_views._name_to_image[self._view_name]
 		except:
 			pass
 		
 		self._view_name = value
-		self._nuke_views.self._name_to_image[self._view_name]=self._image_name
+		self._nuke_views._name_to_image[self._view_name]=self._image_name
 		if not UPDATE_ACTIONS.skip_update:
 			UPDATE_ACTIONS.external_change = False
 			self._nuke_views._update_Nuke_Views_Knob()

@@ -13,9 +13,9 @@ Gizmo {
  DML_Layer_Order_Layer_Icons "\{\}"
  addUserKnob {45 DML_Nuke_View_Selection l Views}
  addUserKnob {1 dml_raw_folder_destination t "No Touchy"}
- dml_raw_folder_destination "U:/dloveridge/_For Drew/from_Bruce"
+ dml_raw_folder_destination ""
  addUserKnob {2 dml_folder_destination t "No Touchy"}
- dml_folder_destination "U:/dloveridge/_For Drew/from_Bruce/\[metadata version]/PNGS/Drew_Is_Awsome"
+ dml_folder_destination ""
  addUserKnob {3 dml_frame_padding t "No Touchy"}
  dml_frame_padding 3
  addUserKnob {1 dml_file_name t "No Touchy"}

@@ -138,7 +138,7 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 				# connect the write nodes input to the current shuffle node
 				write_node.setInput(0,shuffle_node)
 				#write_node.knob("render_order").setValue(index+1)
-				write_node.knob("file").setValue("[value parent.dml_folder_destination]/PNGS/%0[value parent.dml_frame_padding]d/[value input0.in].png")
+				write_node.knob("file").setValue("[value parent.dml_folder_destination]/%0[value parent.dml_frame_padding]d/[value input0.in].png")
 				write_node.knob("views").setValue('{{parent.dml_output_views}}')
 				write_node.knob("disable").setExpression('parent.disable')
 				if "ICC_knob" in write_node.knobs():
@@ -170,18 +170,10 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 def _update_DML_Layers_To_Gimped_PSD_Folder_Path(node):
 	if False:
 		isinstance(node,DML_Layers_To_Gimped_PSD)
-	folder = node.knob("dml_raw_folder_destination").getText()
-	if node.metadata(key="version") != None:
-		folder = os.path.join(folder, "[metadata version]").replace("\\","/")
-	
-	folder = os.path.join(folder, "PNGS").replace("\\","/")
-
-	if node.knob("dml_enable_views").value():
-		folder = os.path.join(folder, "%V").replace("\\","/")
-	else:
-		folder = os.path.join(folder, node.knob("dml_file_name").getText()).replace("\\","/")
-	
-	node.knob("dml_folder_destination").setText(folder)
+	folder = node.knob("dml_raw_folder_destination").getText() 
+	file_name = node.knob("dml_file_name").getText()
+	folder_path = os.path.join(folder,"PNGS",file_name).replace("\\","/")
+	node.knob("dml_folder_destination").setText(folder_path)
 #----------------------------------------------------------------------
 def does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
 	""""""
@@ -206,12 +198,7 @@ def on_DML_Layers_To_Gimped_PSD_Knob_Changed():
 		if knob.name() in ["dml_raw_folder_destination","dml_enable_views","dml_file_name","dml_frame_padding"]:
 			_update_DML_Layers_To_Gimped_PSD_Folder_Path(node)
 		
-		#elif knob.name() == "dml_needs_rebuild":
-			#psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
-			#if knob.value():
-				#psd_node.psd_build_group.knob("tile_color").setValue(16711935)
-				
-		elif knob.name() == "DML_Layer_Order_layers":
+		if knob.name() == "DML_Layer_Order_layers":
 			psd_node = DML_Layers_To_Gimped_PSD(nuke_node=node)
 			psd_node.do_Error_Check()
 	except:
@@ -249,7 +236,6 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		else:
 			self._needs_rebuild.setValue(True)
 			self.psd_build_group.knob("tile_color").setValue(16711935)
-			
 	#----------------------------------------------------------------------
 	def _update_Folder_Path(self):
 		_update_DML_Layers_To_Gimped_PSD_Folder_Path(self.nuke_object)
@@ -322,7 +308,11 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		# can a list of all the nuke views
 		all_view_names                = nuke.views()
 		# store the options that determans if views are to be used or not
-		dml_enable_views              = psd_node._enable_views_knob.value()
+		# store the options that determans if views are to be used or not
+		if "%V" in self._file_name_knob.getText() or "%V" in self._folder_path_knob.value():
+			dml_enable_views              = True
+		else:
+			dml_enable_views              = False
 		# get the views that are going to be rended out
 		view_selection                = psd_node.active_views
 		# get the layer order that the psd builder will use when assemblying the psd file
@@ -461,9 +451,9 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 			image_name              = folder_end.split("/")[0]
 	
 			psd_folder_path         = os.path.join(folder_start).replace("\\","/")
-	
+			
 			if multi_frame:
-				psd_file_name                 = image_name + "_" + padded_frame + ".psd"
+				psd_file_name                 = os.path.join(image_name,image_name + "_" + padded_frame + ".psd").replace("\\","/")
 				#psd_file_name                 = psd_folder_path.split("/")[-1] + "_" + padded_frame + ".psd"
 			else:
 				# exam : C:/Psd_Local_output/v06/Blurred_Oval_Bloo
