@@ -202,7 +202,8 @@ class Nuke_Views_Selector_UI(DML_PYQT.QWidget):
 			self.BNT_Enable_Selected        = DML_PYQT.QPushButton()
 			self.CHKB_Use_Image_Name        = DML_PYQT.QCheckBox()
 			self.gridLayout                 = DML_PYQT.QGridLayout()
-			
+		
+		self.CHKB_Use_Image_Name.setChecked(_use_Image_Name_As_Display_Name)
 		DML_PYQT.QMetaObject.connectSlotsByName(self)
 		self._model = DML_Nuke_View_Selection_Item_Model(self._imbeded_data_View_Selection_knob, parent=self)
 		self._proxyModel = DML_Tools.DML_PYQT.BASE_CLASS_DEFINITIONS.Sort_Filter_Proxy_Model(parent=self)

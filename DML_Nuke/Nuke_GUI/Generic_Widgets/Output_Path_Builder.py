@@ -44,9 +44,11 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 		self._folder_path_knob = Utils.add_data_knob(self._nuke_node, "dml_folder_path", nuke.String_Knob, visable=False, defalutValue=nuke.script_directory())
 		self._frame_padding_knob = Utils.add_data_knob(self._nuke_node, "dml_frame_padding", nuke.Int_Knob, visable=False, defalutValue=3)
 		self._file_name_knob = Utils.add_data_knob(self._nuke_node, "dml_file_name", nuke.String_Knob, visable=False, defalutValue="Drew_Is_Awsome") 
-		self._enable_views_knob = Utils.add_data_knob(self._nuke_node, "dml_enable_views", nuke.Boolean_Knob, visable=False, defalutValue=False)
-		self._file_type_knob
-		self. ()
+		if "dml_enable_views" in self._nuke_node.knobs():
+			self._nuke_node.removeKnob(self._nuke_node.knob("dml_enable_views"))
+		
+		#self._enable_views_knob = Utils.add_data_knob(self._nuke_node, "dml_enable_views", nuke.Boolean_Knob, visable=False, defalutValue=False)
+		self._rebuild()
 
 	#----------------------------------------------------------------------
 	def _rebuild(self):
@@ -66,15 +68,12 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 
 		self.input_file_name.setText(self._file_name_knob.getText())
 
-		self.enableViewsCheckBox.setChecked(self._enable_views_knob.value())
-
 		self.input_file_name.textChanged.connect(self.on_input_file_name_textChanged)
 		self.input_folder_path.textChanged.connect(self.on_input_folder_path_textChanged)
 		self.input_frame_padding.valueChanged.connect(self.on_input_frame_padding_changed)
 		self.input_channels.currentIndexChanged.connect(self.on_input_channels_currentIndexChanged)
 		self.fileTypeComboBox.currentIndexChanged.connect(self.on_fileTypeComboBox_currentIndexChanged)
 		self.browse_Button.clicked.connect(self.on_Browse_Button_Clicked)
-		self.enableViewsCheckBox.clicked.connect(self.on_enable_views_valueChanged)
 		write_node_name = self._nuke_node.name+"_Client_Approval_Write"
 		self._nuke_write_node = None
 		if nuke.exists(write_node_name):
@@ -98,7 +97,6 @@ class Output_Path_Builder_Widget_UI(DML_PYQT.QWidget):
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_enable_views_valueChanged(self):
-		self._enable_views_knob.setValue(self.enableViewsCheckBox.isChecked())
 		self._update_Write_Node_File_Path()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()

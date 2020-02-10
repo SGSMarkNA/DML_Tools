@@ -169,15 +169,12 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		self.input_folder_path.setText(self._nuke_node._raw_folder_destination_knob.getText())
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 		self.input_file_name.setText(self._nuke_node._file_name_knob.getText())
-		self.enable_Views_CheckBox.setChecked(self._nuke_node._enable_views_knob.value())
-		#self.fileNameLabel.setHidden(self.enable_Views_CheckBox.isChecked())
-		#self.input_file_name.setHidden(self.enable_Views_CheckBox.isChecked())
 		DML_PYQT.QMetaObject.connectSlotsByName(self)
 		#self._update_Folder_Path()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot(bool)
 	def on_enable_Views_CheckBox_clicked(self,value):
-		self._nuke_node._enable_views_knob.setValue(value)
+		""""""
 		
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()

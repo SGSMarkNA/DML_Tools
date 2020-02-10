@@ -17,12 +17,10 @@ class Output_Path_Builder_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 		self._folder_path_knob.setVisible(False)
 		self._frame_padding_knob.setVisible(False)
 		self._file_name_knob.setVisible(False)
-		self._enable_views_knob.setVisible(False)
 		if False:
 			isinstance(self._folder_path_knob,nuke.String_Knob)
 			isinstance(self._frame_padding_knob,nuke.Int_Knob)
 			isinstance(self._file_name_knob ,nuke.String_Knob)
-			isinstance(self._enable_views_knob,nuke.Boolean_Knob)
 	
 
 ################################################################################

@@ -20,8 +20,7 @@ Gizmo {
  dml_frame_padding 3
  addUserKnob {1 dml_file_name t "No Touchy"}
  dml_file_name Drew_Is_Awsome
- addUserKnob {6 dml_enable_views t "No Touchy" -STARTLINE}
- addUserKnob {6 dml_needs_rebuild +STARTLINE}
+ addUserKnob {6 dml_needs_rebuild l +STARTLINE}
  dml_needs_rebuild true
 }
  Input {

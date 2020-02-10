@@ -14,39 +14,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QLabel" name="fileNameLabel">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>File Name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="framePaddingLabel">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Frame Padding</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QLineEdit" name="destination_file">
-     <property name="toolTip">
-      <string>The Rended Image File Name</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
@@ -74,6 +41,19 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="fileNameLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>File Name</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
@@ -95,20 +75,7 @@
      </item>
     </layout>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="folderLabel">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Destination</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="3">
+   <item row="7" column="0" colspan="3">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -120,6 +87,20 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="fileTypeLabel">
+     <property name="text">
+      <string>File Type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLineEdit" name="destination_file">
+     <property name="toolTip">
+      <string>The Rended Image File Name</string>
+     </property>
+    </widget>
    </item>
    <item row="5" column="2">
     <widget class="QComboBox" name="fileTypeComboBox">
@@ -140,13 +121,6 @@
      </item>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="channelsLabel">
-     <property name="text">
-      <string>Channel</string>
-     </property>
-    </widget>
-   </item>
    <item row="4" column="2">
     <widget class="QComboBox" name="input_channels">
      <property name="toolTip">
@@ -164,24 +138,40 @@
      </item>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="enableViewsLabel">
+   <item row="2" column="0">
+    <widget class="QLabel" name="framePaddingLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
-      <string>Enable Views</string>
+      <string>Frame Padding</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="fileTypeLabel">
+   <item row="4" column="0">
+    <widget class="QLabel" name="channelsLabel">
      <property name="text">
-      <string>File Type</string>
+      <string>Channel</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="2">
-    <widget class="QCheckBox" name="enableViewsCheckBox"/>
+   <item row="0" column="0">
+    <widget class="QLabel" name="folderLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Destination</string>
+     </property>
+    </widget>
    </item>
-   <item row="7" column="0" colspan="3">
+   <item row="6" column="0" colspan="3">
     <widget class="Nuke_Views_Selector_UI" name="widget" native="true">
      <property name="minimumSize">
       <size>

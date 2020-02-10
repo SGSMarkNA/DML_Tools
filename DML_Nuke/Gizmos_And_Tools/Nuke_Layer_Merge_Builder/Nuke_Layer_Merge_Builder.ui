@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>532</width>
-    <height>431</height>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,1">
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
@@ -141,16 +141,6 @@
         </property>
        </item>
       </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="enableViewsLabel">
-       <property name="text">
-        <string>Enable Views</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QCheckBox" name="enableViewsCheckBox"/>
      </item>
     </layout>
    </item>

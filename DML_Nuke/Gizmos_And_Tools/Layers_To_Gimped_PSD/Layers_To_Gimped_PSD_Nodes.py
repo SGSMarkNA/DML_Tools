@@ -214,6 +214,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		self._raw_folder_destination_knob = self.knob("dml_raw_folder_destination")
 		self._needs_rebuild = self.knob("dml_needs_rebuild")
 		self._raw_folder_destination_knob.setVisible(False)
+		self._needs_rebuild.setVisible(False)
 		self._psd_build_group = None#self._find_Psd_Build_Group()
 		self._create_PSD_Group()
 		

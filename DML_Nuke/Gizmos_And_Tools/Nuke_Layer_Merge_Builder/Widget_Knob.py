@@ -40,7 +40,6 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 			self.browse_Button          = DML_PYQT.QPushButton()
 			self.input_channels         = DML_PYQT.QComboBox()
 			self.fileTypeComboBox       = DML_PYQT.QComboBox()
-			self.enableViewsCheckBox    = DML_PYQT.QCheckBox()
 			self.Layers_Order_Widget    = DML_Nuke.Nuke_GUI.Generic_Widgets.Layer_Order.Layer_Order_UI()
 		
 		self.build_button.clicked.connect(self.build_Layer_Merge_Output)
@@ -64,10 +63,9 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		#else:
 			#self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 		
-		self.input_folder_path.setText(self._nuke_node._folder_path_knob.getText())	
+		self.input_folder_path.setText(self._nuke_node._folder_path_knob.getText())
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
 		self.input_file_name.setText(self._nuke_node._file_name_knob.getText())
-		self.enableViewsCheckBox.setChecked(self._nuke_node._enable_views_knob.value())
 		
 		self.input_file_name.textChanged.connect(self.on_input_file_name_textChanged)
 		self.input_folder_path.textChanged.connect(self.on_input_folder_path_textChanged)
@@ -75,7 +73,6 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		self.input_channels.currentIndexChanged.connect(self.on_input_channels_currentIndexChanged)
 		self.fileTypeComboBox.currentIndexChanged.connect(self.on_fileTypeComboBox_currentIndexChanged)
 		self.browse_Button.clicked.connect(self.on_Browse_Button_Clicked)
-		self.enableViewsCheckBox.clicked.connect(self.on_enable_views_valueChanged)
 		
 		if self._nuke_node.write_node != None:
 			self.input_channels.setCurrentIndex(["rgb","rgba"].index(self._nuke_node.write_node.knob("channels").value()))
@@ -87,7 +84,6 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_enable_views_valueChanged(self):
-		self._nuke_node._enable_views_knob.setValue(self.enableViewsCheckBox.isChecked())
 		self._nuke_node._update_Write_Node_File_Path()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
