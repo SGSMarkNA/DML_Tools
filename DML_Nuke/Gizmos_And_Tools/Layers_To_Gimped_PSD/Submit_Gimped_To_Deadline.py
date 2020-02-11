@@ -10,9 +10,32 @@ import Layers_To_Gimped_PSD_Utils
 import DML_Tools.DML_Deadline.Command_Access
 import DML_Tools.DML_Deadline.Deadline_Commands
 import DML_Tools.DML_Deadline.Job_Data_Model
-
+import re
 Ui_Loader = DML_PYQT.QT.QUiLoader()
 
+
+#----------------------------------------------------------------------
+def build_psd_file_Locations(psd_build_data):
+	""""""
+	psd_foldes = []
+	psd_experssion = []
+	for build in psd_build_data["builds"]:
+		psd_path = build['PSD_File_Path']
+		psd_file = psd_path.split("/")[-1]
+		psd_folder = psd_path.replace("/"+psd_file,"")
+		search = re.findall("_[0-9]+.psd",psd_file)
+		if len(search):
+			if not psd_folder in psd_foldes:
+				psd_foldes.append(psd_folder)
+				search_str = search[0]
+				numbers = search_str.replace(".psd","").replace("_","")
+				padding = "#" *  len(numbers)
+				file_experssion = psd_file.replace(numbers,padding)
+				psd_experssion.append([psd_folder.replace("/","\\"),file_experssion])
+		else:
+			psd_experssion.append([psd_folder.replace("/","\\"),psd_file])
+	
+	return psd_experssion
 
 ########################################################################
 class GimpPSD_Plugin_Info(DML_Tools.DML_Deadline.Job_Data_Model.Base_Plugin_Info):
@@ -223,6 +246,17 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		NukeVersionMajor = int(nuke.env.get( 'NukeVersionMajor', '6' ))
 		NukeVersionMinor = int(nuke.env.get( 'NukeVersionMinor', '0' ))
 		BatchName = self.Deadline_JobName.text()+" Nuke To PSD"
+		
+		frame_ranges = nuke.FrameRanges(self.Deadline_FrameList.text())
+		
+		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList())
+		
+		OutputFilenames  = []
+		OutputDirectorys = []
+		for location in build_psd_file_Locations(psd_build_data):
+			OutputFilenames.append(location[1])
+			OutputDirectorys.append(location[0])
+			
 		job_info = DML_Tools.DML_Deadline.Job_Data_Model.Job_Info_File(Plugin="Nuke",
 														Frames=self.Deadline_FrameList.text(), 
 														Name=self.Deadline_JobName.text(),
@@ -243,7 +277,9 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 														ConcurrentTasks=self.Deadline_ConcurrentTasks.value(),
 														LimitTasksToNumberOfCpus=self.Deadline_LimitConcurrentTasks.isChecked(),
 														JobDependencies=self.Deadline_Dependencies.text(),
-														IsBlacklist=self.Deadline_IsBlacklist.isChecked()
+														IsBlacklist=self.Deadline_IsBlacklist.isChecked(),
+														OutputFilenames=OutputFilenames,
+														OutputDirectorys=OutputDirectorys
 														)
 		job_info.EnvironmentKeyValue["NUKE_PATH"] = "//isln-smb.ad.sgsco.int/aw_config/Git_Live_Code/Software/Nuke"
 		
@@ -263,12 +299,10 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		
 		nuke_deadline_submiter = DML_Tools.DML_Deadline.Job_Data_Model.Job_Submitter(job_info, plugin_info)
 		nuke_deadline_submiter.Submit_the_job_to_Deadline()
-		
-		frame_ranges = nuke.FrameRanges(self.Deadline_FrameList.text())
-		
-		psd_build_data = Layers_To_Gimped_PSD_Utils.create_PSD_Build_Info_V2(frame_ranges.toFrameList())
+			
 		build_cont  = len(psd_build_data["builds"])
 		psd_build_data = json.dumps(psd_build_data)
+			
 		job_info = DML_Tools.DML_Deadline.Job_Data_Model.Job_Info_File(Plugin="GimpPSD",
 														Frames="0-{}".format(build_cont-1), 
 														Name=self.Deadline_JobName.text()+"_Gimped_PSD",

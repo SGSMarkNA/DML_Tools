@@ -20,7 +20,7 @@ def is_Single_Frame_Comp():
 #----------------------------------------------------------------------
 def find_All_DML_Layers_To_Gimped_PSD():
 	""""""
-	return DML_Nuke.dml.to_DML_Nodes(nuke.allNodes("DML_Layers_To_Gimped_PSD",nuke.root(),recurseGroups=True))
+	return DML_Nuke.dml.to_DML_Nodes(nuke.allNodes("DML_Layers_To_Gimped_PSD",nuke.root(),recurseGroups=False))
 #----------------------------------------------------------------------
 def find_All_DML_Gimped_PSD_Groups():
 	""""""

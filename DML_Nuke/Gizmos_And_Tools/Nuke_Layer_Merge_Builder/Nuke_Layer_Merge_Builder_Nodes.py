@@ -22,6 +22,13 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 		""""""
 		DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generic_Widgets_Nodes.Layer_Order_Output_Builder_Node.__init__(self,*args,**kwargs)
 		self._write_node = None
+		if not self.hasKnob("dml_backdrop_link"):
+			self._backdrop_link_knob = nuke.Link_Knob("dml_backdrop_link")
+			self.addKnob(self._backdrop_link_knob)
+			self._backdrop_link_knob.setVisible(False)
+		else:
+			self._backdrop_link_knob = self.nuke_object.knobs()["dml_backdrop_link"]
+			
 	#----------------------------------------------------------------------
 	@property
 	def write_node(self):
@@ -71,10 +78,18 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 				
 				master_xpos = start_node.x + 200
 				master_ypos = start_node.y
-				
+				old_back_drop_pos = []
 				# Check If The backdrop node exists if so then delete it along with all the nodes in it
-				if nuke.exists(backdrop_name):
-					bd=DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(backdrop_name)
+				if self._backdrop_link_knob.getLink() != None and nuke.exists(self._backdrop_link_knob.getLink()) or nuke.exists(backdrop_name):
+					if self._backdrop_link_knob.getLink() != None and nuke.exists(self._backdrop_link_knob.getLink()):
+						backdrop_name = self._backdrop_link_knob.getLink()
+						backdrop_name = backdrop_name.replace("."+backdrop_name.split(".")[-1],"")
+						bd=DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(backdrop_name)
+					elif nuke.exists(backdrop_name):
+						bd=DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(backdrop_name)
+					master_xpos = bd.x + 200
+					master_ypos = bd.y
+					old_back_drop_pos = [bd.x,bd.y]
 					if bd.nuke_object.Class()=="BackdropNode":
 						bd.delete(includeContents=True)
 				
@@ -127,12 +142,16 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 				text_node = DML_Nuke.dml.to_DML_Node(nuke.createNode("Text",'message "[value [value input.name].file]" xjustify left yjustify baseline size 20 box "0 0 0 0" translate "10 50" Transform 1',False))
 				text_node.y = text_node.y + 50
 				nodes_for_backdrop_createion.append(text_node)
-				DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(name=backdrop_name,
+				bd = DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(name=backdrop_name,
 																 label="Render Flattened Images\nfor Client Approval",
 																 note_font_size=25,
 																 note_font_color=255,
 																 note_font='Verdana Bold',
 																 post_kwargs=dict(nodes=nodes_for_backdrop_createion))
+				self._backdrop_link_knob.setLink(bd.knob("name").fullName)
+				
+				if len(old_back_drop_pos):
+					bd.Move(*old_back_drop_pos)
 				res = w
 				self._write_node = w
 				self._update_Write_Node_File_Path()

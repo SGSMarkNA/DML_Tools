@@ -1,0 +1,2048 @@
+#! C:/Program Files/Nuke10.5v7/nuke-10.5.7.dll -nx
+version 10.5 v7
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1160" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="642"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                    <page id="Viewer.2"/>
+                    <page id="Viewer.3"/>
+                </dock>
+                <split size="452"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                    <page id="DAG.2"/>
+                    <page id="DAG.3"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+    <window x="1920" y="0" w="1936" h="1199" screen="1">
+        <splitter orientation="2">
+            <split size="1160"/>
+            <dock id="" activePageId="uk.co.thefoundry.scripteditor.2">
+                <page id="uk.co.thefoundry.scripteditor.2"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name U:/dloveridge/Layers_To_PSD_Examples/Nuke_To_PSD_Workflow.nk
+ project_directory "\[python \{nuke.script_directory()\}]"
+ frame 6
+ last_frame 10
+ fps 1
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ OCIO_config custom
+ customOCIOConfigPath //isln-smb.ad.sgsco.int/library/OCIO_Configs/aw_Comp_aces_1.0.3/aw_Comp_config.ocio
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT "ACES - ACES2065-1"
+ monitorLut AW/sRGB_ICC(sRGB)
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut "ACES - ACES2065-1"
+ floatLut "ACES - ACES2065-1"
+ views {
+  {Other #ffffff Shot_1 71c46296-f5fa-473e-91ff-88545ad46daa}
+  {Red #ff0000 Shot_2 9e743fcc-f705-4069-90d1-b444788dd34a}
+  {Green #00ff00 Shot_3 93fb6966-8720-4ebf-b96c-4c5330d06bbf}
+  {Blue #00aaff Shot_4 59a7641c-e567-412f-afbf-891a28d6f0ca}
+ }
+ addUserKnob {20 AW_Nuke_Views}
+ addUserKnob {52 dml_nuke_views l "" -STARTLINE T "DML_Tools.DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.load_Widget_command(\"Nuke_Views_Widget_Knob\",\"DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Nuke_Views\")"}
+ addUserKnob {6 DML_nuke_views_system_use_image_name -STARTLINE +HIDDEN}
+ addUserKnob {20 Deadline}
+ addUserKnob {1 FrameListMode l frameListMode}
+ addUserKnob {1 CustomFrameList l customFrameList}
+ addUserKnob {1 Department l department}
+ addUserKnob {1 Pool l pool}
+ addUserKnob {1 SecondaryPool l secondaryPool}
+ addUserKnob {1 Group l group}
+ addUserKnob {1 Priority l priority}
+ addUserKnob {1 MachineLimit l machineLimit}
+ addUserKnob {1 IsBlacklist l isBlacklist}
+ addUserKnob {1 MachineList l machineList}
+ addUserKnob {1 LimitGroups l limitGroups}
+ addUserKnob {1 SubmitSuspended l submitSuspended}
+ addUserKnob {1 ChunkSize l chunkSize}
+ addUserKnob {1 ConcurrentTasks l concurrentTasks}
+ addUserKnob {1 LimitConcurrentTasks l limitConcurrentTasks}
+ addUserKnob {1 Threads l threads}
+ addUserKnob {1 SubmitScene l submitScene}
+ addUserKnob {1 BatchMode l batchMode}
+ addUserKnob {1 ContinueOnError l continueOnError}
+ addUserKnob {1 UseNodeRange l useNodeRange}
+ addUserKnob {1 UseGpu l useGpu}
+ addUserKnob {1 ChooseGpu l chooseGpu}
+ addUserKnob {1 EnforceRenderOrder l enforceRenderOrder}
+ addUserKnob {1 DeadlineRenderMode l deadlineRenderMode}
+ addUserKnob {1 PerformanceProfiler l performanceProfiler}
+ addUserKnob {1 ReloadPlugin l reloadPlugin}
+ addUserKnob {1 PerformanceProfilerPath l performanceProfilerPath}
+ addUserKnob {1 submit_gimped_to_deadline_settings +HIDDEN}
+ submit_gimped_to_deadline_settings "\{'ComboBoxs': \{u'Deadline_OnComplete': u'Nothing', u'Deadline_FrameListMode': u'Global', u'Deadline_Pool': u'aw', u'Deadline_RenderMode': u'Use Scene Settings', u'Deadline_Group': u'128gb', u'Deadline_SecondaryPool': u'thr3d'\}, 'SpinBoxs': \{u'Deadline_MemoryUsage': 0, u'Deadline_Priority': 80, u'Deadline_MachineLimit': 0, u'Deadline_StackSize': 0, u'Deadline_ChunkSize': 1, u'Deadline_TaskTimeout': 0, u'Deadline_Threads': 0, u'Deadline_ChooseGpu': 0, u'Deadline_ConcurrentTasks': 1\}, 'CheckBoxs': \{u'Deadline_BatchMode': True, u'Deadline_UseNukeX': False, u'Deadline_EnforceRenderOrder': False, u'Deadline_IsBlacklist': False, u'Deadline_SubmitSuspended': False, u'Deadline_LimitConcurrentTasks': False, u'Deadline_AutoTaskTimeout': False, u'Deadline_ContinueOnError': False, u'Deadline_ReloadPlugin': False, u'Deadline_UseGpu': False\}, 'LineEdits': \{u'Deadline_Dependencies': u'', u'Deadline_LimitGroups': u'nuke', u'Deadline_Comment': u'Folder Pathing Test', u'Deadline_FrameList': u'1-10', u'Deadline_MachineList': u'', u'Deadline_JobName': u'Views Single Frame To PSD Test', u'Deadline_Department': u''\}\}"
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0xffbf00ff
+ note_font_size 42
+ xpos 1383
+ ypos 1100
+ bdwidth 220
+ bdheight 264
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode2
+ tile_color 0xff0000ff
+ note_font_size 42
+ xpos 1786
+ ypos 1095
+ bdwidth 255
+ bdheight 279
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode3
+ tile_color 0x7fff00ff
+ note_font_size 42
+ xpos 2199
+ ypos 1099
+ bdwidth 239
+ bdheight 290
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode4
+ tile_color 0x3fffff
+ note_font_size 42
+ xpos 2593
+ ypos 1098
+ bdwidth 240
+ bdheight 297
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode5
+ tile_color 0xffbf00ff
+ note_font_size 42
+ xpos 1381
+ ypos 1545
+ bdwidth 220
+ bdheight 264
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode6
+ tile_color 0xff0000ff
+ note_font_size 42
+ xpos 1764
+ ypos 1540
+ bdwidth 255
+ bdheight 279
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode7
+ tile_color 0x7fff00ff
+ note_font_size 42
+ xpos 2187
+ ypos 1539
+ bdwidth 239
+ bdheight 290
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode8
+ tile_color 0x3fffff
+ note_font_size 42
+ xpos 2582
+ ypos 1530
+ bdwidth 240
+ bdheight 297
+}
+BackdropNode {
+ inputs 0
+ name Oval_Build_Merged_Client_Approval_BKDRP
+ label "Render Flattened Images\nfor Client Approval"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ note_font_size 25
+ note_font_color 0xff
+ xpos -398
+ ypos 3222
+ bdwidth 550
+ bdheight 606
+}
+BackdropNode {
+ inputs 0
+ name Oval_Views_Merger_Client_Approval_BKDRP
+ label "Render Flattened Images\nfor Client Approval"
+ note_font "Verdana Bold Bold"
+ note_font_size 25
+ note_font_color 0xff
+ xpos 3580
+ ypos 4536
+ bdwidth 550
+ bdheight 606
+}
+BackdropNode {
+ inputs 0
+ name Rect_Build_Merged_Client_Approval_BKDRP
+ label "Render Flattened Images\nfor Client Approval"
+ note_font "Verdana Bold Bold"
+ note_font_size 25
+ note_font_color 0xff
+ xpos -1800
+ ypos 3246
+ bdwidth 550
+ bdheight 606
+}
+BackdropNode {
+ inputs 0
+ name Rectangle_Views_Merger_Client_Approval_BKDRP
+ label "Render Flattened Images\nfor Client Approval"
+ note_font "Verdana Bold Bold"
+ note_font_size 25
+ note_font_color 0xff
+ xpos 4914
+ ypos 4451
+ bdwidth 550
+ bdheight 606
+}
+Rectangle {
+ inputs 0
+ area {50 50 1870 1030}
+ name Rectangle11
+ xpos -61
+ ypos -637
+}
+push 0
+Rectangle {
+ inputs 1+1
+ invert_mask true
+ area {0 0 1920 1080}
+ color {0.022 1 1 1}
+ color_panelDropped true
+ name Rectangle10
+ xpos -61
+ ypos -566
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ label "\n               Its A Good habit To Create A Master Layer Order                \n               As You Will See Later When You Make Order Changes Here                \n               You Can Update The Others With This Master Order                \n               Otherwise You Would Need To Make The Changes                \n               On Every Psd Or Layer Merge Node You Created                \n"
+ note_font Arial
+ note_font_size 40
+ xpos -268
+ ypos 285
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ label "\n               Keep Your Pipe Clean Of               \n               Any Channels That You Dont Want                \n               By Removing Them So They Don't               \n               Get Added PSD Layer Outputs               \n"
+ note_font Arial
+ note_font_size 40
+ xpos -80
+ ypos -24
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label "\n               Create Your Images And Copying Only               \n               The Channles That you Will Be Using               \n"
+ note_font Arial
+ note_font_size 40
+ xpos -118
+ ypos -1120
+}
+StickyNote {
+ inputs 0
+ name StickyNote5
+ label "\n               This Is Taking The Oval And Rect And Changing               \n               There Colors For The Different Views Or Builds               \n               That Are Going To Be Output. You Could Make               \n               A View For Every Possable Output               \n               But Instead We Are Going To Take Care Of That               \n               Later When We Make The PSD And Merge Nodes               \n               For The Different Builds               \n"
+ note_font Arial
+ note_font_size 40
+ xpos 1607
+ ypos 462
+}
+StickyNote {
+ inputs 0
+ name StickyNote4
+ label "\n               This Split Is More Than Likly Not Going To Be               \n               Part Of Your Work Flow. It Is Here To Show The               \n               2 Different Work Flows. With and Without Views               \n               "
+ note_font Arial
+ note_font_size 40
+ xpos -182
+ ypos 672
+}
+StickyNote {
+ inputs 0
+ name StickyNote12
+ label "\n               Extending The Pipe And Make 2 Branches For               \n               The Differnt Build One For The Oval And The Rect               \n               "
+ note_font Arial
+ note_font_size 40
+ xpos -1638
+ ypos 747
+}
+StickyNote {
+ inputs 0
+ name StickyNote15
+ label "\n               Refer To the views note its the same              \n"
+ note_font Arial
+ note_font_size 40
+ xpos -2382
+ ypos 3040
+}
+StickyNote {
+ inputs 0
+ name StickyNote16
+ label "\n               Refer To the views note its the same              \n"
+ note_font Arial
+ note_font_size 40
+ xpos -1633
+ ypos 2136
+}
+StickyNote {
+ inputs 0
+ name StickyNote13
+ label "\n               Refer To the views note its the same              \n"
+ note_font Arial
+ note_font_size 40
+ xpos -1627
+ ypos 1230
+}
+StickyNote {
+ inputs 0
+ name StickyNote14
+ label "\n               Refer To the views note its the same              \n               Other than you egnore the view tab              \n              "
+ note_font Arial
+ note_font_size 40
+ xpos -1655
+ ypos 1634
+}
+StickyNote {
+ inputs 0
+ name StickyNote11
+ label "\n               This Is The Same As The Oval But instead We are               \n               Removing The Oval Layer To Create The Rect Build               \n               "
+ note_font Arial
+ note_font_size 40
+ xpos 4834
+ ypos 2503
+}
+StickyNote {
+ inputs 0
+ name StickyNote9
+ label "\n               This Is The Guts Of The Psd Builder It Contains A Write Node               \n               For Every Layer That Will Need To Be Output               \n               And Added into the psd. You Can Edit The Group               \n               But Any Edits Will Be Deleted When Rebuit               \n               If You Disable This Node               \n               All The Write Nodes in it will be disalbed               \n               And It Will Be Ignored By The PSD Render               \n"
+ note_font Arial
+ note_font_size 40
+ xpos 3516
+ ypos 4080
+}
+StickyNote {
+ inputs 0
+ name StickyNote10
+ label "\n               This Is The Layer Merger Node              \n               If You Need To Make Notes Use Sticky Notes Outside of               \n               the backdrop because The backdrop and               \n               All The Nodes Inside it are deleted on a rebuild               \n                              \n               NOTES:               \n               You Can Move The Backdrop and when rebuilt                    \n               will be place in the location you gave it               \n"
+ note_font Arial
+ note_font_size 40
+ xpos 2505
+ ypos 4651
+}
+Rectangle {
+ inputs 0
+ area {300 400 1340 700}
+ softness 47.5
+ color {1 1 1 0.7}
+ name Rectangle5
+ xpos -25
+ ypos -121
+ hide_input true
+}
+Transform {
+ translate {-248 92}
+ rotate {{curve x1 0 x7 -216 x11 -360}}
+ center {888 510}
+ name Transform2
+ xpos -25
+ ypos -81
+}
+add_layer {Rectangle Rectangle.red Rectangle.green Rectangle.blue Rectangle.alpha}
+Shuffle {
+ out Rectangle
+ name Shuffle11
+ label "\[value out]"
+ xpos 101
+ ypos -111
+ postage_stamp true
+}
+Radial {
+ inputs 0
+ area {647 302 1781 842}
+ softness 0
+ color {1 1 1 1}
+ name Radial1
+ xpos -35
+ ypos -250
+ hide_input true
+}
+Transform {
+ translate {128 14}
+ rotate {{curve x1 0 x11 -360}}
+ center {888 510}
+ name Transform1
+ xpos -35
+ ypos -214
+}
+add_layer {Oval Oval.red Oval.green Oval.blue Oval.alpha}
+Shuffle {
+ out Oval
+ name Shuffle2
+ label "\[value out]"
+ xpos 100
+ ypos -244
+ postage_stamp true
+}
+Text2 {
+ inputs 0
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\[frame]"
+ old_message {{49 48}
+   }
+ old_expression_markers {{0 1}
+   }
+ box {409 667.5 463 768.5}
+ xjustify center
+ transforms {{0 2}
+   }
+ cursor_position 7
+ global_font_scale 4
+ scale {1 1}
+ cursor_initialised true
+ initial_cursor_position {{436 768.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+   }
+ color {1 0 0 1}
+ name Text1
+ xpos -36
+ ypos -336
+ hide_input true
+}
+add_layer {TEXT TEXT.red TEXT.green TEXT.blue TEXT.alpha}
+Shuffle {
+ out TEXT
+ name Shuffle3
+ label "\[value out]"
+ xpos 103
+ ypos -366
+ postage_stamp true
+}
+Roto {
+ inputs 0
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44700000 x44070000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup BezierCusped1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {{{0 -}}
+      {{0 -}}}
+        {{{x435e0004 -}}
+      {{x440b0000 -}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{x43d10000 -}}
+      {{x44768000 -}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{x44278001 -}}
+      {{x44148000 -}}}
+        {{{0 -}}
+      {{0 -}}}}}
+      {cc
+       {f 8192}
+       {px 1
+        {{{0 -}}
+      {{0 -}}}
+        {{{0 0 1 xc0ded487 1}}
+      {{0 0 1 xc08f40b9 1}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{0 0 1 x417a15ce 1}}
+      {{0 0 1 x413997e4 1}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{0 -}}
+      {{0 -}}}
+        {{{x445ba64b -}}
+      {{xc3d65223 -}}}
+        {{{0 -}}
+      {{0 -}}}}}}
+     {tx 1 x44145555 x44295555}
+     {a g x3f5555d5 b x3eaaaaab ft 1 osw x41200000 osf 0 str 1 spx x44700000 spy x44070000 sb 1 tt x40a00000 nv x40800000 view2 x40000000 view3 x40400000 view4 x40800000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 tt 5 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {960 540}
+ color {1 0.8333409429 0.3333333433 1}
+ colorOverlay {0 0 0 0}
+ lifetime_type "all frames"
+ motionblur_shutter_offset_type centred
+ feather_type smooth0
+ source_black_outside true
+ name Roto1
+ xpos -33
+ ypos -450
+ hide_input true
+}
+add_layer {Triangle Triangle.red Triangle.green Triangle.blue Triangle.alpha}
+Shuffle {
+ out Triangle
+ name Shuffle1
+ label "\[value out]"
+ xpos 101
+ ypos -480
+ postage_stamp true
+}
+add_layer {Background Background.red Background.green Background.blue Background.alpha}
+Constant {
+ inputs 0
+ channels {-Background.red -Background.green -Background.blue Background.alpha}
+ color {0.06666667759 0.1000015289 0.200000003 1}
+ name Constant1
+ xpos 232
+ ypos -1273
+}
+ModifyMetaData {
+ metadata {
+  {set version v02}
+  {set shot_name S_01}
+ }
+ name ModifyMetaData2
+ xpos 232
+ ypos -1157
+}
+add_layer {NotNeeded NotNeeded.red NotNeeded.green NotNeeded.blue NotNeeded.alpha}
+AddChannels {
+ channels NotNeeded
+ name AddChannels1
+ xpos 232
+ ypos -933
+}
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Triangle
+ bbox B
+ name Copy1
+ label "RGBA Is Bing\ncoped Into The\nTriangle Layer"
+ xpos 232
+ ypos -482
+}
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels TEXT
+ name Copy3
+ label "RGBA Is Bing\ncoped Into The\nText Layer"
+ xpos 232
+ ypos -368
+}
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Oval
+ bbox B
+ name Copy2
+ label "RGBA Is Bing\ncoped Into The\nOval Layer"
+ xpos 232
+ ypos -246
+}
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Rectangle
+ bbox B
+ name Copy8
+ label "RGBA Is Bing\ncoped Into The\nRectangle Layer"
+ xpos 232
+ ypos -118
+}
+Remove {
+ channels NotNeeded
+ name Remove1
+ xpos 229
+ ypos 243
+}
+DML_Master_Layer_Order {
+ name DML_Master_Layer_Order2
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos 229
+ ypos 601
+ DML_Layer_Order_layers "\[u'Oval', u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+}
+NoOp {
+ name NoOp9
+ xpos 229
+ ypos 947
+}
+set N44187000 [stack 0]
+NoOp {
+ name NoOp14
+ xpos -388
+ ypos 947
+}
+set N4eb74400 [stack 0]
+Remove {
+ channels Rectangle
+ name Remove4
+ xpos -388
+ ypos 1304
+}
+DML_Layers_To_Gimped_PSD {
+ name Oval_Build_Standered
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ xpos -388
+ ypos 1694
+ DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ DML_Nuke_View_Selection {Other}
+ dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Files_No_Views/\[metadata version]"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Files_No_Views/\[metadata version]/_PNGs/\[value name]"
+ dml_file_name "\[value name]"
+}
+Group {
+ name Layers_To_PSD2
+ tile_color 0xff00ff
+ xpos -388
+ ypos 2186
+ addUserKnob {20 User}
+ addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
+ DML_NODE_CLASS DML_Gimped_PSD_Group
+ addUserKnob {41 dml_folder_destination +HIDDEN T Oval_Build_Standered.dml_folder_destination}
+ addUserKnob {41 dml_file_name +HIDDEN T Oval_Build_Standered.dml_file_name}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Oval_Build_Standered.dml_frame_padding.Other}
+ addUserKnob {45 dml_output_views}
+ dml_output_views {{{Oval_Build_Standered.DML_Nuke_View_Selection}}}
+ addUserKnob {1 dml_last_layer_build_order +HIDDEN}
+ dml_last_layer_build_order "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ NoOp {
+  name PSD_LAYER_SHUFFLE_SECTION
+  xpos 0
+  ypos 250
+ }
+set N4eb96c00 [stack 0]
+ Output {
+  name Output1
+  xpos 0
+  ypos 500
+ }
+push $N4eb96c00
+ Shuffle {
+  in Background
+  name Shuffle1
+  label "\[value in ]"
+  xpos 200
+  ypos 250
+ }
+set N4eb96400 [stack 0]
+ Shuffle {
+  in Triangle
+  name Shuffle2
+  label "\[value in ]"
+  xpos 350
+  ypos 250
+ }
+set N4eb96000 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write2
+  xpos 350
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N4eb96000
+ Shuffle {
+  in TEXT
+  name Shuffle3
+  label "\[value in ]"
+  xpos 500
+  ypos 250
+ }
+set N4ebc1800 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write3
+  xpos 500
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N4ebc1800
+ Shuffle {
+  in Oval
+  name Shuffle4
+  label "\[value in ]"
+  xpos 650
+  ypos 250
+ }
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write4
+  xpos 650
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N4eb96400
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write1
+  xpos 200
+  ypos 350
+  disable {{parent.disable}}
+ }
+ Text {
+  message "\[value \[value input.name].file]"
+  font C:/Windows/Fonts/arial.ttf
+  size 20
+  Transform 1
+  translate {0 50}
+  center {960 540}
+  name Text1
+  xpos 200
+  ypos 402
+ }
+ Viewer {
+  frame_range 1-10
+  fps 1
+  name Viewer1
+  selected true
+  xpos 200
+  ypos 428
+ }
+end_group
+DML_Layer_Order_Builder {
+ name Oval_Build_Merged
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos -388
+ ypos 2981
+ DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_No_Views/Oval/\[metadata version]"
+ dml_file_name "\[value name]"
+ DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User}
+ addUserKnob {41 dml_backdrop_link +HIDDEN +INVISIBLE T Oval_Build_Merged_Client_Approval_BKDRP.name}
+}
+Shuffle {
+ in Background
+ name Shuffle25
+ label "\[value in ]"
+ xpos -388
+ ypos 3302
+}
+set N4ec2d400 [stack 0]
+Shuffle {
+ in Triangle
+ name Shuffle26
+ label "\[value in ]"
+ xpos -238
+ ypos 3302
+}
+set N4ec2d000 [stack 0]
+Shuffle {
+ in TEXT
+ name Shuffle27
+ label "\[value in ]"
+ xpos -88
+ ypos 3302
+}
+set N4ec2cc00 [stack 0]
+Shuffle {
+ in Oval
+ name Shuffle28
+ label "\[value in ]"
+ xpos 62
+ ypos 3302
+}
+push $N4ec2cc00
+push $N4ec2d000
+push $N4ec2d400
+PSDMerge {
+ inputs 2
+ name PSDMerge10
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -388
+ ypos 3402
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge11
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -388
+ ypos 3502
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge12
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -388
+ ypos 3602
+ maskChannelInput none
+}
+Write {
+ file "\[value Oval_Build_Merged.dml_folder_destination]/\[value Oval_Build_Merged.dml_file_name]_%0\[value Oval_Build_Merged.dml_frame_padding]d.png"
+ colorspace sRGB
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name Oval_Build_Merged_Client_Approval_Write
+ xpos -388
+ ypos 3702
+}
+Text {
+ message "\[value \[value input.name].file]"
+ font C:/Windows/Fonts/arial.ttf
+ size 20
+ Transform 1
+ translate {10 50}
+ center {960 540}
+ name Text5
+ xpos -388
+ ypos 3778
+}
+StickyNote {
+ inputs 0
+ name StickyNote7
+ label "\n               Extending The Pipe And Make 2 Branches For               \n               The Differnt Build One For The Oval And The Rect               \n               "
+ note_font Arial
+ note_font_size 40
+ xpos 3513
+ ypos 2018
+}
+StickyNote {
+ inputs 0
+ name StickyNote17
+ label "\n               For A Little Help All The UI's               \n               Have Tool Tips if you hold over them               \n               SO USE THE TOOL TIPS!!!!!              \n               if you are still confused check the docs     \n               or come ask Drew Loveridge     \n               drew.loveridge@sgsco.com                  \n"
+ note_font Arial
+ note_font_size 80
+ xpos -290
+ ypos 1114
+}
+StickyNote {
+ inputs 0
+ name StickyNote6
+ label "   To create the oval build all we have to do is   \n   remove the rect layer from the pipe. The   \n   PSD builder and the layer merge nodes will not see it.   \n   if you change the layer order. Eather here or in   \n   the master layer order. You will need to rebuild it.   \n   If you change the master layer order. You will need   \n   sync to master then rebuild. when you sync to master it will   \n   just ignore any layers the master has that it does not   \n"
+ note_font Arial
+ note_font_size 40
+ xpos 3586
+ ypos 2422
+}
+StickyNote {
+ inputs 0
+ name StickyNote8
+ label "\n   In This Node You Choose The Views To Render        \n   The Write Nodes Are Linked To This Node        \n   Just Like A Write Node File Name In The Destination input        \n   And Or File Name you can use tcl exp like        \n   \[value root.project_directory] or \[metadata version]        \n   And like a write node you need to have %V some where        \n   in the path For it To Recanize Them        \n   do not use %v that will break the system        \n   \n   If the layer order does not match the last build you did        \n   this node will error out and ask you to rebuild        \n   because nuke has no callback for this kind of channel check        \n   this error is only detectible when the properties pane is opened or edited        \n   or you are viewing a node in a pipe below this node        \n \n   Bug: if you rebuild and you still get an error        \n           just move a layer up and down     \n           then rebuild this can happen if        \n           you copy and past this node or        \n           the layers have never been edited        \n           there is no data in the hidden knob        \n           to scan against        \n"
+ note_font Arial
+ note_font_size 40
+ xpos 3516
+ ypos 2940
+}
+push $N4eb74400
+NoOp {
+ name NoOp15
+ xpos -1790
+ ypos 947
+}
+Remove {
+ channels Oval
+ name Remove5
+ xpos -1790
+ ypos 1297
+}
+DML_Layers_To_Gimped_PSD {
+ name Rectangle_Build_Standered
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos -1790
+ ypos 1697
+ DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ DML_Nuke_View_Selection {Other}
+ dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Files_No_Views/\[metadata version]"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Files_No_Views/\[metadata version]/_PNGs/\[value name]"
+ dml_file_name "\[value name]"
+}
+Group {
+ name Layers_To_PSD3
+ tile_color 0xff00ff
+ xpos -1790
+ ypos 2207
+ addUserKnob {20 User}
+ addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
+ DML_NODE_CLASS DML_Gimped_PSD_Group
+ addUserKnob {41 dml_folder_destination +HIDDEN T Rectangle_Build_Standered.dml_folder_destination}
+ addUserKnob {41 dml_file_name +HIDDEN T Rectangle_Build_Standered.dml_file_name}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Rectangle_Build_Standered.dml_frame_padding.Other}
+ addUserKnob {45 dml_output_views}
+ dml_output_views {{{Rectangle_Build_Standered.DML_Nuke_View_Selection}}}
+ addUserKnob {1 dml_last_layer_build_order +HIDDEN}
+ dml_last_layer_build_order "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ NoOp {
+  name PSD_LAYER_SHUFFLE_SECTION
+  xpos 0
+  ypos 250
+ }
+set N624bc800 [stack 0]
+ Output {
+  name Output1
+  xpos 0
+  ypos 500
+ }
+push $N624bc800
+ Shuffle {
+  in Background
+  name Shuffle1
+  label "\[value in ]"
+  xpos 200
+  ypos 250
+ }
+set N624bc000 [stack 0]
+ Shuffle {
+  in Triangle
+  name Shuffle2
+  label "\[value in ]"
+  xpos 350
+  ypos 250
+ }
+set N624edc00 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write2
+  xpos 350
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N624edc00
+ Shuffle {
+  in TEXT
+  name Shuffle3
+  label "\[value in ]"
+  xpos 500
+  ypos 250
+ }
+set N624ed400 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write3
+  xpos 500
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N624ed400
+ Shuffle {
+  in Rectangle
+  name Shuffle4
+  label "\[value in ]"
+  xpos 650
+  ypos 250
+ }
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write4
+  xpos 650
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N624bc000
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write1
+  xpos 200
+  ypos 350
+  disable {{parent.disable}}
+ }
+ Text {
+  message "\[value \[value input.name].file]"
+  font C:/Windows/Fonts/arial.ttf
+  size 20
+  Transform 1
+  translate {0 50}
+  center {960 540}
+  name Text1
+  xpos 200
+  ypos 402
+ }
+ Viewer {
+  frame_range 1-10
+  fps 1
+  name Viewer1
+  selected true
+  xpos 200
+  ypos 428
+ }
+end_group
+DML_Layer_Order_Builder {
+ name Rect_Build_Merged
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ xpos -1790
+ ypos 2980
+ DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_No_Views/Rectangle/\[metadata version]"
+ dml_file_name "\[value name]"
+ DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User}
+ addUserKnob {41 dml_backdrop_link +HIDDEN +INVISIBLE T Rect_Build_Merged_Client_Approval_BKDRP.name}
+}
+Shuffle {
+ in Background
+ name Shuffle17
+ label "\[value in ]"
+ xpos -1790
+ ypos 3326
+}
+set N9a730400 [stack 0]
+Shuffle {
+ in Triangle
+ name Shuffle18
+ label "\[value in ]"
+ xpos -1640
+ ypos 3326
+}
+set N9a730000 [stack 0]
+Shuffle {
+ in TEXT
+ name Shuffle19
+ label "\[value in ]"
+ xpos -1490
+ ypos 3326
+}
+set N9b924c00 [stack 0]
+Shuffle {
+ in Rectangle
+ name Shuffle20
+ label "\[value in ]"
+ xpos -1340
+ ypos 3326
+}
+push $N9b924c00
+push $N9a730000
+push $N9a730400
+PSDMerge {
+ inputs 2
+ name PSDMerge4
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -1790
+ ypos 3426
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge5
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -1790
+ ypos 3526
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge6
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -1790
+ ypos 3626
+ maskChannelInput none
+}
+Write {
+ file "\[value Rect_Build_Merged.dml_folder_destination]/\[value Rect_Build_Merged.dml_file_name]_%0\[value Rect_Build_Merged.dml_frame_padding]d.png"
+ colorspace sRGB
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name Rect_Build_Merged_Client_Approval_Write
+ xpos -1790
+ ypos 3726
+}
+Text {
+ message "\[value \[value input.name].file]"
+ font C:/Windows/Fonts/arial.ttf
+ size 20
+ Transform 1
+ translate {10 50}
+ center {960 540}
+ name Text3
+ xpos -1790
+ ypos 3802
+}
+push $N44187000
+NoOp {
+ name Other
+ xpos 1503
+ ypos 947
+}
+set N44186c00 [stack 0]
+NoOp {
+ name Red
+ xpos 1914
+ ypos 947
+}
+set N44186800 [stack 0]
+NoOp {
+ name Green
+ xpos 2318
+ ypos 947
+}
+set N44186400 [stack 0]
+NoOp {
+ name Blue
+ xpos 2712
+ ypos 947
+}
+NoOp {
+ name NoOp6
+ xpos 2712
+ ypos 1184
+}
+set N441afc00 [stack 0]
+Rectangle {
+ maskChannelInput Oval.alpha
+ area {0 0 1920 1080}
+ color {0 0 1 1}
+ color_panelDropped true
+ name Rectangle4
+ xpos 2603
+ ypos 1178
+}
+Shuffle {
+ out Oval
+ name Shuffle10
+ label "\[value out]"
+ xpos 2603
+ ypos 1252
+}
+push $N441afc00
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Oval
+ bbox B
+ name Copy7
+ xpos 2712
+ ypos 1245
+}
+NoOp {
+ name NoOp4
+ xpos 2712
+ ypos 1671
+}
+set N441aec00 [stack 0]
+Rectangle {
+ maskChannelInput Rectangle.alpha
+ area {0 0 1920 1080}
+ color {0 0 1 1}
+ color_panelDropped true
+ name Rectangle9
+ xpos 2603
+ ypos 1665
+}
+Shuffle {
+ out Rectangle
+ name Shuffle15
+ label "\[value out]"
+ xpos 2603
+ ypos 1737
+}
+push $N441aec00
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Rectangle
+ bbox B
+ name Copy12
+ xpos 2712
+ ypos 1730
+}
+OneView {
+ view Blue
+ name OneView4
+ label Blue
+ xpos 2712
+ ypos 1875
+}
+push $N44186400
+NoOp {
+ name NoOp5
+ xpos 2318
+ ypos 1185
+}
+set N49af9800 [stack 0]
+Rectangle {
+ maskChannelInput Oval.alpha
+ area {0 0 1920 1080}
+ color {0 1 0 1}
+ color_panelDropped true
+ name Rectangle3
+ xpos 2209
+ ypos 1179
+}
+Shuffle {
+ out Oval
+ name Shuffle9
+ label "\[value out]"
+ xpos 2209
+ ypos 1253
+}
+push $N49af9800
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Oval
+ bbox B
+ name Copy6
+ xpos 2318
+ ypos 1246
+}
+NoOp {
+ name NoOp3
+ xpos 2318
+ ypos 1665
+}
+set N49af8800 [stack 0]
+Rectangle {
+ maskChannelInput Rectangle.alpha
+ area {0 0 1920 1080}
+ color {0 1 0 1}
+ color_panelDropped true
+ name Rectangle8
+ xpos 2209
+ ypos 1659
+}
+Shuffle {
+ out Rectangle
+ name Shuffle14
+ label "\[value out]"
+ xpos 2209
+ ypos 1737
+}
+push $N49af8800
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Rectangle
+ bbox B
+ name Copy11
+ xpos 2318
+ ypos 1730
+}
+OneView {
+ view Green
+ name OneView3
+ label Green
+ xpos 2318
+ ypos 1883
+}
+push $N44186800
+NoOp {
+ name NoOp7
+ xpos 1914
+ ypos 1181
+}
+set N49b31400 [stack 0]
+Rectangle {
+ maskChannelInput Oval.alpha
+ area {0 0 1920 1080}
+ color {1 0 0 1}
+ color_panelDropped true
+ name Rectangle2
+ xpos 1796
+ ypos 1175
+}
+Shuffle {
+ out Oval
+ name Shuffle8
+ label "\[value out]"
+ xpos 1796
+ ypos 1249
+}
+push $N49b31400
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Oval
+ bbox B
+ name Copy5
+ xpos 1914
+ ypos 1242
+}
+NoOp {
+ name NoOp2
+ xpos 1914
+ ypos 1665
+}
+set N49b30400 [stack 0]
+Rectangle {
+ maskChannelInput Rectangle.alpha
+ area {0 0 1920 1080}
+ color {1 0 0 1}
+ color_panelDropped true
+ name Rectangle7
+ xpos 1796
+ ypos 1659
+}
+Shuffle {
+ out Rectangle
+ name Shuffle13
+ label "\[value out]"
+ xpos 1796
+ ypos 1737
+}
+push $N49b30400
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Rectangle
+ bbox B
+ name Copy10
+ xpos 1914
+ ypos 1730
+}
+OneView {
+ view Red
+ name OneView2
+ label Red
+ xpos 1914
+ ypos 1883
+}
+push $N44186c00
+NoOp {
+ name NoOp8
+ xpos 1503
+ ypos 1186
+}
+set N49b69000 [stack 0]
+Rectangle {
+ maskChannelInput Oval.alpha
+ area {0 0 1920 1080}
+ color {1 0.5 0 1}
+ color_panelDropped true
+ name Rectangle1
+ xpos 1393
+ ypos 1180
+}
+Shuffle {
+ out Oval
+ name Shuffle7
+ label "\[value out]"
+ xpos 1393
+ ypos 1245
+}
+push $N49b69000
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Oval
+ bbox B
+ name Copy4
+ xpos 1503
+ ypos 1238
+}
+NoOp {
+ name NoOp1
+ xpos 1503
+ ypos 1665
+}
+set N49b68000 [stack 0]
+Rectangle {
+ maskChannelInput Rectangle.alpha
+ area {0 0 1920 1080}
+ color {1 0.5 0 1}
+ color_panelDropped true
+ name Rectangle6
+ xpos 1393
+ ypos 1659
+}
+Shuffle {
+ out Rectangle
+ name Shuffle12
+ label "\[value out]"
+ xpos 1393
+ ypos 1737
+}
+push $N49b68000
+Copy {
+ inputs 2
+ from0 -rgba.alpha
+ to0 -rgba.alpha
+ channels Rectangle
+ bbox B
+ name Copy9
+ xpos 1503
+ ypos 1730
+}
+OneView {
+ name OneView1
+ label Other
+ xpos 1503
+ ypos 1883
+}
+JoinViews {
+ inputs 4
+ name JoinViews1
+ xpos 2122
+ ypos 1993
+ viewassoc "Other\nRed\nGreen\nBlue"
+}
+NoOp {
+ name NoOp11
+ xpos 2122
+ ypos 2255
+}
+NoOp {
+ name NoOp12
+ xpos 3390
+ ypos 2255
+}
+set N49ba0800 [stack 0]
+Remove {
+ channels Rectangle
+ name Remove2
+ xpos 3390
+ ypos 2617
+}
+DML_Layers_To_Gimped_PSD {
+ name Oval_Views_PSDS
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos 3390
+ ypos 3432
+ DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ DML_Nuke_View_Selection {Blue Green Other Red}
+ dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]/_PNGs/%V"
+ dml_file_name %V
+}
+Group {
+ name Layers_To_PSD
+ tile_color 0xff00ff
+ xpos 3390
+ ypos 4253
+ addUserKnob {20 User}
+ addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
+ DML_NODE_CLASS DML_Gimped_PSD_Group
+ addUserKnob {41 dml_folder_destination +HIDDEN T Oval_Views_PSDS.dml_folder_destination}
+ addUserKnob {41 dml_file_name +HIDDEN T Oval_Views_PSDS.dml_file_name}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Oval_Views_PSDS.dml_frame_padding.Other}
+ addUserKnob {45 dml_output_views}
+ dml_output_views {{{Oval_Views_PSDS.DML_Nuke_View_Selection}}}
+ addUserKnob {1 dml_last_layer_build_order +HIDDEN}
+ dml_last_layer_build_order "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ NoOp {
+  name PSD_LAYER_SHUFFLE_SECTION
+  xpos 0
+  ypos 250
+ }
+set N49be3000 [stack 0]
+ Output {
+  name Output1
+  xpos 0
+  ypos 500
+ }
+push $N49be3000
+ Shuffle {
+  in Background
+  name Shuffle1
+  label "\[value in ]"
+  xpos 200
+  ypos 250
+ }
+set N49be2800 [stack 0]
+ Shuffle {
+  in Triangle
+  name Shuffle2
+  label "\[value in ]"
+  xpos 350
+  ypos 250
+ }
+set N49be2000 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write2
+  xpos 350
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N49be2000
+ Shuffle {
+  in TEXT
+  name Shuffle3
+  label "\[value in ]"
+  xpos 500
+  ypos 250
+ }
+set N49c15800 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write3
+  xpos 500
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N49c15800
+ Shuffle {
+  in Oval
+  name Shuffle4
+  label "\[value in ]"
+  xpos 650
+  ypos 250
+ }
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write4
+  xpos 650
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N49be2800
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write1
+  xpos 200
+  ypos 350
+  disable {{parent.disable}}
+ }
+ Text {
+  message "\[value \[value input.name].file]"
+  font C:/Windows/Fonts/arial.ttf
+  size 20
+  Transform 1
+  translate {0 50}
+  center {960 540}
+  name Text1
+  xpos 200
+  ypos 402
+ }
+ Viewer {
+  frame_range 1-10
+  fps 1
+  name Viewer1
+  selected true
+  xpos 200
+  ypos 428
+ }
+end_group
+DML_Layer_Order_Builder {
+ name Oval_Views_Merger
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ xpos 3390
+ ypos 4616
+ DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_Views/\[value name]/\[metadata version]"
+ dml_frame_padding 2
+ dml_file_name %V
+ DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User}
+ addUserKnob {41 dml_backdrop_link +HIDDEN +INVISIBLE T Oval_Views_Merger_Client_Approval_BKDRP.name}
+}
+Shuffle {
+ in Background
+ name Shuffle4
+ label "\[value in ]"
+ xpos 3590
+ ypos 4616
+}
+set N9cd4e800 [stack 0]
+Shuffle {
+ in Triangle
+ name Shuffle5
+ label "\[value in ]"
+ xpos 3740
+ ypos 4616
+}
+set N9f2c1400 [stack 0]
+Shuffle {
+ in TEXT
+ name Shuffle6
+ label "\[value in ]"
+ xpos 3890
+ ypos 4616
+}
+set Nb8987800 [stack 0]
+Shuffle {
+ in Oval
+ name Shuffle16
+ label "\[value in ]"
+ xpos 4040
+ ypos 4616
+}
+push $Nb8987800
+push $N9f2c1400
+push $N9cd4e800
+PSDMerge {
+ inputs 2
+ name PSDMerge1
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 3590
+ ypos 4716
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge2
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 3590
+ ypos 4816
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge3
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 3590
+ ypos 4916
+ maskChannelInput none
+}
+Write {
+ file "\[value Oval_Views_Merger.dml_folder_destination]/\[value Oval_Views_Merger.dml_file_name]_%0\[value Oval_Views_Merger.dml_frame_padding]d.png"
+ colorspace sRGB
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name Oval_Views_Merger_Client_Approval_Write
+ xpos 3590
+ ypos 5016
+}
+Text {
+ message "\[value \[value input.name].file]"
+ font C:/Windows/Fonts/arial.ttf
+ size 20
+ Transform 1
+ translate {10 50}
+ center {960 540}
+ name Text2
+ xpos 3590
+ ypos 5092
+}
+push $N49ba0800
+NoOp {
+ name NoOp13
+ xpos 4724
+ ypos 2255
+}
+Remove {
+ channels Oval
+ name Remove3
+ xpos 4724
+ ypos 2610
+}
+DML_Layers_To_Gimped_PSD {
+ name Rectangle_Views_PSDS
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos 4724
+ ypos 3421
+ DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ DML_Nuke_View_Selection {Blue Green Other Red}
+ dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]/_PNGs/%V"
+ dml_file_name %V
+}
+Group {
+ name Layers_To_PSD1
+ tile_color 0xff00ff
+ xpos 4724
+ ypos 4225
+ addUserKnob {20 User}
+ addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
+ DML_NODE_CLASS DML_Gimped_PSD_Group
+ addUserKnob {41 dml_folder_destination +HIDDEN T Rectangle_Views_PSDS.dml_folder_destination}
+ addUserKnob {41 dml_file_name +HIDDEN T Rectangle_Views_PSDS.dml_file_name}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Rectangle_Views_PSDS.dml_frame_padding.Other}
+ addUserKnob {45 dml_output_views}
+ dml_output_views {{{Rectangle_Views_PSDS.DML_Nuke_View_Selection}}}
+ addUserKnob {1 dml_last_layer_build_order +HIDDEN}
+ dml_last_layer_build_order "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ NoOp {
+  name PSD_LAYER_SHUFFLE_SECTION
+  xpos 0
+  ypos 250
+ }
+set N6243d000 [stack 0]
+ Output {
+  name Output1
+  xpos 0
+  ypos 500
+ }
+push $N6243d000
+ Shuffle {
+  in Background
+  name Shuffle1
+  label "\[value in ]"
+  xpos 200
+  ypos 250
+ }
+set N6243c800 [stack 0]
+ Shuffle {
+  in Triangle
+  name Shuffle2
+  label "\[value in ]"
+  xpos 350
+  ypos 250
+ }
+set N6243c400 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write2
+  xpos 350
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N6243c400
+ Shuffle {
+  in TEXT
+  name Shuffle3
+  label "\[value in ]"
+  xpos 500
+  ypos 250
+ }
+set N62473c00 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write3
+  xpos 500
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N62473c00
+ Shuffle {
+  in Rectangle
+  name Shuffle4
+  label "\[value in ]"
+  xpos 650
+  ypos 250
+ }
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write4
+  xpos 650
+  ypos 350
+  disable {{parent.disable}}
+ }
+push $N6243c800
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 1
+  name Write1
+  xpos 200
+  ypos 350
+  disable {{parent.disable}}
+ }
+ Text {
+  message "\[value \[value input.name].file]"
+  font C:/Windows/Fonts/arial.ttf
+  size 20
+  Transform 1
+  translate {0 50}
+  center {960 540}
+  name Text1
+  xpos 200
+  ypos 388
+ }
+ Viewer {
+  frame_range 1-10
+  fps 1
+  name Viewer1
+  xpos 200
+  ypos 414
+ }
+end_group
+DML_Layer_Order_Builder {
+ name Rectangle_Views_Merger
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
+ xpos 4724
+ ypos 4531
+ DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_Views/\[value name]/\[metadata version]/%V"
+ dml_file_name %V
+ DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User}
+ addUserKnob {41 dml_backdrop_link +HIDDEN +INVISIBLE T Rectangle_Views_Merger_Client_Approval_BKDRP.name}
+}
+Shuffle {
+ in Background
+ name Shuffle21
+ label "\[value in ]"
+ xpos 4924
+ ypos 4531
+}
+set Nb9712000 [stack 0]
+Shuffle {
+ in Triangle
+ name Shuffle22
+ label "\[value in ]"
+ xpos 5074
+ ypos 4531
+}
+set Nb796bc00 [stack 0]
+Shuffle {
+ in TEXT
+ name Shuffle23
+ label "\[value in ]"
+ xpos 5224
+ ypos 4531
+}
+set Nc8e34800 [stack 0]
+Shuffle {
+ in Rectangle
+ name Shuffle24
+ label "\[value in ]"
+ xpos 5374
+ ypos 4531
+}
+push $Nc8e34800
+push $Nb796bc00
+push $Nb9712000
+PSDMerge {
+ inputs 2
+ name PSDMerge7
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 4924
+ ypos 4631
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge8
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 4924
+ ypos 4731
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge9
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 4924
+ ypos 4831
+ maskChannelInput none
+}
+Write {
+ file "\[value Rectangle_Views_Merger.dml_folder_destination]/\[value Rectangle_Views_Merger.dml_file_name]_%0\[value Rectangle_Views_Merger.dml_frame_padding]d.png"
+ colorspace sRGB
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name Rectangle_Views_Merger_Client_Approval_Write
+ xpos 4924
+ ypos 4931
+}
+Text {
+ message "\[value \[value input.name].file]"
+ font C:/Windows/Fonts/arial.ttf
+ size 20
+ Transform 1
+ translate {10 50}
+ center {960 540}
+ name Text4
+ xpos 4924
+ ypos 5007
+}
+Viewer {
+ frame_range 1-10
+ fps 1
+ viewerProcess "sRGB_ICC(Adobe98) (AW)"
+ name Viewer1
+ xpos -3869
+ ypos 1531
+ hide_input true
+}

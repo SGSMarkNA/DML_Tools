@@ -9,6 +9,24 @@ DML_Nuke = DML_Tools.DML_Nuke
 import Layers_To_Gimped_PSD_Nodes
 import Layers_To_Gimped_PSD_Utils
 import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection
+import threading
+
+
+########################################################################
+class Collect_Nodes_QTimer(DML_PYQT.QTimer):
+	""""""
+	def __init__(self,scaner,parent=None):
+		"""Constructor"""
+		super(Collect_Nodes_QTimer, self).__init__(parent)
+		self.scaner = scaner
+		self.timeout.connect(self.do_check)
+		self.start(50000)
+	
+	#----------------------------------------------------------------------
+	def do_check(self):
+		""""""		
+		self.scaner._nodes = Layers_To_Gimped_PSD_Utils.find_All_DML_Layers_To_Gimped_PSD()
+		print "did Collection"
 
 ########################################################################
 class Check_For_Errors_QTimer(DML_PYQT.QTimer):
@@ -16,17 +34,28 @@ class Check_For_Errors_QTimer(DML_PYQT.QTimer):
 	def __init__(self,parent=None):
 		"""Constructor"""
 		super(Check_For_Errors_QTimer, self).__init__(parent)
+		self._nodes = Layers_To_Gimped_PSD_Utils.find_All_DML_Layers_To_Gimped_PSD()
 		self.timeout.connect(self.do_check)
-		self.start(10000)
-		
+		self.start(5000)
+
 	#----------------------------------------------------------------------
 	def do_check(self):
 		""""""
-		for psd_node in Layers_To_Gimped_PSD_Utils.find_All_DML_Layers_To_Gimped_PSD():
+		threading.Thread( None, self.checker,None).start()
+	#----------------------------------------------------------------------
+	def _do_check(self):
+		""""""
+		nuke.executeInMain.executeInMainThread(self.checker)
+	#----------------------------------------------------------------------
+	def checker(self):
+		""""""
+		for psd_node in self._nodes:
 			psd_node.do_Error_Check()
-		#print "ran Layers_To_Gimped_PSD error check"
+		print "did check"
+		
 	
 #DML_Layers_To_Gimped_PSD_Error_Check_Timmer = Check_For_Errors_QTimer()
+#DML_Collect_Nodes_QTimer =  Collect_Nodes_QTimer(DML_Layers_To_Gimped_PSD_Error_Check_Timmer)
 
 #----------------------------------------------------------------------
 def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
@@ -130,7 +159,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 			self.group_folder_destination_knob = nuke.String_Knob()
 		
 		#self._create_PSD_Group()
-		self._rebuild()
+		#self._rebuild()
 		
 	#----------------------------------------------------------------------
 	@property
@@ -148,6 +177,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	#----------------------------------------------------------------------
 	def _rebuild(self):
 		""""""
+		self._create_PSD_Group()
 		self.Layers_Order_Widget._rebuild()
 		self.input_folder_path.setText(self._nuke_node._raw_folder_destination_knob.getText())
 		self.input_frame_padding.setValue(self._nuke_node._frame_padding_knob.value())
@@ -192,4 +222,10 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		""""""
 		self.channel_layers_list._update_Imbeded_Data_Layer_Order()
 		self._nuke_node.create_Layers_To_Render()
+		self._nuke_node.do_Error_Check()
+	#----------------------------------------------------------------------
+	def showEvent(self,event):
+		""""""
+		super(Nuke_To_Gimped_PSD_Builder_UI, self).showEvent(event)
+		self._rebuild()
 		self._nuke_node.do_Error_Check()

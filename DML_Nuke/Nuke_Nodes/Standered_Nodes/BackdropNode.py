@@ -340,6 +340,10 @@ class BackdropNode(Node):
 		y = self.ypos()+y
 		self.setXYpos(x,y)
 	#----------------------------------------------------------------------
+	@wrapper_Auto_Apply_Offset
+	def Move(self,x=0,y=0):
+		self.setXYpos(x,y)
+	#----------------------------------------------------------------------
 	@property
 	def L(self):
 		return self.xpos()

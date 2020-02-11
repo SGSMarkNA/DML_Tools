@@ -36,7 +36,7 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 		if False:
 			isinstance(self._imbeded_data_layer_Order_knob , nuke.String_Knob)
 			isinstance(self._imbeded_data_layer_Icons_knob , nuke.String_Knob)
-		self.rebuild_Items()
+		#self.rebuild_Items()
 	#----------------------------------------------------------------------
 	def Initialize_build_Layers(self):
 		""""""

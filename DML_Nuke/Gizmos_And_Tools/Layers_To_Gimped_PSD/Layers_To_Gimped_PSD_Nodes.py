@@ -119,7 +119,7 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 				new_layer_build_order.append(layer)
 				shuffle_node = DML_Nuke.Nuke_Nodes.Standered_Nodes.Shuffle(**{"in":layer, "out":"rgba", "xpos":master_xpos + (xSpaceing * index), "ypos":master_ypos,"label":"[value in ]"})
 				shuffle_nodes.append(shuffle_node)
-		
+				shuffle_node.in_layer_value
 				# check for a last created shuffle node
 				if last_created_shuffle == None:
 					# if not set the current shuffle nodes input to the input start node
@@ -149,6 +149,16 @@ class DML_Gimped_PSD_Group(DML_Nuke.Nuke_Nodes.Standered_Nodes.Group):
 		self._write_nodes   = write_nodes
 		self._last_layer_build_order_knob.setText(repr(new_layer_build_order))
 		return shuffle_nodes,write_nodes
+	@property
+	#----------------------------------------------------------------------
+	def shuffle_nodes(self):
+		""""""
+		return DML_Nuke.Nuke_Nodes.Node_List(sorted(nuke.allNodes("Shuffle",self.nuke_object))).reorder_By_X_Value(reverse=True)
+	@property
+	#----------------------------------------------------------------------
+	def layer_names(self):
+		""""""
+		return [node.knob("in").value() for node in self.shuffle_nodes]
 	#----------------------------------------------------------------------
 	@property
 	def last_layer_build_order(self):
@@ -180,12 +190,12 @@ def does_DML_Layers_To_Gimped_PSD_Need_Rebuild(psd_node):
 	if not isinstance(psd_node,DML_Layers_To_Gimped_PSD):
 		psd_node = DML_Layers_To_Gimped_PSD(nuke_node=psd_node)
 	layer_order      = psd_node.imbeded_data_layer_order
-	last_build_order = psd_node._psd_build_group.last_layer_build_order
-
-	if not layer_order == last_build_order and len(last_build_order):
+	#last_build_order = psd_node._psd_build_group.last_layer_build_order
+	current_build_order  = psd_node._psd_build_group.layer_names
+	if not layer_order == current_build_order and len(current_build_order):
 		return True
 
-	if len(psd_node.layers) != len(last_build_order):
+	if len(psd_node.layers) != len(current_build_order):
 		return True
 
 	return False
@@ -216,7 +226,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		self._raw_folder_destination_knob.setVisible(False)
 		self._needs_rebuild.setVisible(False)
 		self._psd_build_group = None#self._find_Psd_Build_Group()
-		self._create_PSD_Group()
+		#self._create_PSD_Group()
 		
 		if False:
 			isinstance(self._raw_folder_destination_knob, nuke.String_Knob)
@@ -227,7 +237,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 		has_error = does_DML_Layers_To_Gimped_PSD_Need_Rebuild(self)
 		if has_error:
 			self._needs_rebuild.setValue(False)
-			self.psd_build_group.knob("tile_color").setValue(4278190335L)
+			#self.psd_build_group.knob("tile_color").setValue(4278190335L)
 			#try:
 				#wig_knob = self.knob("dml_gimped_psd_builder")
 				#wig_object = wig_knob.getObject()
@@ -236,7 +246,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 				#pass
 		else:
 			self._needs_rebuild.setValue(True)
-			self.psd_build_group.knob("tile_color").setValue(16711935)
+			#self.psd_build_group.knob("tile_color").setValue(16711935)
 	#----------------------------------------------------------------------
 	def _update_Folder_Path(self):
 		_update_DML_Layers_To_Gimped_PSD_Folder_Path(self.nuke_object)
