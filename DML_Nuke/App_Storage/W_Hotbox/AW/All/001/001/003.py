@@ -6,4 +6,4 @@
 #
 #----------------------------------------------------------------------------------------------------------
 
-nuke.createNode("DML_Master_Layer_Order","name Master_Layer_Order")
+nuke.createNode("DML_Master_Layer_Order","name Master_Layer_Order",inpanel=False)

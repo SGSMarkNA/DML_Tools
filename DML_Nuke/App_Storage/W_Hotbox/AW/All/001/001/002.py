@@ -6,4 +6,4 @@
 #
 #----------------------------------------------------------------------------------------------------------
 
-nuke.createNode("DML_Layers_To_Gimped_PSD","name PSD_Builder")
+nuke.createNode("DML_Layers_To_Gimped_PSD","name PSD_Builder",inpanel=False)

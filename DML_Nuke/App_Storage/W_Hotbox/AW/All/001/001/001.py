@@ -6,4 +6,4 @@
 #
 #----------------------------------------------------------------------------------------------------------
 
-nuke.createNode("DML_Layer_Order_Builder","name Layer_Merger")
+nuke.createNode("DML_Layer_Order_Builder","name Layer_Merger",inpanel=False)

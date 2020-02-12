@@ -278,7 +278,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 			with this_parent:
 				self.selectOnly()
 				self.selected = False
-				grp = nuke.createNode("Group","tile_color 0xff00ff name Layers_To_PSD")
+				grp = nuke.createNode("Group","tile_color 0xff00ff name Layers_To_PSD",False)
 				self._psd_build_group = DML_Gimped_PSD_Group(nuke_node=grp)
 				self._psd_build_group.x = self.x
 				self._psd_build_group.y = self.y + 100
