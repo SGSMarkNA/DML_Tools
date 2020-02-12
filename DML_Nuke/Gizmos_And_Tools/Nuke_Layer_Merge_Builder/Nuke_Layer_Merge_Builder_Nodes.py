@@ -25,7 +25,8 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 		if not self.hasKnob("dml_backdrop_link"):
 			self._backdrop_link_knob = nuke.Link_Knob("dml_backdrop_link")
 			self.addKnob(self._backdrop_link_knob)
-			#self._backdrop_link_knob.setVisible(False)
+			user_knob = self.knob("User")
+			user_knob.setLabel("Linked_Backdrop")
 		else:
 			self._backdrop_link_knob = self.nuke_object.knobs()["dml_backdrop_link"]
 			
