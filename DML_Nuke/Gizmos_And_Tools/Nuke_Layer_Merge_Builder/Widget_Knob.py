@@ -42,6 +42,7 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 			self.group_folder_destination_knob = nuke.String_Knob()
 		
 		self.build_button.clicked.connect(self.build_Layer_Merge_Output)
+		self.active_view_checkBox.setChecked(self._nuke_node.knob("dml_active_view_checkBox").value())
 		self.imbeded_data_knob.setVisible(False)
 		self._nuke_node = Nuke_Layer_Merge_Builder_Nodes.DML_Layer_Order_Builder(nuke_node=self._nuke_node.nuke_object)
 		self._rebuild()
@@ -65,6 +66,7 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		self.input_channels.currentIndexChanged.connect(self.on_input_channels_currentIndexChanged)
 		self.fileTypeComboBox.currentIndexChanged.connect(self.on_fileTypeComboBox_currentIndexChanged)
 		self.browse_Button.clicked.connect(self.on_Browse_Button_Clicked)
+		self.active_view_checkBox.clicked.connect(self.on_active_view_checkBox_clicked)
 		
 		if self._nuke_node.write_node != None:
 			self.input_channels.setCurrentIndex(["rgb","rgba"].index(self._nuke_node.write_node.knob("channels").value()))
@@ -72,7 +74,10 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 				self.fileTypeComboBox.setCurrentIndex(["png","jpeg","tiff"].index(self._nuke_node.write_node.knob("file_type").value()))
 			except ValueError:
 				self.fileTypeComboBox.setCurrentIndex(0)
-	
+	#----------------------------------------------------------------------
+	@DML_PYQT.Slot()
+	def on_active_view_checkBox_clicked(self):
+		self._nuke_node.knob("dml_active_view_checkBox").setValue(self.active_view_checkBox.isChecked())
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_input_folder_path_textChanged(self):

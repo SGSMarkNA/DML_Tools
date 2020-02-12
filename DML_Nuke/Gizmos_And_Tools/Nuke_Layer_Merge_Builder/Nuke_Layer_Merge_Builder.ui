@@ -13,19 +13,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,1" columnstretch="0,0" rowminimumheight="0,0,0,0">
-   <item row="2" column="1">
-    <widget class="QCheckBox" name="active_view_checkBox">
-     <property name="toolTip">
-      <string>Will reset the active viewer to the write node if active</string>
-     </property>
-     <property name="text">
-      <string>Active View</string>
-     </property>
-    </widget>
-   </item>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0" columnstretch="0,0">
    <item row="0" column="0" rowspan="3">
     <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="folderLabel">
        <property name="text">
@@ -166,22 +159,6 @@ p, li { white-space: pre-wrap; }
      </item>
     </layout>
    </item>
-   <item row="0" column="1" rowspan="2">
-    <widget class="QPushButton" name="build_button">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip">
-      <string>Yep You Guessed It This Builds The Ouput</string>
-     </property>
-     <property name="text">
-      <string>Build</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
@@ -254,19 +231,45 @@ p, li { white-space: pre-wrap; }
      </item>
     </layout>
    </item>
+   <item row="2" column="1">
+    <widget class="QCheckBox" name="active_view_checkBox">
+     <property name="toolTip">
+      <string>Will reset the active viewer to the write node if active</string>
+     </property>
+     <property name="text">
+      <string>Active View</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" rowspan="2">
+    <widget class="QPushButton" name="build_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Yep You Guessed It This Builds The Ouput</string>
+     </property>
+     <property name="text">
+      <string>Build</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Layer_Order_UI</class>
-   <extends>QWidget</extends>
-   <header>layer_order_ui.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>Nuke_Views_Selector_UI</class>
    <extends>QWidget</extends>
    <header>nuke_views_selector_ui.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Layer_Order_UI</class>
+   <extends>QWidget</extends>
+   <header>layer_order_ui.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
