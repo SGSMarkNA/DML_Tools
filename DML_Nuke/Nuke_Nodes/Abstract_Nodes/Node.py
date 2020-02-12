@@ -376,7 +376,7 @@ class Node(DML_Node):
 			Note that this follows the links for Link_Knobs
 
 		"""
-		res = self.nuke_object.knob(val)
+		res = self.nuke_object.knobs().get(val,None)
 		isinstance(res,nuke.Knob)
 		return res
 	#----------------------------------------------------------------------
@@ -776,6 +776,10 @@ class Node(DML_Node):
 		""""""
 		return down_stream_nodes(self.nuke_object,matchclass=matchclass,nlist=None)
 
+	#----------------------------------------------------------------------
+	def __getitem__(self,item):
+		""""""
+		return self.knobs().get(item,None)
 	#----------------------------------------------------------------------
 	y  = property(fget=ypos, fset=setYpos)
 	x  = property(fget=xpos, fset=setXpos)
