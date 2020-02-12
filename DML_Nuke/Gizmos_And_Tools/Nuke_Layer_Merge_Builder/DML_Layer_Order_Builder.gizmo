@@ -9,6 +9,8 @@ Gizmo {
  addUserKnob {1 DML_Layer_Order_layers l "layer Order" +HIDDEN}
  addUserKnob {1 DML_Layer_Order_Layer_Icons l "layer Icons" +HIDDEN}
  addUserKnob {1 dml_folder_destination t "No Touchy" +HIDDEN}
+ addUserKnob {41 dml_backdrop_link +HIDDEN +INVISIBLE}
+ addUserKnob {45 DML_Nuke_View_Selection l Views}
  addUserKnob {3 dml_frame_padding t "No Touchy" +HIDDEN}
  dml_frame_padding 3
  addUserKnob {1 dml_file_name t "No Touchy" +HIDDEN}

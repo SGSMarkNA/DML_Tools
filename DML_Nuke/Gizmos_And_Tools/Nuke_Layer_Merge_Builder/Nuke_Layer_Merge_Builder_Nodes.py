@@ -25,7 +25,7 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 		if not self.hasKnob("dml_backdrop_link"):
 			self._backdrop_link_knob = nuke.Link_Knob("dml_backdrop_link")
 			self.addKnob(self._backdrop_link_knob)
-			self._backdrop_link_knob.setVisible(False)
+			#self._backdrop_link_knob.setVisible(False)
 		else:
 			self._backdrop_link_knob = self.nuke_object.knobs()["dml_backdrop_link"]
 			
@@ -99,13 +99,13 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 				
 				last_created_shuffle = None
 				last_created_merge   = None
-				
+				views_expression = "input."
 				# scan over each layer and create the nodes
 				for index,layer in enumerate(createion_layers):
 					# create the shuffle node
 					shuffle_node = DML_Nuke.Nuke_Nodes.Standered_Nodes.Shuffle(**{"in":layer, "out":"rgba", "xpos":master_xpos + (150 * index), "ypos":master_ypos,"label":"[value in ]"})
 					nodes_for_backdrop_createion.append(shuffle_node)
-					
+					views_expression += "input."
 					if index == 0 :
 						shuffle_node.setInput(0,start_node)
 					else:
@@ -118,14 +118,13 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 						else:
 							merge_node.setInput(1,shuffle_node)
 							merge_node.setInput(0,last_created_merge)
-							
 						last_created_merge = merge_node
 						nodes_for_backdrop_createion.append(merge_node)
 					
 					shuffle_nodes.append(shuffle_node)
 					last_created_shuffle = shuffle_node
-			
-		
+					
+				views_expression += "DML_Nuke_View_Selection"
 				w=DML_Nuke.Nuke_Nodes.Standered_Nodes.Write(xpos=master_xpos,
 															ypos=master_ypos + ( 100 * len(shuffle_nodes)),
 															name=start_node.name+"_Client_Approval_Write",
@@ -134,6 +133,8 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 															create_directories=True,
 															channels="rgb")
 				w.setInput(0,last_created_merge)
+				
+				w.knob("views").setExpression(views_expression)
 				nodes_for_backdrop_createion.append(w)
 				w.selectOnly()
 				if "ICC_knob" in w.knobs():

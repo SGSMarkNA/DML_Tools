@@ -28,18 +28,18 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	def __init__(self,node,parent=None):
 		DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.External_UI_Base_Widget_Knob.__init__(self,node,parent)
 		if False:
+			self._nuke_node = DML_Nuke.Nuke_Nodes.Nodes.Group()
 			self.channel_layers_list    = DML_Nuke.Nuke_GUI.Generic_Widgets.Layer_Order.DML_Nuke_Layer_Order_List_Widget()
-			self.move_layer_up_button   = DML_PYQT.QPushButton()
-			self.move_layer_down_button = DML_PYQT.QPushButton()
 			self.build_button           = DML_PYQT.QPushButton()
-			self.active_view_checkBox   = DML_PYQT.QCheckBox()
 			self.input_folder_path      = DML_PYQT.QLineEdit()
 			self.input_file_name        = DML_PYQT.QLineEdit()
 			self.input_frame_padding    = DML_PYQT.QSpinBox()
 			self.browse_Button          = DML_PYQT.QPushButton()
-			self.input_channels         = DML_PYQT.QComboBox()
-			self.fileTypeComboBox       = DML_PYQT.QComboBox()
+			self.enable_Views_CheckBox  = DML_PYQT.QCheckBox()
 			self.Layers_Order_Widget    = DML_Nuke.Nuke_GUI.Generic_Widgets.Layer_Order.Layer_Order_UI()
+			self.Nuke_Views_Selector    = DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection.Nuke_Views_Selector_UI()
+			self.tabWidget              = DML_PYQT.QTabWidget()
+			self.group_folder_destination_knob = nuke.String_Knob()
 		
 		self.build_button.clicked.connect(self.build_Layer_Merge_Output)
 		self.imbeded_data_knob.setVisible(False)
