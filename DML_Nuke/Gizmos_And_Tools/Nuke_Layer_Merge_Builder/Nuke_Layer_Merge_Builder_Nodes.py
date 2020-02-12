@@ -26,7 +26,7 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 			self._backdrop_link_knob = nuke.Link_Knob("dml_backdrop_link")
 			self.addKnob(self._backdrop_link_knob)
 			user_knob = self.knob("User")
-			user_knob.setLabel("Linked_Backdrop")
+			user_knob.setFlag(nuke.INVISIBLE)
 		else:
 			self._backdrop_link_knob = self.nuke_object.knobs()["dml_backdrop_link"]
 			
@@ -151,7 +151,6 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 																 note_font='Verdana Bold',
 																 post_kwargs=dict(nodes=nodes_for_backdrop_createion))
 				self._backdrop_link_knob.setLink(bd.knob("name").fullName)
-				
 				if len(old_back_drop_pos):
 					bd.Move(*old_back_drop_pos)
 				res = w
