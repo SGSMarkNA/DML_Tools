@@ -319,8 +319,8 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 														MachineLimit=self.Deadline_MachineLimit.value(),
 														Machinelist=self.Deadline_MachineList.text(),
 														OnJobComplete=self.Deadline_OnComplete.currentText(),
-														ConcurrentTasks=1,
-														LimitTasksToNumberOfCpus=True,
+														ConcurrentTasks=5,
+														LimitTasksToNumberOfCpus=False,
 														JobDependencies=nuke_deadline_submiter.jobId,
 														IsBlacklist=self.Deadline_IsBlacklist.isChecked()
 														)
