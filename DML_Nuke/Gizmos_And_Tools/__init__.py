@@ -1,6 +1,7 @@
 import nuke
 import os
 import Layers_To_Gimped_PSD
+import Utils
 
 if not os.path.join(os.path.dirname(__file__),"Master_Layer_Order").replace("\\","/") in nuke.pluginPath():
 	nuke.pluginAddPath(os.path.join(os.path.dirname(__file__),"Master_Layer_Order").replace("\\","/"), False)

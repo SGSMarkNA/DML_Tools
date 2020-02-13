@@ -6,32 +6,6 @@ import Nuke_Layer_Merge_Builder_Nodes
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
 
-#----------------------------------------------------------------------
-def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
-	""""""
-	options = DML_PYQT.QFileDialog.DontResolveSymlinks | DML_PYQT.QFileDialog.ShowDirsOnly
-	if UseNativeDialog:
-		options |= DML_PYQT.QFileDialog.DontUseNativeDialog
-	if folder == "":
-		folder = nuke.script_directory()
-		
-	folder = folder.replace("/", "\\")
-	if not os.path.exists(folder):
-		temp_path = folder
-		while not os.path.exists(temp_path):
-			new_path = os.path.dirname(temp_path)
-			if new_path == temp_path:
-				temp_path = nuke.script_directory()
-				break
-			else:
-				temp_path = new_path
-		folder = temp_path
-	folder_name = DML_PYQT.QFileDialog.getExistingDirectory(parent,label,folder, options)
-	if folder_name:
-		return folder_name.replace("\\","/")
-	else:
-		return False
-
 ########################################################################
 class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.External_UI_Base_Widget_Knob):
 	_class_knob_name = "dml_layer_merge_build"
@@ -128,10 +102,7 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 		""""""
 		folder = self._nuke_node._folder_path_knob.value()
 		folder = folder.replace("%V", nuke.thisView())
-		if self._nuke_node._folder_path_knob.value() == None:
-			folder = nuke.script_directory()
-		
-		res = get_Folder_Dialog(folder=folder)
+		res = DML_Tools.DML_Nuke.Gizmos_And_Tools.Utils.Get_Folder_Dialog(folder=folder)
 		if res:
 			self.input_folder_path.setText(res)
 			self._nuke_node._update_Write_Node_File_Path()

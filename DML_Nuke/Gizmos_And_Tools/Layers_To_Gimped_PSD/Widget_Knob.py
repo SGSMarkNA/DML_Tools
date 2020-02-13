@@ -58,31 +58,6 @@ class Check_For_Errors_QTimer(DML_PYQT.QTimer):
 #DML_Collect_Nodes_QTimer =  Collect_Nodes_QTimer(DML_Layers_To_Gimped_PSD_Error_Check_Timmer)
 
 #----------------------------------------------------------------------
-def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
-	""""""
-	options = DML_PYQT.QFileDialog.DontResolveSymlinks | DML_PYQT.QFileDialog.ShowDirsOnly
-	if UseNativeDialog:
-		options |= DML_PYQT.QFileDialog.DontUseNativeDialog
-	if folder == "":
-		folder = nuke.script_directory()
-		
-	folder = folder.replace("/", "\\")
-	if not os.path.exists(folder):
-		temp_path = folder
-		while not os.path.exists(temp_path):
-			new_path = os.path.dirname(temp_path)
-			if new_path == temp_path:
-				temp_path = nuke.script_directory()
-				break
-			else:
-				temp_path = new_path
-		folder = temp_path
-	folder_name = DML_PYQT.QFileDialog.getExistingDirectory(parent,label,folder, options)
-	if folder_name:
-		return folder_name.replace("\\","/")
-	else:
-		return False
-#----------------------------------------------------------------------
 def channel_Layers_To_Shuffles(start_node, layer_order=[], include_missing=True, xOffset=200, xSpaceing=150,createWrites=False, yOffset=100):
 	# convert the input node into a DML Nuke Node
 	start_node = DML_Nuke.dml.to_DML_Node(start_node)
@@ -234,9 +209,7 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 		""""""
 		folder = self._nuke_node._raw_folder_destination_knob.value()
 		folder = folder.replace("%V", nuke.thisView())
-		if folder == None or folder == "":
-			folder = nuke.script_directory()			
-		res = get_Folder_Dialog(folder=folder)
+		res    = DML_Tools.DML_Nuke.Gizmos_And_Tools.Utils.Get_Folder_Dialog(folder=folder)
 		if res:
 			self.input_folder_path.setText(res)
 	#----------------------------------------------------------------------
