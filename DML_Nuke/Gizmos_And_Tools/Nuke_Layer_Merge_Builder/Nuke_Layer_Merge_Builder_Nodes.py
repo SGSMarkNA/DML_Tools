@@ -100,13 +100,13 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 				
 				last_created_shuffle = None
 				last_created_merge   = None
-				views_expression = "input."
+				expression = "input."
 				# scan over each layer and create the nodes
 				for index,layer in enumerate(createion_layers):
 					# create the shuffle node
 					shuffle_node = DML_Nuke.Nuke_Nodes.Standered_Nodes.Shuffle(**{"in":layer, "out":"rgba", "xpos":master_xpos + (150 * index), "ypos":master_ypos,"label":"[value in ]"})
 					nodes_for_backdrop_createion.append(shuffle_node)
-					views_expression += "input."
+					expression += "input."
 					if index == 0 :
 						shuffle_node.setInput(0,start_node)
 					else:
@@ -125,7 +125,7 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 					shuffle_nodes.append(shuffle_node)
 					last_created_shuffle = shuffle_node
 					
-				views_expression += "DML_Nuke_View_Selection"
+				views_expression = expression+"DML_Nuke_View_Selection"
 				w=DML_Nuke.Nuke_Nodes.Standered_Nodes.Write(xpos=master_xpos,
 															ypos=master_ypos + ( 100 * len(shuffle_nodes)),
 															name=start_node.name+"_Client_Approval_Write",
@@ -141,7 +141,17 @@ class DML_Layer_Order_Builder(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Generi
 				if "ICC_knob" in w.knobs():
 					w.knob("ICC_knob").setValue('sRGB.icc')
 				
-				text_node = DML_Nuke.dml.to_DML_Node(nuke.createNode("Text",'message "[value [value input.name].file]" xjustify left yjustify baseline size 20 box "0 0 0 0" translate "10 50" Transform 1',False))
+				text_node = DML_Nuke.dml.to_DML_Node(nuke.createNode("Text",'message "[value [value input.name].file]" xjustify left yjustify baseline size 20 box "0 0 0 0" translate "10 50" Transform 1 color "1 1 1 1"',False))
+				color_knb = text_node.knob("color")
+				size_knb  = text_node.knob("size")
+				
+				size_knb.setExpression(expression+"input.dml_text_size")
+				
+				color_knb.setExpression(expression+"input.dml_text_color.r",channel=0)
+				color_knb.setExpression(expression+"input.dml_text_color.g",channel=1)
+				color_knb.setExpression(expression+"input.dml_text_color.b",channel=2)
+				color_knb.setExpression(expression+"input.dml_text_color.a",channel=3)
+				
 				text_node.y = text_node.y + 50
 				nodes_for_backdrop_createion.append(text_node)
 				bd = DML_Nuke.Nuke_Nodes.Standered_Nodes.BackdropNode(name=backdrop_name,

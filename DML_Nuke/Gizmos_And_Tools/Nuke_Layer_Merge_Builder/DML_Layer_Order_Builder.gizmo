@@ -10,6 +10,11 @@ Gizmo {
  addUserKnob {1 DML_Layer_Order_Layer_Icons l "layer Icons" +HIDDEN}
  addUserKnob {1 dml_folder_destination t "No Touchy" +HIDDEN}
  addUserKnob {45 DML_Nuke_View_Selection l Views}
+ addUserKnob {19 dml_text_color l "Text Color"}
+ dml_text_color {1 1 1 0}
+ dml_text_color_panelDropped false
+ addUserKnob {14 dml_text_size l "Text Size" R 0 100}
+ dml_text_size 21
  addUserKnob {3 dml_frame_padding t "No Touchy" +HIDDEN}
  addUserKnob {6 dml_active_view_checkBox t "Active Viewer" +HIDDEN}
  dml_frame_padding 3

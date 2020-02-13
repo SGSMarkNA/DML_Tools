@@ -378,7 +378,7 @@ class Node(DML_Node):
 			Note that this follows the links for Link_Knobs
 
 		"""
-		res = self.nuke_object.knobs().get(val,None)
+		res = self.nuke_object.knob(val)
 		isinstance(res,nuke.Knob)
 		return res
 	#----------------------------------------------------------------------

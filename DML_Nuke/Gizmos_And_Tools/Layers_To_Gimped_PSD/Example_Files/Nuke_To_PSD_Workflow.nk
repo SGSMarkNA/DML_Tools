@@ -27,7 +27,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
             </dock>
         </splitter>
     </window>
-    <window x="1920" y="0" w="1936" h="1199" screen="1">
+    <window x="1920" y="0" w="1936" h="1199" maximized="1" screen="1">
         <splitter orientation="2">
             <split size="1160"/>
             <dock id="" activePageId="uk.co.thefoundry.scripteditor.2">
@@ -39,9 +39,8 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name "U:/dloveridge/_For Drew/from_Bruce/Layers_To_PSD_Examples/Nuke_To_PSD_Workflow.nk"
- project_directory "\[python \{nuke.script_directory()\}]"
- frame 6
+ name C:/Users/drew.loveridge/Documents/AW_Repos/DML_Tools/DML_Nuke/Gizmos_And_Tools/Layers_To_Gimped_PSD/Example_Files/Nuke_To_PSD_Workflow.nk
+ project_directory "U:/dloveridge/_For Drew/from_Bruce/Layers_To_PSD_Examples"
  last_frame 10
  fps 1
  format "1920 1080 0 0 1920 1080 1 HD_1080"
@@ -95,7 +94,7 @@ Root {
  addUserKnob {1 ReloadPlugin l reloadPlugin}
  addUserKnob {1 PerformanceProfilerPath l performanceProfilerPath}
  addUserKnob {1 submit_gimped_to_deadline_settings +HIDDEN}
- submit_gimped_to_deadline_settings "\{'ComboBoxs': \{u'Deadline_OnComplete': u'Nothing', u'Deadline_FrameListMode': u'Global', u'Deadline_Pool': u'aw', u'Deadline_RenderMode': u'Use Scene Settings', u'Deadline_Group': u'128gb', u'Deadline_SecondaryPool': u'thr3d'\}, 'SpinBoxs': \{u'Deadline_MemoryUsage': 0, u'Deadline_Priority': 80, u'Deadline_MachineLimit': 0, u'Deadline_StackSize': 0, u'Deadline_ChunkSize': 1, u'Deadline_TaskTimeout': 0, u'Deadline_Threads': 0, u'Deadline_ChooseGpu': 0, u'Deadline_ConcurrentTasks': 1\}, 'CheckBoxs': \{u'Deadline_BatchMode': True, u'Deadline_UseNukeX': False, u'Deadline_EnforceRenderOrder': False, u'Deadline_IsBlacklist': False, u'Deadline_SubmitSuspended': False, u'Deadline_LimitConcurrentTasks': False, u'Deadline_AutoTaskTimeout': False, u'Deadline_ContinueOnError': False, u'Deadline_ReloadPlugin': False, u'Deadline_UseGpu': False\}, 'LineEdits': \{u'Deadline_Dependencies': u'', u'Deadline_LimitGroups': u'nuke', u'Deadline_Comment': u'Folder Pathing Test', u'Deadline_FrameList': u'1-10', u'Deadline_MachineList': u'', u'Deadline_JobName': u'Views Single Frame To PSD Test', u'Deadline_Department': u''\}\}"
+ submit_gimped_to_deadline_settings "\{'ComboBoxs': \{u'Deadline_OnComplete': u'Nothing', u'Deadline_FrameListMode': u'Global', u'Deadline_Pool': u'aw', u'Deadline_RenderMode': u'Use Scene Settings', u'Deadline_Group': u'128gb', u'Deadline_SecondaryPool': u'thr3d'\}, 'SpinBoxs': \{u'Deadline_MemoryUsage': 0, u'Deadline_Priority': 80, u'Deadline_MachineLimit': 0, u'Deadline_StackSize': 0, u'Deadline_ChunkSize': 1, u'Deadline_TaskTimeout': 0, u'Deadline_Threads': 0, u'Deadline_ChooseGpu': 0, u'Deadline_ConcurrentTasks': 1\}, 'CheckBoxs': \{u'Deadline_BatchMode': True, u'Deadline_UseNukeX': False, u'Deadline_EnforceRenderOrder': False, u'Deadline_IsBlacklist': False, u'Deadline_SubmitSuspended': False, u'Deadline_LimitConcurrentTasks': False, u'Deadline_AutoTaskTimeout': False, u'Deadline_ContinueOnError': False, u'Deadline_ReloadPlugin': False, u'Deadline_UseGpu': False\}, 'LineEdits': \{u'Deadline_Dependencies': u'', u'Deadline_LimitGroups': u'nuke', u'Deadline_Comment': u'Make Sure The Example Works', u'Deadline_FrameList': u'1-10', u'Deadline_MachineList': u'', u'Deadline_JobName': u'Nuke To Psd Example Comp Test', u'Deadline_Department': u''\}\}"
 }
 BackdropNode {
  inputs 0
@@ -179,13 +178,25 @@ BackdropNode {
 }
 BackdropNode {
  inputs 0
+ name Oval_Build_Merged_Client_Approval_BKDRP
+ label "Render Flattened Images\nfor Client Approval"
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_size 25
+ note_font_color 0xff
+ xpos -198
+ ypos 5013
+ bdwidth 550
+ bdheight 606
+}
+BackdropNode {
+ inputs 0
  name Oval_Views_Merger_Client_Approval_BKDRP
  label "Render Flattened Images\nfor Client Approval"
  note_font "Verdana Bold Bold Bold Bold Bold"
  note_font_size 25
  note_font_color 0xff
- xpos 3580
- ypos 5012
+ xpos 3583
+ ypos 5041
  bdwidth 550
  bdheight 606
 }
@@ -193,11 +204,11 @@ BackdropNode {
  inputs 0
  name Rect_Build_Merged_Client_Approval_BKDRP
  label "Render Flattened Images\nfor Client Approval"
- note_font "Verdana Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold"
  note_font_size 25
  note_font_color 0xff
  xpos -1600
- ypos 2896
+ ypos 5020
  bdwidth 550
  bdheight 606
 }
@@ -205,11 +216,11 @@ BackdropNode {
  inputs 0
  name Rectangle_Views_Merger_Client_Approval_BKDRP
  label "Render Flattened Images\nfor Client Approval"
- note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold"
  note_font_size 25
  note_font_color 0xff
- xpos 4914
- ypos 4986
+ xpos 4902
+ ypos 4994
  bdwidth 550
  bdheight 606
 }
@@ -217,8 +228,8 @@ Rectangle {
  inputs 0
  area {50 50 1870 1030}
  name Rectangle11
- xpos -61
- ypos -637
+ xpos -64
+ ypos -1267
 }
 push 0
 Rectangle {
@@ -228,66 +239,131 @@ Rectangle {
  color {0.022 1 1 1}
  color_panelDropped true
  name Rectangle10
- xpos -61
- ypos -566
+ xpos -64
+ ypos -1196
 }
 StickyNote {
  inputs 0
- name StickyNote3
- label "\n               Its A Good habit To Create A Master Layer Order                \n               As You Will See Later When You Make Order Changes Here                \n               You Can Update The Others With This Master Order                \n               Otherwise You Would Need To Make The Changes                \n               On Every Psd Or Layer Merge Node You Created                \n"
+ name StickyNote16
+ label "Refer To the views note its the same"
  note_font Arial
  note_font_size 40
- xpos -268
- ypos 285
+ xpos -1609
+ ypos 4927
 }
 StickyNote {
  inputs 0
- name StickyNote2
- label "\n               Keep Your Pipe Clean Of               \n               Any Channels That You Dont Want                \n               By Removing Them So They Don't               \n               Get Added PSD Layer Outputs               \n"
+ name StickyNote20
+ label "Refer To the views note its the same"
  note_font Arial
  note_font_size 40
- xpos -80
- ypos -24
+ xpos -2241
+ ypos 5342
 }
 StickyNote {
  inputs 0
  name StickyNote1
- label "\n               Create Your Images And Copying Only               \n               The Channles That you Will Be Using               \n"
+ tile_color 0xff
+ label "Create Your Images And Copying Only\nThe Channles That you Will Be Using"
  note_font Arial
  note_font_size 40
- xpos -118
- ypos -1120
+ xpos 368
+ ypos -968
 }
 StickyNote {
  inputs 0
- name StickyNote5
- label "\n               This Is Taking The Oval And Rect And Changing               \n               There Colors For The Different Views Or Builds               \n               That Are Going To Be Output. You Could Make               \n               A View For Every Possable Output               \n               But Instead We Are Going To Take Care Of That               \n               Later When We Make The PSD And Merge Nodes               \n               For The Different Builds               \n"
+ name StickyNote2
+ tile_color 0xff
+ label "Keep Your Pipe Clean Of\nAny Channels That You Dont Want\nBy Removing Them So They Don't\nGet Added PSD Layer Outputs"
  note_font Arial
  note_font_size 40
- xpos 1607
- ypos 462
+ xpos 380
+ ypos -422
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ tile_color 0xff
+ label "Its A Good habit To Create A Master Layer Order.\nAs You Will See Later When You Make Order Changes Here\nYou Can Update The Others With This Master Order.\nOtherwise You Would Need To Make The Changes\nOn Every Psd Or Layer Merge Node You Created"
+ note_font Arial
+ note_font_size 40
+ xpos -201
+ ypos 92
 }
 StickyNote {
  inputs 0
  name StickyNote4
- label "\n               This Split Is More Than Likly Not Going To Be               \n               Part Of Your Work Flow. It Is Here To Show The               \n               2 Different Work Flows. With and Without Views               \n               "
+ tile_color 0xff
+ label "This Split Is More Than Likly Not Going To Be\nPart Of Your Work Flow. It Is Here To Show The\n2 Different Work Flows. With and Without Views"
  note_font Arial
  note_font_size 40
- xpos -182
- ypos 672
+ xpos -106
+ ypos 1000
 }
 StickyNote {
  inputs 0
- name StickyNote13
- label "\n               Refer To the views note its the same              \n"
+ name StickyNote12
+ tile_color 0xff
+ label "Extending The Pipe And Make 2 Branches For\nThe Differnt Build One For The Oval And The Rect"
  note_font Arial
  note_font_size 40
- xpos -1627
- ypos 1230
+ xpos -1446
+ ypos 828
+}
+StickyNote {
+ inputs 0
+ name StickyNote14
+ tile_color 0xff
+ label "Refer To the views note for more info.\nby default when you create a psd builder\nNo views are enabled.\nso you need to enable the main.\nview this is needed\nfor the way in witch the system renders the output\nand builds the json data to rebuild the psd files "
+ note_font Arial
+ note_font_size 40
+ xpos -1655
+ ypos 3061
+}
+StickyNote {
+ inputs 0
+ name StickyNote6
+ tile_color 0xff
+ label "\nTo create the oval build.\nRemove the rect layer from the pipe.\nThe PSD builder and the layer merge nodes will not see it.\nIf you change the layer order. Eather here or in\nthe master layer order. You will need to rebuild it.\nIf you change the master layer order. You will need\nsync to master then rebuild. when you sync to master it will\njust ignore any layers the master has that it does not\n"
+ note_font Arial
+ note_font_size 40
+ xpos 2446
+ ypos 2382
+}
+StickyNote {
+ inputs 0
+ name StickyNote8
+ tile_color 0xff
+ label "\nIn this node you choose the views to render.\nThe write nodes are linked to this node.\n\nJust like a write node file name knob \nin the destination input and or file name \nyou can use tcl exp like\n\[value root.project_directory] or \[metadata version].\nYou need to have %V some where\nin the path for it to recanize them.\nDo not use %v that will break the system\n\nif the layer order does not match the shuffle nodes.\nThis node will error out and ask you to rebuild\nBecause nuke has no callback for this kind of channel check.\nThis error is only detectible when the properties pane is \nopened,edited or you are viewing a node in a pipe below it\n\nbug:\nif you rebuild and you still get an error.\nJust move a layer up and down then rebuild.\nThis can happen if you copy and past this node or\nthe layers have never been edited.\nhere is no data in the hidden knob\nto scan against\n"
+ note_font Arial
+ note_font_size 40
+ xpos 3532
+ ypos 2900
+}
+StickyNote {
+ inputs 0
+ name StickyNote10
+ tile_color 0xff
+ label "\nThis is the layer merger node.\nIf you need to make notes \nuse sticky notes outside of the backdrop\nbecause the backdrop and\nall the nodes inside it are deleted on a rebuild\n"
+ note_font Arial
+ note_font_size 40
+ xpos 2635
+ ypos 4931
+}
+StickyNote {
+ inputs 0
+ name StickyNote19
+ tile_color 0xff
+ label "\nDont Brake Node Chain\nBetween The Write Node\nAnd layer merger node Chain\nit will destroy the views link\n"
+ note_font Arial
+ note_font_size 40
+ xpos 3096
+ ypos 5499
 }
 StickyNote {
  inputs 0
  name StickyNote11
+ tile_color 0xff
  label "\n               This Is The Same As The Oval But instead We are               \n               Removing The Oval Layer To Create The Rect Build               \n               "
  note_font Arial
  note_font_size 40
@@ -297,7 +373,8 @@ StickyNote {
 StickyNote {
  inputs 0
  name StickyNote7
- label "\n               Extending The Pipe And Make 2 Branches For               \n               The Differnt Build One For The Oval And The Rect               \n               "
+ tile_color 0xff
+ label "\nExtending The Pipe And Make 2 Branches For\nThe Differnt Build One For The Oval And The Rect\n"
  note_font Arial
  note_font_size 40
  xpos 3513
@@ -305,21 +382,43 @@ StickyNote {
 }
 StickyNote {
  inputs 0
- name StickyNote6
- label "   To create the oval build all we have to do is   \n   remove the rect layer from the pipe. The   \n   PSD builder and the layer merge nodes will not see it.   \n   if you change the layer order. Eather here or in   \n   the master layer order. You will need to rebuild it.   \n   If you change the master layer order. You will need   \n   sync to master then rebuild. when you sync to master it will   \n   just ignore any layers the master has that it does not   \n"
+ name StickyNote5
+ tile_color 0xff
+ label "\nThis Is Taking The Oval And Rect And Changing\nThere Colors For The Different Views Or Builds\nThat Are Going To Be Output. You Could Make\nA View For Every Possable Output\nBut Instead We Are Going To Take Care Of That\nLater When We Make The PSD And Merge Nodes\nFor The Different Builds\n"
  note_font Arial
  note_font_size 40
- xpos 3586
- ypos 2422
+ xpos 1607
+ ypos 462
 }
 StickyNote {
  inputs 0
- name StickyNote8
- label "\n   In This Node You Choose The Views To Render        \n   The Write Nodes Are Linked To This Node        \n   Just Like A Write Node File Name In The Destination input        \n   And Or File Name you can use tcl exp like        \n   \[value root.project_directory] or \[metadata version]        \n   And like a write node you need to have %V some where        \n   in the path For it To Recanize Them        \n   do not use %v that will break the system        \n   \n   If the layer order does not match the last build you did        \n   this node will error out and ask you to rebuild        \n   because nuke has no callback for this kind of channel check        \n   this error is only detectible when the properties pane is opened or edited        \n   or you are viewing a node in a pipe below this node        \n \n   Bug: if you rebuild and you still get an error        \n           just move a layer up and down     \n           then rebuild this can happen if        \n           you copy and past this node or        \n           the layers have never been edited        \n           there is no data in the hidden knob        \n           to scan against        \n"
+ name StickyNote17
+ tile_color 0xff
+ label "For A Little Help All The UI'\nHave Tool Tips if you hold over them\nif you are still confused check the docs\nor come ask Drew Loveridge\ndrew.loveridge@sgsco.com\n"
+ note_font Arial
+ note_font_size 80
+ xpos -575
+ ypos -2464
+}
+StickyNote {
+ inputs 0
+ name StickyNote13
+ tile_color 0xff
+ label "Refer To the views note its the same"
  note_font Arial
  note_font_size 40
- xpos 3516
- ypos 2940
+ xpos -1634
+ ypos 2679
+}
+StickyNote {
+ inputs 0
+ name StickyNote9
+ tile_color 0xff
+ label "\nThis is the guts of the psd builder.\nIt contains a write node for every layer\nthat will need to be output and added into the psd.\nYou can edit the group but any edits \nwill be deleted when rebuit.\nIf you disable this node.\nAll the write nodes in it will be disalbed\nand it will be ignored by the psd render\n"
+ note_font Arial
+ note_font_size 40
+ xpos 2546
+ ypos 4111
 }
 Rectangle {
  inputs 0
@@ -327,8 +426,8 @@ Rectangle {
  softness 47.5
  color {1 1 1 0.7}
  name Rectangle5
- xpos -25
- ypos -121
+ xpos -28
+ ypos -751
  hide_input true
 }
 Transform {
@@ -336,16 +435,16 @@ Transform {
  rotate {{curve x1 0 x7 -216 x11 -360}}
  center {888 510}
  name Transform2
- xpos -25
- ypos -81
+ xpos -28
+ ypos -711
 }
 add_layer {Rectangle Rectangle.red Rectangle.green Rectangle.blue Rectangle.alpha}
 Shuffle {
  out Rectangle
  name Shuffle11
  label "\[value out]"
- xpos 101
- ypos -111
+ xpos 98
+ ypos -741
  postage_stamp true
 }
 Radial {
@@ -354,8 +453,8 @@ Radial {
  softness 0
  color {1 1 1 1}
  name Radial1
- xpos -35
- ypos -250
+ xpos -38
+ ypos -880
  hide_input true
 }
 Transform {
@@ -363,16 +462,16 @@ Transform {
  rotate {{curve x1 0 x11 -360}}
  center {888 510}
  name Transform1
- xpos -35
- ypos -214
+ xpos -38
+ ypos -844
 }
 add_layer {Oval Oval.red Oval.green Oval.blue Oval.alpha}
 Shuffle {
  out Oval
  name Shuffle2
  label "\[value out]"
- xpos 100
- ypos -244
+ xpos 97
+ ypos -874
  postage_stamp true
 }
 Text2 {
@@ -381,7 +480,7 @@ Text2 {
  font_width_toolbar 100
  font_height_toolbar 100
  message "\[frame]"
- old_message {{54}
+ old_message {{49}
    }
  old_expression_markers {{0 0}
    }
@@ -400,8 +499,8 @@ Text2 {
    }
  color {1 0 0 1}
  name Text1
- xpos -36
- ypos -336
+ xpos -39
+ ypos -966
  hide_input true
 }
 add_layer {TEXT TEXT.red TEXT.green TEXT.blue TEXT.alpha}
@@ -409,8 +508,8 @@ Shuffle {
  out TEXT
  name Shuffle3
  label "\[value out]"
- xpos 103
- ypos -366
+ xpos 100
+ ypos -996
  postage_stamp true
 }
 Roto {
@@ -495,8 +594,8 @@ Roto {
  feather_type smooth0
  source_black_outside true
  name Roto1
- xpos -33
- ypos -450
+ xpos -36
+ ypos -1080
  hide_input true
 }
 add_layer {Triangle Triangle.red Triangle.green Triangle.blue Triangle.alpha}
@@ -504,8 +603,8 @@ Shuffle {
  out Triangle
  name Shuffle1
  label "\[value out]"
- xpos 101
- ypos -480
+ xpos 98
+ ypos -1110
  postage_stamp true
 }
 add_layer {Background Background.red Background.green Background.blue Background.alpha}
@@ -514,8 +613,8 @@ Constant {
  channels {-Background.red -Background.green -Background.blue Background.alpha}
  color {0.06666667759 0.1000015289 0.200000003 1}
  name Constant1
- xpos 232
- ypos -1273
+ xpos 229
+ ypos -1903
 }
 ModifyMetaData {
  metadata {
@@ -523,15 +622,15 @@ ModifyMetaData {
   {set shot_name S_01}
  }
  name ModifyMetaData2
- xpos 232
- ypos -1157
+ xpos 229
+ ypos -1787
 }
 add_layer {NotNeeded NotNeeded.red NotNeeded.green NotNeeded.blue NotNeeded.alpha}
 AddChannels {
  channels NotNeeded
  name AddChannels1
- xpos 232
- ypos -933
+ xpos 229
+ ypos -1563
 }
 Copy {
  inputs 2
@@ -541,8 +640,8 @@ Copy {
  bbox B
  name Copy1
  label "RGBA Is Bing\ncoped Into The\nTriangle Layer"
- xpos 232
- ypos -482
+ xpos 229
+ ypos -1112
 }
 Copy {
  inputs 2
@@ -551,8 +650,8 @@ Copy {
  channels TEXT
  name Copy3
  label "RGBA Is Bing\ncoped Into The\nText Layer"
- xpos 232
- ypos -368
+ xpos 229
+ ypos -998
 }
 Copy {
  inputs 2
@@ -562,8 +661,8 @@ Copy {
  bbox B
  name Copy2
  label "RGBA Is Bing\ncoped Into The\nOval Layer"
- xpos 232
- ypos -246
+ xpos 229
+ ypos -876
 }
 Copy {
  inputs 2
@@ -573,20 +672,20 @@ Copy {
  bbox B
  name Copy8
  label "RGBA Is Bing\ncoped Into The\nRectangle Layer"
- xpos 232
- ypos -118
+ xpos 229
+ ypos -748
 }
 Remove {
  channels NotNeeded
  name Remove1
  xpos 229
- ypos 243
+ ypos -331
 }
 DML_Master_Layer_Order {
  name DML_Master_Layer_Order2
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  xpos 229
- ypos 601
+ ypos 329
  DML_Layer_Order_layers "\[u'Oval', u'Rectangle', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
 }
@@ -595,25 +694,25 @@ NoOp {
  xpos 229
  ypos 947
 }
-set N43f94800 [stack 0]
+set N61a58c00 [stack 0]
 NoOp {
  name Other
  xpos 1503
  ypos 947
 }
-set N63636000 [stack 0]
+set N61a58800 [stack 0]
 NoOp {
  name Red
  xpos 1914
  ypos 947
 }
-set N63691c00 [stack 0]
+set N61a58400 [stack 0]
 NoOp {
  name Green
  xpos 2318
  ypos 947
 }
-set N63691800 [stack 0]
+set N61a58000 [stack 0]
 NoOp {
  name Blue
  xpos 2712
@@ -624,7 +723,7 @@ NoOp {
  xpos 2712
  ypos 1184
 }
-set N63691000 [stack 0]
+set N5cf5fc00 [stack 0]
 Rectangle {
  maskChannelInput Oval.alpha
  area {0 0 1920 1080}
@@ -641,7 +740,7 @@ Shuffle {
  xpos 2603
  ypos 1252
 }
-push $N63691000
+push $N5cf5fc00
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -657,7 +756,7 @@ NoOp {
  xpos 2712
  ypos 1671
 }
-set N63690000 [stack 0]
+set N5cf5ec00 [stack 0]
 Rectangle {
  maskChannelInput Rectangle.alpha
  area {0 0 1920 1080}
@@ -674,7 +773,7 @@ Shuffle {
  xpos 2603
  ypos 1737
 }
-push $N63690000
+push $N5cf5ec00
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -692,13 +791,13 @@ OneView {
  xpos 2712
  ypos 1875
 }
-push $N63691800
+push $N61a58000
 NoOp {
  name NoOp5
  xpos 2318
  ypos 1185
 }
-set N636bac00 [stack 0]
+set N4ead4000 [stack 0]
 Rectangle {
  maskChannelInput Oval.alpha
  area {0 0 1920 1080}
@@ -715,7 +814,7 @@ Shuffle {
  xpos 2209
  ypos 1253
 }
-push $N636bac00
+push $N4ead4000
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -731,7 +830,7 @@ NoOp {
  xpos 2318
  ypos 1665
 }
-set N636fbc00 [stack 0]
+set N4ec88800 [stack 0]
 Rectangle {
  maskChannelInput Rectangle.alpha
  area {0 0 1920 1080}
@@ -748,7 +847,7 @@ Shuffle {
  xpos 2209
  ypos 1737
 }
-push $N636fbc00
+push $N4ec88800
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -766,13 +865,13 @@ OneView {
  xpos 2318
  ypos 1883
 }
-push $N63691c00
+push $N61a58400
 NoOp {
  name NoOp7
  xpos 1914
  ypos 1181
 }
-set N636fa800 [stack 0]
+set N646d9400 [stack 0]
 Rectangle {
  maskChannelInput Oval.alpha
  area {0 0 1920 1080}
@@ -789,7 +888,7 @@ Shuffle {
  xpos 1796
  ypos 1249
 }
-push $N636fa800
+push $N646d9400
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -805,7 +904,7 @@ NoOp {
  xpos 1914
  ypos 1665
 }
-set N6372f800 [stack 0]
+set N6479f000 [stack 0]
 Rectangle {
  maskChannelInput Rectangle.alpha
  area {0 0 1920 1080}
@@ -822,7 +921,7 @@ Shuffle {
  xpos 1796
  ypos 1737
 }
-push $N6372f800
+push $N6479f000
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -840,13 +939,13 @@ OneView {
  xpos 1914
  ypos 1883
 }
-push $N63636000
+push $N61a58800
 NoOp {
  name NoOp8
  xpos 1503
  ypos 1186
 }
-set N6372e400 [stack 0]
+set N64ab1000 [stack 0]
 Rectangle {
  maskChannelInput Oval.alpha
  area {0 0 1920 1080}
@@ -863,7 +962,7 @@ Shuffle {
  xpos 1393
  ypos 1245
 }
-push $N6372e400
+push $N64ab1000
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -879,7 +978,7 @@ NoOp {
  xpos 1503
  ypos 1665
 }
-set N6376f400 [stack 0]
+set N64ab0000 [stack 0]
 Rectangle {
  maskChannelInput Rectangle.alpha
  area {0 0 1920 1080}
@@ -896,7 +995,7 @@ Shuffle {
  xpos 1393
  ypos 1737
 }
-push $N6376f400
+push $N64ab0000
 Copy {
  inputs 2
  from0 -rgba.alpha
@@ -930,21 +1029,21 @@ NoOp {
  xpos 3390
  ypos 2255
 }
-set N637a5c00 [stack 0]
+set N64ddcc00 [stack 0]
 Remove {
  channels Rectangle
  name Remove2
  xpos 3390
- ypos 2617
+ ypos 2679
 }
 DML_Layers_To_Gimped_PSD {
  name Oval_Views_PSDS
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  xpos 3390
- ypos 3435
+ ypos 3275
  DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
- DML_Nuke_View_Selection {Green Red}
+ DML_Nuke_View_Selection {Blue Green Other Red}
  dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]"
  dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]/_PNGs/%V"
  dml_file_name %V
@@ -952,9 +1051,8 @@ DML_Layers_To_Gimped_PSD {
 Group {
  name Layers_To_PSD
  tile_color 0xff00ff
- xpos 3390
- ypos 4253
- disable true
+ xpos 3378
+ ypos 4317
  addUserKnob {20 User}
  addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
  DML_NODE_CLASS DML_Gimped_PSD_Group
@@ -977,13 +1075,13 @@ Group {
   xpos 0
   ypos 250
  }
-set N637a4400 [stack 0]
+set N64fcc800 [stack 0]
  Output {
   name Output1
   xpos 0
   ypos 500
  }
-push $N637a4400
+push $N64fcc800
  Shuffle {
   in Background
   name Shuffle1
@@ -991,7 +1089,7 @@ push $N637a4400
   xpos 200
   ypos 250
  }
-set N5797800 [stack 0]
+set N64fcc000 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -999,12 +1097,24 @@ set N5797800 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
+  version 2
   name Write1
   xpos 200
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N5797800
+push $N64fcc000
  Shuffle {
   in Triangle
   name Shuffle2
@@ -1012,7 +1122,7 @@ push $N5797800
   xpos 350
   ypos 250
  }
-set N5797000 [stack 0]
+set N65094c00 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1020,12 +1130,24 @@ set N5797000 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
+  version 2
   name Write2
   xpos 350
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N5797000
+push $N65094c00
  Shuffle {
   in TEXT
   name Shuffle3
@@ -1033,7 +1155,7 @@ push $N5797000
   xpos 500
   ypos 250
  }
-set N5796800 [stack 0]
+set N65094400 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1041,12 +1163,24 @@ set N5796800 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
+  version 2
   name Write3
   xpos 500
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N5796800
+push $N65094400
  Shuffle {
   in Oval
   name Shuffle4
@@ -1061,98 +1195,111 @@ push $N5796800
   file_type png
   create_directories true
   checkHashOnRead false
+  version 2
   name Write4
   xpos 650
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
 end_group
+set N5d46e400 [stack 0]
 DML_Layer_Order_Builder {
  name Oval_Views_Merger
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
- xpos 3390
- ypos 5092
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ xpos 3393
+ ypos 5121
  DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
  dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_Views/\[value name]/\[metadata version]"
- dml_backdrop_link {}
- DML_Nuke_View_Selection {}
- dml_frame_padding 2
+ DML_Nuke_View_Selection {Blue Green Other Red}
+ dml_text_color {0 0 0 0}
  dml_file_name %V
  DML_EMBEDED_WIDGET_DATA ""
- addUserKnob {20 User}
- addUserKnob {41 dml_backdrop_link_1 l dml_backdrop_link +HIDDEN +INVISIBLE T Oval_Views_Merger_Client_Approval_BKDRP.name}
+ addUserKnob {20 User l Linked_Backdrop +INVISIBLE}
+ addUserKnob {41 dml_backdrop_link l "" +STARTLINE +INVISIBLE T Oval_Views_Merger_Client_Approval_BKDRP.name}
 }
 Shuffle {
  in Background
- name Shuffle4
+ name Shuffle17
  label "\[value in ]"
- xpos 3590
- ypos 5092
+ xpos 3593
+ ypos 5121
 }
-set N63828c00 [stack 0]
+set N651c2400 [stack 0]
 Shuffle {
  in Triangle
- name Shuffle5
+ name Shuffle18
  label "\[value in ]"
- xpos 3740
- ypos 5092
+ xpos 3743
+ ypos 5121
 }
-set N63828800 [stack 0]
+set N651f5400 [stack 0]
 Shuffle {
  in TEXT
- name Shuffle6
+ name Shuffle19
  label "\[value in ]"
- xpos 3890
- ypos 5092
+ xpos 3893
+ ypos 5121
 }
-set N63828400 [stack 0]
+set N651f5000 [stack 0]
 Shuffle {
  in Oval
- name Shuffle16
+ name Shuffle20
  label "\[value in ]"
- xpos 4040
- ypos 5092
+ xpos 4043
+ ypos 5121
 }
-push $N63828400
-push $N63828800
-push $N63828c00
+push $N651f5000
+push $N651f5400
+push $N651c2400
 PSDMerge {
  inputs 2
- name PSDMerge1
+ name PSDMerge4
  label "\[value input1.in]"
  note_font "Bitstream Vera Sans"
- xpos 3590
- ypos 5192
+ xpos 3593
+ ypos 5221
  maskChannelInput none
 }
 PSDMerge {
  inputs 2
- name PSDMerge2
+ name PSDMerge5
  label "\[value input1.in]"
  note_font "Bitstream Vera Sans"
- xpos 3590
- ypos 5292
+ xpos 3593
+ ypos 5321
  maskChannelInput none
 }
 PSDMerge {
  inputs 2
- name PSDMerge3
+ name PSDMerge6
  label "\[value input1.in]"
  note_font "Bitstream Vera Sans"
- xpos 3590
- ypos 5392
+ xpos 3593
+ ypos 5421
  maskChannelInput none
 }
 Write {
  file "\[value Oval_Views_Merger.dml_folder_destination]/\[value Oval_Views_Merger.dml_file_name]_%0\[value Oval_Views_Merger.dml_frame_padding]d.png"
  colorspace sRGB
+ views {{{input.input.input.input.input.DML_Nuke_View_Selection}}}
  file_type png
  create_directories true
  checkHashOnRead false
  name Oval_Views_Merger_Client_Approval_Write
- xpos 3590
- ypos 5492
+ xpos 3593
+ ypos 5521
 }
 Text {
  message "\[value \[value input.name].file]"
@@ -1161,331 +1308,28 @@ Text {
  Transform 1
  translate {10 50}
  center {960 540}
- name Text2
- xpos 3590
- ypos 5568
+ name Text3
+ xpos 3593
+ ypos 5597
 }
-push $N637a5c00
-NoOp {
- name NoOp13
- xpos 4724
- ypos 2255
-}
-Remove {
- channels Oval
- name Remove3
- xpos 4724
- ypos 2610
-}
-DML_Layers_To_Gimped_PSD {
- name Rectangle_Views_PSDS
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
- xpos 4724
- ypos 3421
- DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
- DML_Layer_Order_Layer_Icons "\{\}"
- DML_Nuke_View_Selection {Blue Other}
- dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]"
- dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]/_PNGs/%V"
- dml_file_name %V
-}
-Group {
- name Layers_To_PSD1
- tile_color 0xff00ff
- xpos 4724
- ypos 4225
- disable true
- addUserKnob {20 User}
- addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
- DML_NODE_CLASS DML_Gimped_PSD_Group
- addUserKnob {41 dml_folder_destination +HIDDEN T Rectangle_Views_PSDS.dml_folder_destination}
- addUserKnob {41 dml_file_name +HIDDEN T Rectangle_Views_PSDS.dml_file_name}
- addUserKnob {41 dml_frame_padding +HIDDEN T Rectangle_Views_PSDS.dml_frame_padding.Other}
- addUserKnob {45 dml_output_views}
- dml_output_views {{{Rectangle_Views_PSDS.DML_Nuke_View_Selection}}}
- addUserKnob {1 dml_last_layer_build_order +HIDDEN}
- dml_last_layer_build_order "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
-}
- Input {
-  inputs 0
-  name Input1
-  xpos 0
- }
- NoOp {
-  name PSD_LAYER_SHUFFLE_SECTION
-  selected true
-  xpos 0
-  ypos 250
- }
-set N61250800 [stack 0]
- Output {
-  name Output1
-  xpos 0
-  ypos 500
- }
-push $N61250800
- Shuffle {
-  in Background
-  name Shuffle1
-  label "\[value in ]"
-  xpos 200
-  ypos 250
- }
-set N57dd800 [stack 0]
- Write {
-  channels rgba
-  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
-  views {{{parent.dml_output_views}}}
-  file_type png
-  create_directories true
-  checkHashOnRead false
-  in_colorspace "ACES - ACEScg"
-  out_colorspace "ACES - ACEScg"
-  name Write1
-  xpos 200
-  ypos 350
-  disable {{parent.disable}}
- }
-push $N57dd800
- Shuffle {
-  in Triangle
-  name Shuffle2
-  label "\[value in ]"
-  xpos 350
-  ypos 250
- }
-set N57dd000 [stack 0]
- Write {
-  channels rgba
-  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
-  views {{{parent.dml_output_views}}}
-  file_type png
-  create_directories true
-  checkHashOnRead false
-  in_colorspace "ACES - ACEScg"
-  out_colorspace "ACES - ACEScg"
-  name Write2
-  xpos 350
-  ypos 350
-  disable {{parent.disable}}
- }
-push $N57dd000
- Shuffle {
-  in TEXT
-  name Shuffle3
-  label "\[value in ]"
-  xpos 500
-  ypos 250
- }
-set N57dc800 [stack 0]
- Write {
-  channels rgba
-  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
-  views {{{parent.dml_output_views}}}
-  file_type png
-  create_directories true
-  checkHashOnRead false
-  in_colorspace "ACES - ACEScg"
-  out_colorspace "ACES - ACEScg"
-  name Write3
-  xpos 500
-  ypos 350
-  disable {{parent.disable}}
- }
-push $N57dc800
- Shuffle {
-  in Rectangle
-  name Shuffle4
-  label "\[value in ]"
-  xpos 650
-  ypos 250
- }
- Write {
-  channels rgba
-  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
-  views {{{parent.dml_output_views}}}
-  file_type png
-  create_directories true
-  checkHashOnRead false
-  in_colorspace "ACES - ACEScg"
-  out_colorspace "ACES - ACEScg"
-  name Write4
-  xpos 650
-  ypos 350
-  disable {{parent.disable}}
- }
-end_group
-DML_Layer_Order_Builder {
- name Rectangle_Views_Merger
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
- xpos 4724
- ypos 5066
- DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
- DML_Layer_Order_Layer_Icons "\{\}"
- dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_Views/\[value name]/\[metadata version]/%V"
- dml_backdrop_link {}
- DML_Nuke_View_Selection {}
- dml_file_name %V
- DML_EMBEDED_WIDGET_DATA ""
- addUserKnob {20 User}
- addUserKnob {41 dml_backdrop_link_1 l dml_backdrop_link +HIDDEN +INVISIBLE T Rectangle_Views_Merger_Client_Approval_BKDRP.name}
-}
-Shuffle {
- in Background
- name Shuffle21
- label "\[value in ]"
- xpos 4924
- ypos 5066
-}
-set N612cf000 [stack 0]
-Shuffle {
- in Triangle
- name Shuffle22
- label "\[value in ]"
- xpos 5074
- ypos 5066
-}
-set N612cec00 [stack 0]
-Shuffle {
- in TEXT
- name Shuffle23
- label "\[value in ]"
- xpos 5224
- ypos 5066
-}
-set N612ce800 [stack 0]
-Shuffle {
- in Rectangle
- name Shuffle24
- label "\[value in ]"
- xpos 5374
- ypos 5066
-}
-push $N612ce800
-push $N612cec00
-push $N612cf000
-PSDMerge {
- inputs 2
- name PSDMerge7
- label "\[value input1.in]"
- note_font "Bitstream Vera Sans"
- xpos 4924
- ypos 5166
- maskChannelInput none
-}
-PSDMerge {
- inputs 2
- name PSDMerge8
- label "\[value input1.in]"
- note_font "Bitstream Vera Sans"
- xpos 4924
- ypos 5266
- maskChannelInput none
-}
-PSDMerge {
- inputs 2
- name PSDMerge9
- label "\[value input1.in]"
- note_font "Bitstream Vera Sans"
- xpos 4924
- ypos 5366
- maskChannelInput none
-}
-Write {
- file "\[value Rectangle_Views_Merger.dml_folder_destination]/\[value Rectangle_Views_Merger.dml_file_name]_%0\[value Rectangle_Views_Merger.dml_frame_padding]d.png"
- colorspace sRGB
- file_type png
- create_directories true
- checkHashOnRead false
- name Rectangle_Views_Merger_Client_Approval_Write
- xpos 4924
- ypos 5466
-}
-Text {
- message "\[value \[value input.name].file]"
- font C:/Windows/Fonts/arial.ttf
- size 20
- Transform 1
- translate {10 50}
- center {960 540}
- name Text4
- xpos 4924
- ypos 5542
-}
-Viewer {
- frame_range 1-10
- fps 1
- viewerProcess "sRGB_ICC(Adobe98) (AW)"
- name Viewer1
- xpos -3869
- ypos 1531
- hide_input true
-}
-StickyNote {
- inputs 0
- name StickyNote16
- label "\n               Refer To the views note its the same              \n"
- note_font Arial
- note_font_size 40
- xpos -1633
- ypos 2136
-}
-StickyNote {
- inputs 0
- name StickyNote12
- label "\n               Extending The Pipe And Make 2 Branches For               \n               The Differnt Build One For The Oval And The Rect               \n               "
- note_font Arial
- note_font_size 40
- xpos -1638
- ypos 747
-}
-StickyNote {
- inputs 0
- name StickyNote17
- label "\n               For A Little Help All The UI's               \n               Have Tool Tips if you hold over them               \n               SO USE THE TOOL TIPS!!!!!              \n               if you are still confused check the docs     \n               or come ask Drew Loveridge     \n               drew.loveridge@sgsco.com                  \n"
- note_font Arial
- note_font_size 80
- xpos -575
- ypos -2162
-}
-StickyNote {
- inputs 0
- name StickyNote14
- label "\n               Refer To the views note for more info              \n               by default when you create a psd builder              \n               No views are enabled by default when created                  \n               so you need to enable the main view this is needed                         \n               for the way in witch the system renders the output                          \n               and builds the json data to rebuild the psd files                         \n "
- note_font Arial
- note_font_size 40
- xpos -1655
- ypos 1634
-}
-StickyNote {
- inputs 0
- name StickyNote18
- tile_color 0xff0000ff
- gl_color 0xff0000ff
- label "\n               For This Comp To Render correctly             \n               you can not render both at the same time              \n               To Render The Views Version Disable the non view               \n               Layers To PSD Groups the green nodes and vis versa             \n\n "
- note_font "Arial Bold Bold"
- note_font_size 80
- xpos -259
- ypos 2234
-}
-push $N43f94800
+push $N61a58c00
 NoOp {
  name NoOp14
  xpos -388
  ypos 947
 }
-set N43f94400 [stack 0]
+set N4ecba400 [stack 0]
 Remove {
  channels Rectangle
  name Remove4
  xpos -388
- ypos 1304
+ ypos 2679
 }
 DML_Layers_To_Gimped_PSD {
  name Oval_Build_Standered
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  xpos -388
- ypos 1694
+ ypos 3275
  DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
  DML_Nuke_View_Selection {Other}
@@ -1497,13 +1341,13 @@ Group {
  name Layers_To_PSD2
  tile_color 0xff00ff
  xpos -388
- ypos 2186
+ ypos 3931
  addUserKnob {20 User}
  addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
  DML_NODE_CLASS DML_Gimped_PSD_Group
  addUserKnob {41 dml_folder_destination +HIDDEN T Oval_Build_Standered.dml_folder_destination}
  addUserKnob {41 dml_file_name +HIDDEN T Oval_Build_Standered.dml_file_name}
- addUserKnob {41 dml_frame_padding +HIDDEN T Oval_Build_Standered.dml_frame_padding.Red}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Oval_Build_Standered.dml_frame_padding.Other}
  addUserKnob {45 dml_output_views}
  dml_output_views {{{Oval_Build_Standered.DML_Nuke_View_Selection}}}
  addUserKnob {1 dml_last_layer_build_order +HIDDEN}
@@ -1519,13 +1363,13 @@ Group {
   xpos 0
   ypos 250
  }
-set N497d0c00 [stack 0]
+set N4ebc9800 [stack 0]
  Output {
   name Output1
   xpos 0
   ypos 500
  }
-push $N497d0c00
+push $N4ebc9800
  Shuffle {
   in Background
   name Shuffle1
@@ -1533,7 +1377,7 @@ push $N497d0c00
   xpos 200
   ypos 250
  }
-set N497d0400 [stack 0]
+set N4ec89c00 [stack 0]
  Shuffle {
   in Triangle
   name Shuffle2
@@ -1541,7 +1385,7 @@ set N497d0400 [stack 0]
   xpos 350
   ypos 250
  }
-set N497d0000 [stack 0]
+set N4ec89800 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1549,13 +1393,24 @@ set N497d0000 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write2
   xpos 350
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N497d0000
+push $N4ec89800
  Shuffle {
   in TEXT
   name Shuffle3
@@ -1563,7 +1418,7 @@ push $N497d0000
   xpos 500
   ypos 250
  }
-set N49801800 [stack 0]
+set N4ec89000 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1571,13 +1426,24 @@ set N49801800 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write3
   xpos 500
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N49801800
+push $N4ec89000
  Shuffle {
   in Oval
   name Shuffle4
@@ -1592,13 +1458,24 @@ push $N49801800
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write4
   xpos 650
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N497d0400
+push $N4ec89c00
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1606,11 +1483,22 @@ push $N497d0400
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write1
   xpos 200
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
  Text {
   message "\[value \[value input.name].file]"
@@ -1633,19 +1521,105 @@ push $N497d0400
  }
 end_group
 DML_Layer_Order_Builder {
- name Layer_Merger
- note_font "Verdana Bold Bold"
- xpos -409
- ypos 2961
- DML_Layer_Order_layers ""
+ name Oval_Build_Merged
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos -388
+ ypos 5100
+ DML_Layer_Order_layers "\[u'Oval', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
  dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_No_Views/Oval/\[metadata version]"
- dml_backdrop_link {}
- DML_Nuke_View_Selection {}
+ DML_Nuke_View_Selection {Blue Green Other Red}
+ dml_text_color {0 0 0 0}
  dml_file_name "\[value name]"
  DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User l Linked_Backdrop +INVISIBLE}
+ addUserKnob {41 dml_backdrop_link +INVISIBLE T Oval_Build_Merged_Client_Approval_BKDRP.name}
 }
-push $N43f94400
+set N4e6acd00 [stack 0]
+Shuffle {
+ in Background
+ name Shuffle21
+ label "\[value in ]"
+ xpos -188
+ ypos 5093
+}
+set N4ead5c00 [stack 0]
+Shuffle {
+ in Triangle
+ name Shuffle22
+ label "\[value in ]"
+ xpos -38
+ ypos 5093
+}
+set N4ead5800 [stack 0]
+Shuffle {
+ in TEXT
+ name Shuffle23
+ label "\[value in ]"
+ xpos 112
+ ypos 5093
+}
+set N4ead5400 [stack 0]
+Shuffle {
+ in Oval
+ name Shuffle24
+ label "\[value in ]"
+ xpos 262
+ ypos 5093
+}
+push $N4ead5400
+push $N4ead5800
+push $N4ead5c00
+PSDMerge {
+ inputs 2
+ name PSDMerge7
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -188
+ ypos 5193
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge8
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -188
+ ypos 5293
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge9
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos -188
+ ypos 5393
+ maskChannelInput none
+}
+Write {
+ file "\[value Oval_Build_Merged.dml_folder_destination]/\[value Oval_Build_Merged.dml_file_name]_%0\[value Oval_Build_Merged.dml_frame_padding]d.png"
+ colorspace sRGB
+ views {{{input.input.input.input.input.DML_Nuke_View_Selection}}}
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name Oval_Build_Merged_Client_Approval_Write
+ xpos -188
+ ypos 5493
+}
+Text {
+ message "\[value \[value input.name].file]"
+ font C:/Windows/Fonts/arial.ttf
+ size 20
+ Transform 1
+ translate {10 50}
+ center {960 540}
+ name Text4
+ xpos -188
+ ypos 5569
+}
+push $N4ecba400
 NoOp {
  name NoOp15
  xpos -1790
@@ -1655,13 +1629,13 @@ Remove {
  channels Oval
  name Remove5
  xpos -1790
- ypos 1297
+ ypos 2679
 }
 DML_Layers_To_Gimped_PSD {
  name Rectangle_Build_Standered
- note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  xpos -1790
- ypos 1697
+ ypos 3275
  DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
  DML_Nuke_View_Selection {Other}
@@ -1673,13 +1647,13 @@ Group {
  name Layers_To_PSD3
  tile_color 0xff00ff
  xpos -1790
- ypos 2207
+ ypos 3931
  addUserKnob {20 User}
  addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
  DML_NODE_CLASS DML_Gimped_PSD_Group
  addUserKnob {41 dml_folder_destination +HIDDEN T Rectangle_Build_Standered.dml_folder_destination}
  addUserKnob {41 dml_file_name +HIDDEN T Rectangle_Build_Standered.dml_file_name}
- addUserKnob {41 dml_frame_padding +HIDDEN T Rectangle_Build_Standered.dml_frame_padding.Red}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Rectangle_Build_Standered.dml_frame_padding.Other}
  addUserKnob {45 dml_output_views}
  dml_output_views {{{Rectangle_Build_Standered.DML_Nuke_View_Selection}}}
  addUserKnob {1 dml_last_layer_build_order +HIDDEN}
@@ -1695,13 +1669,13 @@ Group {
   xpos 0
   ypos 250
  }
-set N62f90400 [stack 0]
+set N64583800 [stack 0]
  Output {
   name Output1
   xpos 0
   ypos 500
  }
-push $N62f90400
+push $N64583800
  Shuffle {
   in Background
   name Shuffle1
@@ -1709,7 +1683,7 @@ push $N62f90400
   xpos 200
   ypos 250
  }
-set N62fbbc00 [stack 0]
+set N64583000 [stack 0]
  Shuffle {
   in Triangle
   name Shuffle2
@@ -1717,7 +1691,7 @@ set N62fbbc00 [stack 0]
   xpos 350
   ypos 250
  }
-set N62fbb800 [stack 0]
+set N64582c00 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1725,13 +1699,24 @@ set N62fbb800 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write2
   xpos 350
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N62fbb800
+push $N64582c00
  Shuffle {
   in TEXT
   name Shuffle3
@@ -1739,7 +1724,7 @@ push $N62fbb800
   xpos 500
   ypos 250
  }
-set N62fbb000 [stack 0]
+set N64582400 [stack 0]
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1747,13 +1732,24 @@ set N62fbb000 [stack 0]
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write3
   xpos 500
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N62fbb000
+push $N64582400
  Shuffle {
   in Rectangle
   name Shuffle4
@@ -1768,13 +1764,24 @@ push $N62fbb000
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write4
   xpos 650
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
-push $N62fbbc00
+push $N64583000
  Write {
   channels rgba
   file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
@@ -1782,11 +1789,22 @@ push $N62fbbc00
   file_type png
   create_directories true
   checkHashOnRead false
-  version 5
+  version 8
   name Write1
   xpos 200
   ypos 350
   disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
  }
  Text {
   message "\[value \[value input.name].file]"
@@ -1810,76 +1828,78 @@ push $N62fbbc00
 end_group
 DML_Layer_Order_Builder {
  name Rect_Build_Merged
- note_font "Verdana Bold Bold"
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
  xpos -1790
- ypos 2976
+ ypos 5100
  DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
  DML_Layer_Order_Layer_Icons "\{\}"
  dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_No_Views/Rectangle/\[metadata version]"
- dml_backdrop_link Rect_Build_Merged_Client_Approval_BKDRP
  DML_Nuke_View_Selection {Green Other Red}
+ dml_text_color {0 0 0 0}
  dml_file_name "\[value name]"
  DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User l Linked_Backdrop +INVISIBLE}
+ addUserKnob {41 dml_backdrop_link +INVISIBLE T Rect_Build_Merged_Client_Approval_BKDRP.name}
 }
 Shuffle {
  in Background
- name Shuffle17
+ name Shuffle25
  label "\[value in ]"
  xpos -1590
- ypos 2976
+ ypos 5100
 }
-set N4fbcc00 [stack 0]
+set N6461c000 [stack 0]
 Shuffle {
  in Triangle
- name Shuffle18
+ name Shuffle26
  label "\[value in ]"
  xpos -1440
- ypos 2976
+ ypos 5100
 }
-set N4fbc800 [stack 0]
+set N6484dc00 [stack 0]
 Shuffle {
  in TEXT
- name Shuffle19
+ name Shuffle27
  label "\[value in ]"
  xpos -1290
- ypos 2976
+ ypos 5100
 }
-set N5341400 [stack 0]
+set N6484d800 [stack 0]
 Shuffle {
  in Rectangle
- name Shuffle20
+ name Shuffle28
  label "\[value in ]"
  xpos -1140
- ypos 2976
+ ypos 5100
 }
-push $N5341400
-push $N4fbc800
-push $N4fbcc00
+push $N6484d800
+push $N6484dc00
+push $N6461c000
 PSDMerge {
  inputs 2
- name PSDMerge4
+ name PSDMerge10
  label "\[value input1.in]"
  note_font "Bitstream Vera Sans"
  xpos -1590
- ypos 3076
+ ypos 5200
  maskChannelInput none
 }
 PSDMerge {
  inputs 2
- name PSDMerge5
+ name PSDMerge11
  label "\[value input1.in]"
  note_font "Bitstream Vera Sans"
  xpos -1590
- ypos 3176
+ ypos 5300
  maskChannelInput none
 }
 PSDMerge {
  inputs 2
- name PSDMerge6
+ name PSDMerge12
  label "\[value input1.in]"
  note_font "Bitstream Vera Sans"
  xpos -1590
- ypos 3276
+ ypos 5400
  maskChannelInput none
 }
 Write {
@@ -1891,7 +1911,7 @@ Write {
  checkHashOnRead false
  name Rect_Build_Merged_Client_Approval_Write
  xpos -1590
- ypos 3376
+ ypos 5500
 }
 Text {
  message "\[value \[value input.name].file]"
@@ -1900,43 +1920,311 @@ Text {
  Transform 1
  translate {10 50}
  center {960 540}
- name Text3
+ name Text5
  xpos -1590
- ypos 3452
+ ypos 5576
 }
-StickyNote {
- inputs 0
- name StickyNote15
- label "\n               Refer To the views note its the same              \n"
- note_font Arial
- note_font_size 40
- xpos -2382
- ypos 3040
+push $N64ddcc00
+NoOp {
+ name NoOp13
+ xpos 4724
+ ypos 2255
 }
-StickyNote {
- inputs 0
- name StickyNote19
- label "\n       Dont Brake Node Chain        \n       Between The Write Node        \n          And First Shuffle Node Chain          \n       it will destroy the view link        \n       and the layer merger node        \n"
- note_font Arial
- note_font_size 40
- xpos 3002
- ypos 5171
+Remove {
+ channels Oval
+ name Remove3
+ xpos 4724
+ ypos 2679
 }
-StickyNote {
- inputs 0
- name StickyNote10
- label "\n               This Is The Layer Merger Node              \n               If You Need To Make Notes Use Sticky Notes Outside of               \n               the backdrop because The backdrop and               \n               All The Nodes Inside it are deleted on a rebuild               \n                              \n               NOTES:               \n               You Can Move The Backdrop and when rebuilt                    \n               will be place in the location you gave it               \n"
- note_font Arial
- note_font_size 40
- xpos 3568
- ypos 4534
+DML_Layers_To_Gimped_PSD {
+ name Rectangle_Views_PSDS
+ note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+ xpos 4724
+ ypos 3275
+ DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ DML_Nuke_View_Selection {Blue Green Other Red}
+ dml_raw_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/PSD_Views/\[value name]/\[metadata version]/_PNGs/%V"
+ dml_file_name %V
 }
-StickyNote {
- inputs 0
- name StickyNote9
- label "\n               This Is The Guts Of The Psd Builder It Contains A Write Node               \n               For Every Layer That Will Need To Be Output               \n               And Added into the psd. You Can Edit The Group               \n               But Any Edits Will Be Deleted When Rebuit               \n               If You Disable This Node               \n               All The Write Nodes in it will be disalbed               \n               And It Will Be Ignored By The PSD Render               \n"
- note_font Arial
- note_font_size 40
- xpos 3543
- ypos 4080
+Group {
+ name Layers_To_PSD1
+ tile_color 0xff00ff
+ xpos 4712
+ ypos 4318
+ addUserKnob {20 User}
+ addUserKnob {1 DML_NODE_CLASS l "DML Node Class" +HIDDEN}
+ DML_NODE_CLASS DML_Gimped_PSD_Group
+ addUserKnob {41 dml_folder_destination +HIDDEN T Rectangle_Views_PSDS.dml_folder_destination}
+ addUserKnob {41 dml_file_name +HIDDEN T Rectangle_Views_PSDS.dml_file_name}
+ addUserKnob {41 dml_frame_padding +HIDDEN T Rectangle_Views_PSDS.dml_frame_padding.Other}
+ addUserKnob {45 dml_output_views}
+ dml_output_views {{{Rectangle_Views_PSDS.DML_Nuke_View_Selection}}}
+ addUserKnob {1 dml_last_layer_build_order +HIDDEN}
+ dml_last_layer_build_order "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+ }
+ NoOp {
+  name PSD_LAYER_SHUFFLE_SECTION
+  xpos 0
+  ypos 250
+ }
+set N648bfc00 [stack 0]
+ Output {
+  name Output1
+  xpos 0
+  ypos 500
+ }
+push $N648bfc00
+ Shuffle {
+  in Background
+  name Shuffle1
+  label "\[value in ]"
+  xpos 200
+  ypos 250
+ }
+set N648bf400 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 2
+  name Write1
+  selected true
+  xpos 200
+  ypos 350
+  disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
+ }
+push $N648bf400
+ Shuffle {
+  in Triangle
+  name Shuffle2
+  label "\[value in ]"
+  xpos 350
+  ypos 250
+ }
+set N648bec00 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 2
+  name Write2
+  xpos 350
+  ypos 350
+  disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
+ }
+push $N648bec00
+ Shuffle {
+  in TEXT
+  name Shuffle3
+  label "\[value in ]"
+  xpos 500
+  ypos 250
+ }
+set N648be400 [stack 0]
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 2
+  name Write3
+  xpos 500
+  ypos 350
+  disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
+ }
+push $N648be400
+ Shuffle {
+  in Rectangle
+  name Shuffle4
+  label "\[value in ]"
+  xpos 650
+  ypos 250
+ }
+ Write {
+  channels rgba
+  file "\[value parent.dml_folder_destination]/%0\[value parent.dml_frame_padding]d/\[value input0.in].png"
+  views {{{parent.dml_output_views}}}
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 2
+  name Write4
+  xpos 650
+  ypos 350
+  disable {{parent.disable}}
+  addUserKnob {20 Metadata_Tab l Metadata}
+  addUserKnob {26 ICC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">ICC Profile (JPG, PNG & TIF images):<\\FONT>"}
+  addUserKnob {4 ICC_knob l "" +STARTLINE M {Empty sRGB.icc AdobeRGB1998.icc REC709.icc REC2020.icc "ACESCG Linear.icc"}}
+  addUserKnob {26 divider2 l "" +STARTLINE}
+  addUserKnob {26 divider2B l "" +STARTLINE}
+  addUserKnob {26 IPTC_Section_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">IPTC Data (TIF images only - Required for Innocean/Hyundai projects):<\\FONT>"}
+  addUserKnob {6 IPTC_knob l "Armstrong White Contact/Author Data" +STARTLINE}
+  addUserKnob {26 divider3 l "" +STARTLINE}
+  addUserKnob {26 divider3B l "" +STARTLINE}
+  addUserKnob {26 Hyundai_Folders_Title l "" +STARTLINE T "<FONT COLOR=\"#7777EE\">Views-Based Comp:<\\FONT>"}
+  addUserKnob {6 Hyundai_knob l "Rearrange Folders per Innocean/Hyundai requirements." +STARTLINE}
+ }
+end_group
+set N5d46db00 [stack 0]
+push $N5d46e400
+push $N4e6acd00
+push $N5d46db00
+DML_Layer_Order_Builder {
+ name Rectangle_Views_Merger
+ note_font "Verdana Bold Bold Bold Bold Bold Bold"
+ xpos 4712
+ ypos 5081
+ DML_Layer_Order_layers "\[u'Rectangle', u'TEXT', u'Triangle', u'Background']"
+ DML_Layer_Order_Layer_Icons "\{\}"
+ dml_folder_destination "\[value root.project_directory]/Render_Ouput/Client_Approval_Views/\[value name]/\[metadata version]/%V"
+ DML_Nuke_View_Selection {Blue Green Other Red}
+ dml_text_color_panelDropped true
+ dml_text_size 26
+ dml_file_name %V
+ DML_EMBEDED_WIDGET_DATA ""
+ addUserKnob {20 User l Linked_Backdrop +INVISIBLE}
+ addUserKnob {41 dml_backdrop_link +INVISIBLE T Rectangle_Views_Merger_Client_Approval_BKDRP.name}
+}
+set N5cf3b700 [stack 0]
+Viewer {
+ inputs 4
+ frame_range 1-10
+ fps 1
+ viewerProcess "sRGB_ICC(Adobe98) (AW)"
+ name Viewer1
+ xpos 1605
+ ypos 4265
+ hide_input true
+}
+push $N5cf3b700
+Shuffle {
+ in Background
+ name Shuffle4
+ label "\[value in ]"
+ xpos 4912
+ ypos 5074
+}
+set N5ce36c00 [stack 0]
+Shuffle {
+ in Triangle
+ name Shuffle5
+ label "\[value in ]"
+ xpos 5062
+ ypos 5074
+}
+set N5ce36800 [stack 0]
+Shuffle {
+ in TEXT
+ name Shuffle6
+ label "\[value in ]"
+ xpos 5212
+ ypos 5074
+}
+set N5ce36400 [stack 0]
+Shuffle {
+ in Rectangle
+ name Shuffle16
+ label "\[value in ]"
+ xpos 5362
+ ypos 5074
+}
+push $N5ce36400
+push $N5ce36800
+push $N5ce36c00
+PSDMerge {
+ inputs 2
+ name PSDMerge1
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 4912
+ ypos 5174
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge2
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 4912
+ ypos 5274
+ maskChannelInput none
+}
+PSDMerge {
+ inputs 2
+ name PSDMerge3
+ label "\[value input1.in]"
+ note_font "Bitstream Vera Sans"
+ xpos 4912
+ ypos 5374
+ maskChannelInput none
+}
+Write {
+ file "\[value Rectangle_Views_Merger.dml_folder_destination]/\[value Rectangle_Views_Merger.dml_file_name]_%0\[value Rectangle_Views_Merger.dml_frame_padding]d.png"
+ colorspace sRGB
+ views {{{input.input.input.input.input.DML_Nuke_View_Selection}}}
+ file_type png
+ create_directories true
+ checkHashOnRead false
+ name Rectangle_Views_Merger_Client_Approval_Write
+ xpos 4912
+ ypos 5474
+}
+Text {
+ message "\[value \[value input.name].file]"
+ font C:/Windows/Fonts/arial.ttf
+ size 20
+ Transform 1
+ translate {10 50}
+ center {960 540}
+ name Text2
+ xpos 4912
+ ypos 5550
 }
