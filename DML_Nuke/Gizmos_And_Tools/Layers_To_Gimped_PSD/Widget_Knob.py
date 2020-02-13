@@ -65,9 +65,21 @@ def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", p
 		options |= DML_PYQT.QFileDialog.DontUseNativeDialog
 	if folder == "":
 		folder = nuke.script_directory()
+		
+	folder = folder.replace("/", "\\")
+	if not os.path.exists(folder):
+		temp_path = folder
+		while not os.path.exists(temp_path):
+			new_path = os.path.dirname(temp_path)
+			if new_path == temp_path:
+				temp_path = nuke.script_directory()
+				break
+			else:
+				temp_path = new_path
+		folder = temp_path
 	folder_name = DML_PYQT.QFileDialog.getExistingDirectory(parent,label,folder, options)
 	if folder_name:
-		return folder_name
+		return folder_name.replace("\\","/")
 	else:
 		return False
 #----------------------------------------------------------------------
@@ -208,11 +220,22 @@ class Nuke_To_Gimped_PSD_Builder_UI(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Knob.
 	def _get_ui_file(self):
 		""""""
 		return os.path.join(os.path.dirname(__file__),"Layers_To_Gimped_PSD.ui")
+	##----------------------------------------------------------------------
+	#@DML_PYQT.Slot()
+	#def on_browse_Button_clicked(self):
+		#""""""
+		#folder = self.input_folder_path.text()
+		#res = get_Folder_Dialog(folder=folder)
+		#if res:
+			#self.input_folder_path.setText(res)
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_browse_Button_clicked(self):
 		""""""
-		folder = self.input_folder_path.text()
+		folder = self._nuke_node._raw_folder_destination_knob.value()
+		folder = folder.replace("%V", nuke.thisView())
+		if folder == None or folder == "":
+			folder = nuke.script_directory()			
 		res = get_Folder_Dialog(folder=folder)
 		if res:
 			self.input_folder_path.setText(res)

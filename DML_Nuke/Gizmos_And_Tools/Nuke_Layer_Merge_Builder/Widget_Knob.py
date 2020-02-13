@@ -14,9 +14,21 @@ def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", p
 		options |= DML_PYQT.QFileDialog.DontUseNativeDialog
 	if folder == "":
 		folder = nuke.script_directory()
+		
+	folder = folder.replace("/", "\\")
+	if not os.path.exists(folder):
+		temp_path = folder
+		while not os.path.exists(temp_path):
+			new_path = os.path.dirname(temp_path)
+			if new_path == temp_path:
+				temp_path = nuke.script_directory()
+				break
+			else:
+				temp_path = new_path
+		folder = temp_path
 	folder_name = DML_PYQT.QFileDialog.getExistingDirectory(parent,label,folder, options)
 	if folder_name:
-		return folder_name
+		return folder_name.replace("\\","/")
 	else:
 		return False
 
@@ -114,11 +126,11 @@ class Layer_Merge_Builder_Widget_Knob(DML_Nuke.Nuke_GUI.Python_Custom_Widget_Kno
 	#----------------------------------------------------------------------
 	def on_Browse_Button_Clicked(self):
 		""""""
+		folder = self._nuke_node._folder_path_knob.value()
+		folder = folder.replace("%V", nuke.thisView())
 		if self._nuke_node._folder_path_knob.value() == None:
 			folder = nuke.script_directory()
-		else:
-			folder = self._nuke_node._folder_path_knob.value()
-			
+		
 		res = get_Folder_Dialog(folder=folder)
 		if res:
 			self.input_folder_path.setText(res)
