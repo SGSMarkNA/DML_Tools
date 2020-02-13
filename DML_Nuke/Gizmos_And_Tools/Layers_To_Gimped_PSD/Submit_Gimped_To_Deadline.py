@@ -216,7 +216,6 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		if not res == 'Action was cancelled by user':
 			self.Deadline_Dependencies.setText(res)
 			self._save_Settings()
-			
 	#----------------------------------------------------------------------
 	def _build_render_values(self):
 		""""""
@@ -329,7 +328,6 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		gimp_deadline_submiter = DML_Tools.DML_Deadline.Job_Data_Model.Job_Submitter(job_info, plugin_info)
 		gimp_deadline_submiter.Submit_the_job_to_Deadline()
 		nuke.executeInMainThread( nuke.message, "2 Jobs Submissions complete. " + str(nuke_deadline_submiter.jobId) + "," + str(gimp_deadline_submiter.jobId) +" Job submitted to Deadline." )
-		
 	#----------------------------------------------------------------------
 	def _make_Save_Settings_Connections(self):
 		""""""
