@@ -1,6 +1,7 @@
 import nuke
 from ..Abstract_Nodes import Knob
-
+from ..Abstract_Nodes import Node
+from ...Decorators.Node_Wraper_Manager import node_Return_Wrapper,nuke_Object_Return_Wrapper,knob_Return_Wrapper
 ################################################################################
 class Link_Knob(Knob):
 	"""Wrapper class for a nuke Node type"""
@@ -10,9 +11,15 @@ class Link_Knob(Knob):
 		"""setValue() -> None  Set value of knob."""
 		return self.nuke_object.setValue()
 	#----------------------------------------------------------------------
+	@knob_Return_Wrapper
 	def getLinkedKnob(self):
 		"""getLinkedKnob() -> knob """
 		return self.nuke_object.getLinkedKnob()
+	#----------------------------------------------------------------------
+	@node_Return_Wrapper
+	def getLinkedNode(self):
+		"""getLinkedKnob() -> knob """
+		return self.nuke_object.getLinkedKnob().node()
 	#----------------------------------------------------------------------
 	def value(self):
 		"""value() -> string  Return value of knob."""
@@ -24,8 +31,30 @@ class Link_Knob(Knob):
 	#----------------------------------------------------------------------
 	def setLink(self,s):
 		"""setLink(s) -> None """
-		return self.nuke_object.setLink(s)
+		if isinstance(s,basestring):
+			self.nuke_object.setLink(s)
+		elif isinstance(s,Knob):
+			self.nuke_object.setLink(s.fullName)
+		elif isinstance(s,nuke.Knob):
+			self.nuke_object.setLink(s.fullyQualifiedName())
+		else:
+			raise ValueError("Input Must be a string or nuke Knob")
 	#----------------------------------------------------------------------
-	def makeLink(self):
-		"""makeLink(s, t) -> None """
-		return self.nuke_object.makeLink()
+	def makeLink(self,node,knob):
+		"""makeLink(node, knob) -> None """
+		if not isinstance(node,basestring):
+			if isinstance(node,Node):
+				node = node.fullName
+			elif isinstance(s,nuke.Node):
+				node = node.fullName()
+			else:
+				raise ValueError("node Must be a string or nuke Node")
+		
+		if not isinstance(knob,basestring):
+			if isinstance(knob,Knob):
+				knob = knob.name
+			elif isinstance(knob,nuke.Knob):
+				knob = knob.name()
+			else:
+				raise ValueError("knob Must be a string or nuke Knob")
+		return self.nuke_object.makeLink(node,knob)

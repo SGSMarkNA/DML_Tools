@@ -172,7 +172,10 @@ class Knob(DML_Knob):
 			Return value at the current frame for channel 'c'.
 
 		"""
-		return self.nuke_object.getValue(channel)
+		try:
+			return self.nuke_object.getValue(channel)
+		except:
+			return self.nuke_object.getValue()
 	#----------------------------------------------------------------------
 	def getValueAt(self,t,channel=-1):
 		"""

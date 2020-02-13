@@ -15,5 +15,6 @@ import dml
 import Decorators
 import Nuke_GUI
 import Gizmos_And_Tools
+import Nuke_Scripts
 import callbacks
-		
+

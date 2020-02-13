@@ -3,6 +3,7 @@ import nuke
 from ..Vec2 import Vector2
 from ..Base_Nodes.API_Node import DML_Node
 from ...Decorators.Node_Wraper_Manager import node_Return_Wrapper,nuke_Object_Return_Wrapper,knob_Return_Wrapper,standerdized_item_list
+from ... import Nuke_Scripts
 
 ########################################################################
 class Node_Connection_Types(object):
@@ -93,7 +94,7 @@ class Node(DML_Node):
 		"""
 		return name in self.nuke_object.knobs()
 	#----------------------------------------------------------------------
-	def addKnob(self,*args,**kwargs):
+	def addKnob(self,knob):
 		"""
 			self.addKnob(k) -> None.
 
@@ -102,9 +103,10 @@ class Node(DML_Node):
 			@param k: Knob.
 
 			@return: None.
-
 		"""
-		return self.nuke_object.addKnob(*args,**kwargs)
+		if hasattr(knob,"_is_dml_object"):
+			knob = knob.nuke_object
+		self.nuke_object.addKnob(knob)
 	#----------------------------------------------------------------------
 	@knob_Return_Wrapper
 	def allKnobs(self):
@@ -775,7 +777,15 @@ class Node(DML_Node):
 	def find_Down_Stream_Nodes(self,matchclass=None):
 		""""""
 		return down_stream_nodes(self.nuke_object,matchclass=matchclass,nlist=None)
-
+	#----------------------------------------------------------------------
+	def remove_Tab(self,tab_name):
+		""""""
+		tab = self.knob(tab_name)
+		if tab == None:
+			raise LookupError("Node has no knob called {}".format(tab_name))
+		elif not tab.Class == "Tab_Knob":
+			raise LookupError("input {} was not a tab knob".format(tab_name))
+		Nuke_Scripts.Remove_Tab(tab)
 	#----------------------------------------------------------------------
 	def __getitem__(self,item):
 		""""""
