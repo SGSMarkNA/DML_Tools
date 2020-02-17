@@ -313,7 +313,7 @@ class Knob(DML_Knob):
 		"""
 		return self.nuke_object.setTooltip(s)
 	#----------------------------------------------------------------------
-	def setValue(self,val):
+	def setValue(self,val,channel=-1):
 		"""
 			self.setValue(val, chan) -> bool
 
@@ -322,7 +322,10 @@ class Knob(DML_Knob):
 			@return: True if successful, False if not.
 
 		"""
-		return self.nuke_object.setValue(val)
+		if not channel == -1:
+			return self.nuke_object.setValue(val,channel)
+		else:
+			return self.nuke_object.setValue(val)
 	#----------------------------------------------------------------------
 	def setValueAt(self,val, time, chan=-1):
 		"""

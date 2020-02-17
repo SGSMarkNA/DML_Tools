@@ -84,29 +84,32 @@ class DML_Knob(object):
 	visible                   = property(fget=get_nuke_knob_visible, fset=set_nuke_knob_visible, doc="")
 	#----------------------------------------------------------------------
 	def __new__(cls,*args,**kwargs):
-		if hasattr(nuke,cls.__name__):
-			fn = getattr(nuke,cls.__name__)
-			obj = object.__new__(cls)
-		else:
-			raise LookupError("nuke does not have a knob type of {}".format(cls.__name__))
-		
 		if len(args):
 			if isinstance(args[0],nuke.Knob):
-				nuke_knob = args[0]
+				obj = object.__new__(cls)
+				obj.nuke_object = args[0]
+				return obj
 			elif isinstance(args[0], DML_Knob):
 				return args[0]
 			elif isinstance(args[0], basestring):
-				nuke_knob = fn(*args)
+				obj = object.__new__(cls)
+				fn = getattr(nuke,cls.__name__)
+				nuke_knob = fn(args[0])
+				nuke_knob.setLabel(args[0])
+				obj.nuke_object = nuke_knob
+				
+				return obj
 		else:
+			fn = getattr(nuke,cls.__name__)
 			name          = kwargs.get("name",cls.__name__.lower())
-			label         = kwargs.get("label",name.replace("_"," "))
+			label         = kwargs.get("label",cls.__name__.lower().replace("_"," "))
 			tcl_value     = kwargs.get("tcl_value",None)
 			value         = kwargs.get("value",None)
 			values        = kwargs.get("values",None)
 			expression    = kwargs.get("expression",None)
 			nuke_knob = fn(name)
 			nuke_knob.setLabel(label)
-			
+
 			if tcl_value:
 				nuke_knob.fromScript(tcl_value)
 			elif value:
@@ -115,9 +118,9 @@ class DML_Knob(object):
 				nuke_knob.setValues(values)
 			elif expression:
 				nuke_knob.setExpression(expression)
-				
-		obj.nuke_object = nuke_knob
-		return obj
+
+			obj.nuke_object = nuke_knob
+			return obj
 	#----------------------------------------------------------------------
 	def __init__(self,*args,**kwargs):
 		""""""

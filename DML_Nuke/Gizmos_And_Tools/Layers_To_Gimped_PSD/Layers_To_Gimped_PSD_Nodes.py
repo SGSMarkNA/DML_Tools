@@ -289,7 +289,9 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 			return self._psd_build_group
 		
 		# get all the nodes connected to this nuke node that are of type Group
-		dependent =  [n for n in self.dependent(nuke.INPUTS, forceEvaluate=True) if n.nuke_object.Class() == "Group"]
+		dependent =  [n for n in self.dependent(nuke.INPUTS) if n.nuke_object.Class() == "Group"]
+		if not len(dependent):
+			dependent =  [n for n in self.dependent(nuke.INPUTS) if n.nuke_object.Class() == "Group"]
 		
 		self._psd_build_group = None
 		
