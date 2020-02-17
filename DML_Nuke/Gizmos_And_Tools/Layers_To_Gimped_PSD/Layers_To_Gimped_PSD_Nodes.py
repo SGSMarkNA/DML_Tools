@@ -338,7 +338,8 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 	
 		# get the folder path that this write node will render the image to
 		layers_folder                 = os.path.dirname(nuke.filename(writeNode.nuke_object,nuke.REPLACE))
-		layers_folder                 = layers_folder.replace(layers_folder.split("/")[-1],padded_frame)
+		folder_parts                  = layers_folder.split("/")
+		layers_folder                 = "/".join(folder_parts[0:-1]+[padded_frame])
 		# check if the view are enabled
 		# if so then things get a little tricky
 		# at no point in the render process is there view context so nuke.thisView() will never work.
