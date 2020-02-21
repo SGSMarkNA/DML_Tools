@@ -392,7 +392,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 	def _load_Settings(self):
 		""""""
 		nuke_root = nuke.root()
-		
+		data={}
 		if "submit_gimped_to_deadline_settings" in nuke_root.knobs():
 			settings_knb = nuke_root.knobs()["submit_gimped_to_deadline_settings"]
 			data = settings_knb.getText()
@@ -400,33 +400,33 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 				data={}
 			else:
 				data = eval(settings_knb.getText())
-			LineEdits = data.get("LineEdits",{})
-			SpinBoxs  = data.get("SpinBoxs",{})
-			CheckBoxs = data.get("CheckBoxs",{})
-			ComboBoxs = data.get("ComboBoxs",{})
+		LineEdits = data.get("LineEdits",{"Deadline_JobName":os.path.splitext(os.path.split(nuke.root()['name'].value())[-1])[0],"Deadline_FrameList":"{}-{}".format(nuke.root().firstFrame(),nuke.root().lastFrame())})
+		SpinBoxs  = data.get("SpinBoxs",{})
+		CheckBoxs = data.get("CheckBoxs",{})
+		ComboBoxs = data.get("ComboBoxs",{})
+		
+		for objectName in LineEdits:
+			child = self.findChild(DML_PYQT.QLineEdit,objectName)
+			if isinstance(child,DML_PYQT.QLineEdit):
+				child.setText(LineEdits[objectName])
 			
-			for objectName in LineEdits:
-				child = self.findChild(DML_PYQT.QLineEdit,objectName)
-				if isinstance(child,DML_PYQT.QLineEdit):
-					child.setText(LineEdits[objectName])
-				
-			for objectName in SpinBoxs:
-				child = self.findChild(DML_PYQT.QSpinBox,objectName)
-				if isinstance(child,DML_PYQT.QSpinBox):
-					child.setValue(SpinBoxs[objectName])
-				
-			for objectName in CheckBoxs:
-				child = self.findChild(DML_PYQT.QCheckBox,objectName)
-				if isinstance(child,DML_PYQT.QCheckBox):
-					child.setChecked(CheckBoxs[objectName])
-				
-			for objectName in ComboBoxs:
-				child = self.findChild(DML_PYQT.QComboBox,objectName)
-				if isinstance(child,DML_PYQT.QComboBox):
-					val = ComboBoxs[objectName]
-					vals = [child.itemText(i) for i in range(child.count())]
-					if val in vals:
-						child.setCurrentIndex(vals.index(val))
+		for objectName in SpinBoxs:
+			child = self.findChild(DML_PYQT.QSpinBox,objectName)
+			if isinstance(child,DML_PYQT.QSpinBox):
+				child.setValue(SpinBoxs[objectName])
+			
+		for objectName in CheckBoxs:
+			child = self.findChild(DML_PYQT.QCheckBox,objectName)
+			if isinstance(child,DML_PYQT.QCheckBox):
+				child.setChecked(CheckBoxs[objectName])
+			
+		for objectName in ComboBoxs:
+			child = self.findChild(DML_PYQT.QComboBox,objectName)
+			if isinstance(child,DML_PYQT.QComboBox):
+				val = ComboBoxs[objectName]
+				vals = [child.itemText(i) for i in range(child.count())]
+				if val in vals:
+					child.setCurrentIndex(vals.index(val))
 		
 class DeadlineDialog( nukescripts.PythonPanel ):
 	pools = []

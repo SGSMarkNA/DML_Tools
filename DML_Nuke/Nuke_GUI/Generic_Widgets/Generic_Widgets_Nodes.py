@@ -96,7 +96,7 @@ class Layer_Order_Node(DML_Nuke.Nuke_Nodes.Standered_Nodes.Gizmo):
 				if not knob == None:
 					layer_order_knob = match.knob("DML_Layer_Order_layers")
 					layer_icons_knob = match.knob("DML_Layer_Order_Layer_Icons")
-					if layer_order_knob != None and layer_icons_knob != None:
+					if layer_order_knob != None and layer_icons_knob != None and layer_order_knob.getText() != '':
 						layers = eval(layer_order_knob.getText())
 						icons  = eval(layer_icons_knob.getText())
 						
