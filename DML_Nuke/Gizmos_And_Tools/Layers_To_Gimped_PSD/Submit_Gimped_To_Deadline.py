@@ -208,6 +208,18 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 		if not res == 'Action was cancelled by user':
 			self.Deadline_LimitGroups.setText(res)
 			self._save_Settings()
+		""""""
+		res = DML_Tools.DML_Deadline.Deadline_Commands.SelectMachineList(self.Deadline_MachineList.text())
+		if not res == 'Action was cancelled by user':
+			self.Deadline_MachineList.setText(res)
+			self._save_Settings()
+	#----------------------------------------------------------------------
+	@DML_PYQT.Slot(int)
+	def on_Deadline_FrameListMode_currentIndexChanged(self,val):
+		""""""
+		if val == 0:
+			self.Deadline_FrameList.setText("{}-{}".format(nuke.root().firstFrame(),nuke.root().lastFrame()))
+		self._save_Settings()
 	#----------------------------------------------------------------------
 	@DML_PYQT.Slot()
 	def on_Deadline_DependenciesButton_clicked(self):
@@ -350,6 +362,25 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 			objectName = child.objectName()
 			if objectName.startswith("Deadline_"):
 				child.currentIndexChanged.connect(self.update_Settings)
+
+	#----------------------------------------------------------------------
+	def _get_Settings(self):
+		""""""
+		nuke_root = nuke.root()
+		data={}
+		if not "submit_gimped_to_deadline_settings" in nuke_root.knobs():
+			settings_knb = nuke.String_Knob("submit_gimped_to_deadline_settings")
+			settings_knb.setVisible(False)
+			nuke_root.addKnob(settings_knb)
+			return data
+		else:
+			settings_knb = nuke_root.knobs()["submit_gimped_to_deadline_settings"]
+			data = settings_knb.getText()
+			if data == '':
+				data={}
+			else:
+				data = eval(settings_knb.getText())
+			return data
 	#----------------------------------------------------------------------
 	def _save_Settings(self):
 		""""""
@@ -401,6 +432,7 @@ class Submit_Gimped_To_Deadline_Widget(DML_PYQT.QWidget):
 			else:
 				data = eval(settings_knb.getText())
 		LineEdits = data.get("LineEdits",{"Deadline_JobName":os.path.splitext(os.path.split(nuke.root()['name'].value())[-1])[0],"Deadline_FrameList":"{}-{}".format(nuke.root().firstFrame(),nuke.root().lastFrame())})
+		LineEdits["Deadline_JobName"] = os.path.splitext(os.path.split(nuke.root()['name'].value())[-1])[0]
 		SpinBoxs  = data.get("SpinBoxs",{})
 		CheckBoxs = data.get("CheckBoxs",{})
 		ComboBoxs = data.get("ComboBoxs",{})
