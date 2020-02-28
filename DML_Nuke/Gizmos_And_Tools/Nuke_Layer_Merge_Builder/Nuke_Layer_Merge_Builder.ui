@@ -200,7 +200,7 @@ p, li { white-space: pre-wrap; }
        </widget>
        <widget class="QWidget" name="Views_Tab">
         <attribute name="title">
-         <string>View Output</string>
+         <string>Render Views</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <property name="leftMargin">

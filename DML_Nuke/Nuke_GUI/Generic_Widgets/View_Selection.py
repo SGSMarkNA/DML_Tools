@@ -197,7 +197,7 @@ class Nuke_Views_Selector_UI(DML_PYQT.QWidget):
 			self.BNT_Set_To_Filtered        = DML_PYQT.QPushButton()
 			self.nuke_view_list_view        = DML_Nuke_View_Selection_List_View()
 			self.View_Filter                = DML_PYQT.QLineEdit()
-			self.BNT_This_Does_Nothing      = DML_PYQT.QPushButton()
+			self.BNT_Toggle_Selected        = DML_PYQT.QPushButton()
 			self.BNT_Disable_Selected       = DML_PYQT.QPushButton()
 			self.BNT_Enable_Selected        = DML_PYQT.QPushButton()
 			self.CHKB_Use_Image_Name        = DML_PYQT.QCheckBox()
@@ -269,6 +269,18 @@ class Nuke_Views_Selector_UI(DML_PYQT.QWidget):
 			item.checked = False
 			proxy_index = self._proxyModel.mapFromSource(item.index)
 			self._proxyModel.dataChanged.emit(proxy_index,proxy_index)
+	#----------------------------------------------------------------------
+	@DML_PYQT.Slot()
+	def on_BNT_Toggle_Selected_clicked(self):
+		""""""
+		for item in self.nuke_view_list_view.iterSelectedItems():
+			if item.checked:
+				item.checked = False
+			else:
+				item.checked = True
+			proxy_index = self._proxyModel.mapFromSource(item.index)
+			self._proxyModel.dataChanged.emit(proxy_index,proxy_index)
+
 Python_Custom_Widget_Knob.Default_Ui_Loader.registerCustomWidget(Nuke_Views_Selector_UI)
 
 ########################################################################

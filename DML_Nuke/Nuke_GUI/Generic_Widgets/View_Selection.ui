@@ -48,9 +48,9 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item row="4" column="2">
-    <widget class="QPushButton" name="BNT_This_Does_Nothing">
+    <widget class="QPushButton" name="BNT_Toggle_Selected">
      <property name="text">
-      <string>This Does Noting</string>
+      <string>Toggle Selected</string>
      </property>
     </widget>
    </item>
