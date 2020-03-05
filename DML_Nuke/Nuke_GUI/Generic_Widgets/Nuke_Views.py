@@ -141,7 +141,7 @@ class DML_Nuke_Views_Table_Widget(DML_PYQT.QTableWidget):
 			self.setItem(row, 1, item)
 			self.setItem(row, 2, DML_Nuke_View_Image_Name_Table_Widget_Item(view))
 			self.resizeRowsToContents()
-		self.setHorizontalHeaderLabels(["View Name","Color","Image Name"])
+		self.setHorizontalHeaderLabels(["View Name","Color","Output Name"])
 	@DML_PYQT.Slot(int,int)
 	def on_cellDoubleClicked(self,row,column):
 		if column == 1:
