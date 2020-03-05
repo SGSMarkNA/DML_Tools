@@ -61,7 +61,7 @@
       <item>
        <widget class="QCheckBox" name="CHB_Use_Image_Name">
         <property name="text">
-         <string>User Image Name</string>
+         <string>Replace View Name with Output Name on Render</string>
         </property>
        </widget>
       </item>
@@ -229,7 +229,7 @@ Down</string>
      </column>
      <column>
       <property name="text">
-       <string>Image Name</string>
+       <string>Output Name</string>
       </property>
      </column>
     </widget>
