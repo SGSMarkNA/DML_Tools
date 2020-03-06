@@ -12,18 +12,21 @@ class Maya_Script_Job(object):
 		self._get_job_value()
 	#---------------------------------------------------------------------------------
 	def _get_job_value(self):
-		for job in cmds.scriptJob( listJobs=True):
-			if int(job.split(":")[0]) == self.callbackId:
-				self.job_value = job.split(":")[-1].strip()
-				break
+		jobs = cmds.scriptJob( listJobs=True)
+		if not jobs == None:
+			for job in cmds.scriptJob( listJobs=True):
+				if int(job.split(":")[0]) == self.callbackId:
+					self.job_value = job.split(":")[-1].strip()
+					break
 	#---------------------------------------------------------------------------------
 	def __del__(self):
 		import maya.cmds as cmds
-		if cmds.scriptJob( exists=self.callbackId):
-			try:
-				cmds.scriptJob( kill=self.callbackId, force=True)
-			except:
-				pass
+		if not self.callbackId == None:
+			if cmds.scriptJob(exists=self.callbackId):
+				try:
+					cmds.scriptJob( kill=self.callbackId, force=True)
+				except:
+					pass
 	#---------------------------------------------------------------------------------
 	def __repr__(self):
 		return self.job_value
