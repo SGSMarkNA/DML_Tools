@@ -365,7 +365,7 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 					# check if the image_name is in the layers_folder path
 					if image_name in layers_folder.split("/"):
 						# if so replace it and we are done searching
-						layers_folder_exp = layers_folder.replace(image_name,"{}")
+						layers_folder_exp = layers_folder.replace(image_name,"{input_name}")
 						break
 	
 				# this is to make sure that we found the view to replace
@@ -374,7 +374,8 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 					view_image_names = [nuke.DML_Nuke_View_System.get_Image_Name_From_View_Name(v) for v in view_selection]
 					# iterate over each image name and build a folder path for the image name
 					for image_name in view_image_names:
-						view_layer_folders.append(layers_folder_exp.format(image_name))
+						data = {'input_name': image_name}
+						view_layer_folders.append(layers_folder_exp.format(**data))
 			else:
 				# first we need to replace the view section of the folder path with {} for formating later
 				# because we don't know what view is the active view we have to find it using the layers_folder
@@ -382,14 +383,15 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 					# check if the view is in the layers_folder path
 					if view_name in layers_folder.split("/"):
 						# if so replace it and we are done searching
-						layers_folder_exp = layers_folder.replace(view_name,"{}")
+						layers_folder_exp = layers_folder.replace(view_name,"{input_name}")
 						break
 	
 				# this is to make sure that we found the view to replace
 				if layers_folder_exp is not None:
 					# iterate over each view and build a folder path for the view name
 					for view_name in view_selection:
-						view_layer_folders.append(layers_folder_exp.format(view_name))
+						data = {'input_name': view_name}
+						view_layer_folders.append(layers_folder_exp.format(**data))
 	
 			# iterate over each view folder
 			for view_layer_folder in view_layer_folders:
