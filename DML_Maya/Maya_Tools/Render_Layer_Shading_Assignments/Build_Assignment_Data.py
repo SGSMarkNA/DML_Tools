@@ -4,6 +4,10 @@ import maya.cmds as cmds
 import DML_Tools.DML_Maya as DML_Maya
 import Shader_Switch_Data
 
+cmds.loadPlugin("vrayformaya",qt=True)
+if not cmds.pluginInfo("vrayformaya",q=True,loaded=True):
+	raise LookupError("vrayformaya Could Not Be Loaded")
+
 check_If_AW_Shader_Switch_ID_Exists                   = lambda node:cmds.attributeQuery( "AW_Shader_Switch_ID", node=node, exists=True )
 add_AW_Shader_Switch_ID                               = lambda node:cmds.addAttr(node, longName="AW_Shader_Switch_ID",attributeType="long")
 get_AW_Shader_Switch_ID                               = lambda node:cmds.getAttr(node+".AW_Shader_Switch_ID")
