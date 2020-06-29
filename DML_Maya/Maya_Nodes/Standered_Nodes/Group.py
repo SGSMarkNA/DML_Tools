@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 from . import Transform 
-from ...General_Utils import flatten
+#from ...General_Utils import flatten
 
 ########################################################################
 class Group(Transform):

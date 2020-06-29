@@ -17,3 +17,4 @@ from Standered_Nodes import Group
 from Standered_Nodes import Expression
 from Standered_Nodes import Camera_View
 from Standered_Nodes import Camera
+from Vray_Nodes import VRaySwitchMtl
