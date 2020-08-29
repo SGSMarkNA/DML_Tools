@@ -918,7 +918,7 @@ class WindowType:
 	WindowMinimizeButtonHint          = Qt.WindowMinimizeButtonHint
 	# WindowSoftkeysVisibleHint    = Qt.WindowSoftkeysVisibleHint
 	CustomizeWindowHint               = Qt.CustomizeWindowHint
-	WindowCancelButtonHint            = Qt.WindowCancelButtonHint
+	#WindowCancelButtonHint            = Qt.WindowCancelButtonHint Does Not Work In Maya 2020
 	WindowMaximizeButtonHint          = Qt.WindowMaximizeButtonHint
 	Widget                            = Qt.Widget
 	Popup                             = Qt.Popup
@@ -931,7 +931,7 @@ class WindowType:
 	WindowMinMaxButtonsHint           = Qt.WindowMinMaxButtonsHint
 	MacWindowToolBarButtonHint        = Qt.MacWindowToolBarButtonHint
 	FramelessWindowHint               = Qt.FramelessWindowHint
-	WindowOkButtonHint                = Qt.WindowOkButtonHint
+	#WindowOkButtonHint                = Qt.WindowOkButtonHint Does Not Work In Maya 2020
 	MSWindowsOwnDC                    = Qt.MSWindowsOwnDC
 	WindowCloseButtonHint             = Qt.WindowCloseButtonHint
 	Dialog                            = Qt.Dialog
