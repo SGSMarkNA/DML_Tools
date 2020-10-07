@@ -48,7 +48,8 @@ def collect_Render_Layers_Geo_Switch_Data():
 	tracked_geo      = []
 	tracked_geo_dict = dict()
 	switch_options   = []
-	render_layers    = [layer for layer in cmds.ls(type="renderLayer") if not layer == "defaultRenderLayer"]
+	#render_layers    = [layer for layer in cmds.ls(type="renderLayer") if not layer == "defaultRenderLayer"]
+	render_layers    = list(reversed([layer for layer in cmds.listConnections("renderLayerManager.renderLayerId") if not layer.startswith("defaultRenderLayer")]))
 	
 	all_geo_nodes = cmds.ls(typ=["mesh","nurbsSurface"],noIntermediate=True)
 	for geo_node in all_geo_nodes:
