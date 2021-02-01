@@ -62,53 +62,53 @@ def collect_Render_Layers_Geo_Switch_Data():
 		switch_options.append(option)
 		
 	count = len(tracked_geo) * len(switch_options)
-	
-	cmds.progressWindow(title="Applying State To Layer",progress=0, maxValue = count, status="Smile", isInterruptable=False)
-	try:
-		for option in switch_options:
-			cmds.editRenderLayerGlobals( currentRenderLayer=option.name)
-			for geo in tracked_geo:
-				isinstance(geo,Geo_Node)
-				if not geo in tracked_geo_dict:
-					tracked_geo_dict[geo]=[]
-				cmds.progressWindow( edit=True, step=1)
-				try:
-					if geo in tracked_geo_dict:
-						sg = geo.get_Assigned_Shader_Engine()
-						tracked_geo_dict[geo].append(sg)
-				except LookupError:
-					pass
-	except:
-		print "Error"
-	finally:
-		cmds.progressWindow(endProgress=1)
-		
-	for key in dict(tracked_geo_dict):
-		sgs = list(set(tracked_geo_dict[key]))
-		if len(sgs) == 1:
-			del tracked_geo_dict[key]
+	if count:
+		cmds.progressWindow(title="Applying State To Layer",progress=0, maxValue = count, status="Smile", isInterruptable=False)
+		try:
+			for option in switch_options:
+				cmds.editRenderLayerGlobals( currentRenderLayer=option.name)
+				for geo in tracked_geo:
+					isinstance(geo,Geo_Node)
+					if not geo in tracked_geo_dict:
+						tracked_geo_dict[geo]=[]
+					cmds.progressWindow( edit=True, step=1)
+					try:
+						if geo in tracked_geo_dict:
+							sg = geo.get_Assigned_Shader_Engine()
+							tracked_geo_dict[geo].append(sg)
+					except LookupError:
+						pass
+		except:
+			print "Error"
+		finally:
+			cmds.progressWindow(endProgress=1)
 			
-	unique_lists = dict()
-	
-	for key in tracked_geo_dict:
-		shaders = tracked_geo_dict[key]
-		pattern =  ",".join([shader for shader in shaders])
-		if not pattern in unique_lists.keys():
-			unique_lists[pattern] = []
-		unique_lists[pattern].append(key)
+		for key in dict(tracked_geo_dict):
+			sgs = list(set(tracked_geo_dict[key]))
+			if len(sgs) == 1:
+				del tracked_geo_dict[key]
 				
-	switch_data = Shader_Switch_Data.Switchs()
-	
-	for pattern in unique_lists:
-		pattern_data  = Shader_Switch_Data.Shader_Pattern(pattern=pattern)
-		geo_nodes     = Shader_Switch_Data.Geo_Collection([Shader_Switch_Data.Geo_Node(name=geo.node.split("|")[0], uid=geo.uid) for geo in unique_lists.get(pattern)])
-		shader_switch = Shader_Switch_Data.Shader_Switch(shaderPattern=pattern_data, geoNodes=geo_nodes)
+		unique_lists = dict()
 		
-		switch_data.shader_switches.append(shader_switch)
+		for key in tracked_geo_dict:
+			shaders = tracked_geo_dict[key]
+			pattern =  ",".join([shader for shader in shaders])
+			if not pattern in unique_lists.keys():
+				unique_lists[pattern] = []
+			unique_lists[pattern].append(key)
+					
+		switch_data = Shader_Switch_Data.Switchs()
 		
-	master_ctrl = Shader_Switch_Data.Switch_Shader_Master_Control(switches=switch_data, options=switch_options)
-	Shader_Switch_Data.Encode_Temp_File(master_ctrl)
-	return master_ctrl
+		for pattern in unique_lists:
+			pattern_data  = Shader_Switch_Data.Shader_Pattern(pattern=pattern)
+			geo_nodes     = Shader_Switch_Data.Geo_Collection([Shader_Switch_Data.Geo_Node(name=geo.node.split("|")[0], uid=geo.uid) for geo in unique_lists.get(pattern)])
+			shader_switch = Shader_Switch_Data.Shader_Switch(shaderPattern=pattern_data, geoNodes=geo_nodes)
+			
+			switch_data.shader_switches.append(shader_switch)
+			
+		master_ctrl = Shader_Switch_Data.Switch_Shader_Master_Control(switches=switch_data, options=switch_options)
+		Shader_Switch_Data.Encode_Temp_File(master_ctrl)
+		return master_ctrl
 
 #----------------------------------------------------------------------
 def Apply_Switch_Data():
