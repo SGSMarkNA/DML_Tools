@@ -95,3 +95,30 @@ class Dag_Node(Dependency_Node):
 		if asVector:
 			res = OpenMaya.MVector(res)
 		return res
+	#----------------------------------------------------------------------
+	def get_Assigned_Shader_Engine(self,scanShapes=False,returnFirst=True):
+		""""""
+		if self.objectType == 'transform' and scanShapes:
+			res = []
+			for shape in self.get_Child_Shapes():
+				sg = shape.listConnections(d=True,type='shadingEngine')
+				if len(sg):
+					if returnFirst:
+						return sg[0]
+					else:
+						res.append(sg)
+			return res
+		else:
+			res = self.listConnections(d=True,type='shadingEngine')
+			if len(res):
+				return res
+			else:
+				return None
+	#----------------------------------------------------------------------
+	def get_Assigned_Surface_Shader(self):
+		""""""
+		sg = self.get_Assigned_Shader_Engine(scanShapes=True,returnFirst=True)
+		if sg is not None:
+			return sg.surfaceShader.source_node()
+		else:
+			return None
