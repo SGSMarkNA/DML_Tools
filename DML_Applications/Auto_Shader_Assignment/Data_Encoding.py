@@ -5,7 +5,7 @@ __Column_1_Key = 'Name'
 __Column_2_Key = 'Name_Associations'
 
 #---------------------------------------
-def Read_CSV(fp=r'D:\AW_Env_System\Code\Global_Systems\DML_Tools\DML_Applications\Auto_Shader_Assignment\TestData.csv'):
+def Read_CSV(fp=r'D:\aw_config\Git_Live_Code\Global_Systems\DML_Tools\DML_Applications\Auto_Shader_Assignment\TestData_Out.csv'):
 	"""Reads CSV File And Returns a list"""	
 	res = []
 	with open(fp) as csvfile:
@@ -15,12 +15,14 @@ def Read_CSV(fp=r'D:\AW_Env_System\Code\Global_Systems\DML_Tools\DML_Application
 			buffer_data[row[__Column_1_Key]] = sorted(row[__Column_2_Key].split(":"))
 		for name in sorted(buffer_data.keys()):
 			res.append( [name, buffer_data[name]])
+	res.insert(0, ["None", []])
 	return res
 
 #---------------------------------------
-def Write_CSV(data,fp=r'D:\AW_Env_System\Code\Global_Systems\DML_Tools\DML_Applications\Auto_Shader_Assignment\TestData_Out.csv'):
+def Write_CSV(data,fp=r'D:\aw_config\Git_Live_Code\Global_Systems\DML_Tools\DML_Applications\Auto_Shader_Assignment\TestData_Out.csv'):
 	""""""
 	with open(fp, 'w') as csvfile:
 		csvfile.write("{},{}\n".format(__Column_1_Key, __Column_2_Key))
-		for name in sorted(data.keys()):
-			csvfile.write("{},{}\n".format(name, ":".join(data[name])))
+		for name in sorted(data.names):
+			if not name == "None":
+				csvfile.write("{},{}\n".format(name, ":".join(data[name])))

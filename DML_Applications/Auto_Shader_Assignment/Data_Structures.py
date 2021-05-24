@@ -38,7 +38,7 @@ class Name_Association(_Base_Object):
 	#----------------------------------------------------------------------
 	def __repr__(self):
 		""""""
-		return str([self.name,self._associations])
+		return "Name_Association('{}',associations={})".format(self.name,self._associations)
 	#----------------------------------------------------------------------
 	@property
 	def associations(self):
@@ -56,16 +56,19 @@ class Name_Associations(_Base_Object):
 	def Add_Name_Association(self,name,associations=[]):
 		"""Adds a new association if it does not allready exist"""
 		if not name in self:
-			if isinstance(name,str):
+			if isinstance(name,basestring):
 				name = Name_Association(name, associations=associations)
 			self._name_associations.append(name)
+			return name
 	#----------------------------------------------------------------------
 	def Remove_Name_Association(self,name):
 		"""Removes the given name from the list of associations"""
 		if name in self:
-			if isinstance(name,str):
-				name = self[name]
-			self._name_associations.remove(name)
+			if isinstance(name,basestring):
+				for item in self:
+					if item.name == name:
+						self._name_associations.remove(item)
+		
 	#----------------------------------------------------------------------
 	@property
 	def names(self):
@@ -88,7 +91,7 @@ class Name_Associations(_Base_Object):
 		""""""
 		if type(val) == int or type(val) == slice:
 			return self._name_associations[val]
-		if type(val) == str:
+		if isinstance(val,basestring):
 			if not val in self:
 				raise KeyError("{} does not exist in the name associations".format(val))
 			else:
@@ -152,6 +155,26 @@ class Name_Associations_Data(_Base_Object):
 			
 		self._data = Name_Associations(name_associations)
 		
+	#----------------------------------------------------------------------
+	def Save(self,fp=None):
+		"""Loads the json file"""
+		if fp is not None:
+			try:
+				Write_CSV(self.data)
+				self.file_location = fp
+				return True
+			except OSError:
+				return False
+		else:		
+			if self.file_location == None or not len(self.file_location):
+				raise OSError("This Name Associations Data has not yet been given a file location to load from")
+			else:
+				try:
+					Write_CSV(self.data,fp=self.file_location)
+					return True
+				except:
+					return False
+				
 	#----------------------------------------------------------------------
 	@property
 	def data(self):
