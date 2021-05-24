@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import xml.etree.ElementTree as etree
 
@@ -52,6 +53,11 @@ class Code_ui(Code_Element_Base):
 		return self.iter(tag="layout")
 	#----------------------------------------------------------------------
 	@property
+	def all_Actions(self):
+		''' '''
+		return self.iter(tag="action")
+	#----------------------------------------------------------------------
+	@property
 	def ui_Class(self):
 		''' '''
 		return self.find("class")
@@ -75,6 +81,8 @@ class Code_ui(Code_Element_Base):
 				code.append("\t\t\tself.%s = %s()" % (wig.name,wig.class_name))
 		for lay in self.all_Layouts:
 			code.append("\t\t\tself.%s = %s.%s()" % (lay.name,modual_prefix,lay.class_name))
+		for action in self.all_Actions:
+			code.append("\t\t\tself.%s = %s.QAction()" % (action.name,modual_prefix))
 		res = "\n".join(code)
 		return res
 
@@ -108,9 +116,19 @@ class Code_widget(Code_Element_Base):
 	def child_Widgets(self):
 		""""""
 		return self.iterfind(tag="widget")
+	
+########################################################################
+class Code_action(Code_Element_Base):
+	""""""
+	#----------------------------------------------------------------------
+	@property
+	def name(self):
+		""""""
+		return self.get("name")
 
 _Tag_To_Class["widget"] = Code_widget
 _Tag_To_Class["layout"] = Code_widget
+_Tag_To_Class["action"] = Code_widget
 
 #----------------------------------------------------------------------
 def UI_Element_Factory(parent,tag, attrib={}, **extra):
@@ -145,7 +163,7 @@ def Xml_From_File(file_path):
 #----------------------------------------------------------------------
 def Print_Code(file_path,classBase="QWidget",modual_prefix="PYQT"):
 	data = Xml_From_File(file_path)
-	print data.generate_Code_Compleatshion(classBase,modual_prefix)
+	print(data.generate_Code_Compleatshion(classBase,modual_prefix))
 
 if __name__ == "__main__":
 	classBase = "QWidget"
