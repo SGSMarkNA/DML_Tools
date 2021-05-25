@@ -18,17 +18,17 @@ def get_Nissan_Material_Codes():
 
 
 
-def openFileName(parent,native=False,startFolder=None):
+def openFileName(parent,native=False,startFolder=None,filterExt="csv",title="Load File"):
 	options = PYQT.QFileDialog.Options()
 	if startFolder == None:
 		startFolder == os.environ["USERPROFILE"]
 	if not native:
 		options |= PYQT.QFileDialog.DontUseNativeDialog
-	fileName, filtr = PYQT.QFileDialog.getOpenFileName(parent,"QFileDialog.getOpenFileName()",startFolder,"All Files (*);;CSV Files (*.csv)", "", options)
+	fileName, filtr = PYQT.QFileDialog.getOpenFileName(parent,title,startFolder,"All Files (*);;CSV Files (*.{})".format(filterExt), "", options)
 	if fileName:
 		return fileName
 	
-def saveFileName(parent,native=False,startFolder=None):
+def saveFileName(parent,native=False,startFolder=None,filterExt="csv",title="Save File"):
 	options = PYQT.QFileDialog.Options()
 	if startFolder == None:
 		startFolder == os.environ["USERPROFILE"]
@@ -36,20 +36,30 @@ def saveFileName(parent,native=False,startFolder=None):
 	if not native:
 		options |= PYQT.QFileDialog.DontUseNativeDialog
 		
-	fileName, filtr = PYQT.QFileDialog.getSaveFileName(parent,"QFileDialog.getSaveFileName()",startFolder,"Text Files (*.csv)", "", options)
+	fileName, filtr = PYQT.QFileDialog.getSaveFileName(parent,title,startFolder,"Text Files (*.{})".format(filterExt), "", options)
 	
 	if fileName:
+		fileName = os.path.splitext(fileName)[0]+".{}".format(filterExt)
 		return fileName
 
 class Delegate(PYQT.QStyledItemDelegate):
 	def __init__(self, owner, model_data):
 		super(Delegate,self).__init__(owner)
 		self.model_data = model_data
-		self.choices =[]
 		for row in range(self.model_data.rowCount()):
 			item = self.model_data.item(row)
 			self.choices.append(item.text())
-			
+		#if not len(self.choices):
+			#self.choices.append("None")
+	#----------------------------------------------------------------------
+	@property
+	def choices(self):
+		""""""
+		choices = []
+		for row in range(self.model_data.rowCount()):
+			item = self.model_data.item(row)
+			choices.append(item.text())
+		return choices
 	def paint(self, painter, option, index):
 		#if isinstance(self.parent(), PYQT.QAbstractItemView):
 			#self.parent().openPersistentEditor(self.parent().itemFromIndex(index))
@@ -71,23 +81,26 @@ class Delegate(PYQT.QStyledItemDelegate):
 
 	def setEditorData(self, editor, index):
 		value = index.data(PYQT.Qt.DisplayRole)
-		num = self.choices.index(value)
-		editor.setCurrentIndex(num)
-		if not self._first_run:
-			if not self._current_editor_value == editor.itemText(num):
-				print("Active Value Has Been Changed To {}".format(editor.itemText(num)))
+		if len(self.choices):
+			num = self.choices.index(value)
+			editor.setCurrentIndex(num)
+			if not self._first_run:
+				if not self._current_editor_value == editor.itemText(num):
+					print("Active Value Has Been Changed To {}".format(editor.itemText(num)))
+					self._current_editor_value = editor.itemText(num)
+			else:
+				self._first_run = False
 				self._current_editor_value = editor.itemText(num)
-		else:
-			self._first_run = False
-			self._current_editor_value = editor.itemText(num)
-			self._old_editor_value = editor.itemText(num)
+				self._old_editor_value = editor.itemText(num)
 
 	def setModelData(self, editor, model, index):
-		value = editor.currentText()
-		model.setData(index, value, PYQT.Qt.EditRole)
-		if self._old_editor_value != self._current_editor_value:
-			self.model_data.Update_Association_Data(self._old_editor_value,self._current_editor_value,index.sibling(index.row(),1).data(PYQT.Qt.DisplayRole))
-
+		if len(self.choices):
+			value = editor.currentText()
+			model.setData(index, value, PYQT.Qt.EditRole)
+			if self._old_editor_value != self._current_editor_value:
+				self.model_data.Update_Association_Data(self._old_editor_value,self._current_editor_value,index.sibling(index.row(),1).data(PYQT.Qt.DisplayRole))
+		else:
+			model.setData(index, "None", PYQT.Qt.EditRole)
 	def updateEditorGeometry(self, editor, option, index):
 		editor.setGeometry(option.rect)
 
@@ -107,14 +120,6 @@ class Custom_Combox(PYQT.QComboBox):
 	def onChanged(self,val):
 		""""""
 		print("Active Value Has Been Changed To {}".format(self.itemText(val)))
-	##----------------------------------------------------------------------
-	#def setCurrentIndex(self,index):
-		#""""""
-		#if self._options_visable:
-			#if not self._old_index == index:
-				#print("old index = {}, new index = {}".format(self._old_index,index))
-				#self._old_index = index
-		#super(Custom_Combox,self).setCurrentIndex(index)
 	#----------------------------------------------------------------------
 	def do_activated(self,index):
 		""""""
@@ -127,29 +132,84 @@ class Custom_TableWidget(PYQT.QTableWidget):
 	def __init__(self,parent=None):
 		"""Constructor"""
 		super(Custom_TableWidget,self).__init__(parent=parent)
+		self._last_loaded_file_path = None
+		self._loaded_names = []
 	#----------------------------------------------------------------------
 	def setupTable(self,model_data):
 		""""""
-		self.setSortingEnabled(True)
-		nissan_material_codes = get_Nissan_Material_Codes()
-		self.setRowCount(len(nissan_material_codes))
-		
-		for index,item in enumerate(nissan_material_codes):
-			tableitem = PYQT.QTableWidgetItem(item)
-			tableitem.setFlags(PYQT.Qt.ItemFlag.ItemIsEnabled | PYQT.Qt.ItemFlag.ItemIsSelectable)
-			self.setItem(index,1,tableitem)
-			
-			lookup = model_data.Find_Key_Name_For_Association(item)
-			try:
-				tableitem = PYQT.QTableWidgetItem(lookup.data())
-			except:
-				tableitem = PYQT.QTableWidgetItem("None")
-				
-			self.setItem(index,0,tableitem)
-			
+		#self.setSortingEnabled(True)
+		#nissan_material_codes = get_Nissan_Material_Codes()
+		#self.setRowCount(len(nissan_material_codes))
 		self.setItemDelegateForColumn(0,Delegate(self, model_data))
-		#self.sortByColumn(0,PYQT.Qt.SortOrder.AscendingOrder)
+		self.setColumnWidth(0,400)
+	#----------------------------------------------------------------------
+	def _rebuild_Name_List(self):
+		""""""
+		if len(self._loaded_names):
+			for row in range(self.rowCount()):
+				self.removeRow(0)
+			#self.setRowCount(len(self._loaded_names))
+			for index,item in enumerate(self._loaded_names):
+				self.Add_Name(item)	
+	#----------------------------------------------------------------------
+	def Load_Names_Files(self):
+		""""""
+		file_path = openFileName(self, native=False, startFolder=self._last_loaded_file_path, filterExt="txt")
 		
+		if file_path:
+			if not os.path.exists(file_path):
+				raise OSError("The file location for this This Name List does not exist")
+		
+			with open(file_path,"r") as f:
+				data = f.read()
+			
+			self._last_loaded_file_path = file_path
+			
+			self._loaded_names = data.splitlines()
+			
+			self._rebuild_Name_List()
+				
+	#----------------------------------------------------------------------
+	def Add_Name(self,name):
+		""""""
+		current_row_count = self.rowCount()
+		self.setRowCount(current_row_count+1)
+		tableitem = PYQT.QTableWidgetItem(name)
+		self.setItem(current_row_count,1,tableitem)
+		lookup = self.window()._model_data.Find_Key_Name_For_Association(name)
+		try:
+			tableitem = PYQT.QTableWidgetItem(lookup.data())
+		except:
+			tableitem = PYQT.QTableWidgetItem("None")
+		self.setItem(current_row_count,0,tableitem)
+		if not name in self._loaded_names:
+			self._loaded_names.append(name)
+		
+	#----------------------------------------------------------------------
+	def Remove_Selected_Names(self):
+		""""""
+		selected_indexes = self.selectedIndexes()
+		for index in reversed(selected_indexes):
+			self._loaded_names.remove(index.data())
+			self.removeRow(index.row())
+	#----------------------------------------------------------------------
+	def Save_Names_File(self,file_path=None):
+		""""""
+		if file_path == None:
+			if self._last_loaded_file_path == None:
+				file_path = saveFileName(self, native=False, startFolder=None, filterExt="txt")
+			else:
+				file_path = self._last_loaded_file_path
+		
+		if file_path is not None:
+			try:
+				with open(file_path,"w") as fp:
+					fp.write("\n".join(self._loaded_names))
+				self._last_loaded_file_path = file_path
+				return True
+			except:
+				return False
+					
 GUI_Loader.registerCustomWidget(Custom_TableWidget)
 
 ########################################################################
@@ -204,12 +264,13 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 	def __init__(self,rows=1, columns=1):
 		"""Constructor"""
 		super(Name_Associations_Standered_Item_Model,self).__init__()
-		#parentItem = self.invisibleRootItem()
-		#data = Data_Structures.Name_Associations_Data(file_location=r"D:\aw_config\Git_Live_Code\Global_Systems\DML_Tools\DML_Applications\Auto_Shader_Assignment\TestData.csv", label="Name Associations")
-		#self._data = data
-		#for item in data.data:
-			#name_item = Name_Key_Standered_Item(item)
-			#parentItem.appendRow(name_item)
+		parentItem = self.invisibleRootItem()
+		data = Data_Structures.Name_Associations_Data()
+		data._data.Add_Name_Association("None")
+		self._data = data
+		for item in data.data:
+			name_item = Name_Key_Standered_Item(item)
+			parentItem.appendRow(name_item)
 	#----------------------------------------------------------------------
 	def _rebuild(self,file_path):
 		""""""
@@ -239,7 +300,7 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 			if len(items):
 				oldKeyItem = items[0]
 				isinstance(oldKeyItem,Name_Key_Standered_Item)
-				for child_row in range(oldKeyItem.rowCount()):
+				for child_row in range(oldKeyItem.rowCount()-1):
 					child_item = oldKeyItem.child(child_row)
 					if child_item.text() == association:
 						oldKeyItem._data.Remove_Association(association)
@@ -252,7 +313,7 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 				isinstance(newKeyItem,Name_Key_Standered_Item)
 				newKeyItem.appendRow(Name_Association_Standered_Item(association))
 				newKeyItem._data.Add_Association(association)
-		self._data.Save()
+		#self._data.Save()
 					
 ########################################################################
 class _CODE_COMPLEATION_HELPER(PYQT.QMainWindow):
@@ -270,6 +331,9 @@ class _CODE_COMPLEATION_HELPER(PYQT.QMainWindow):
 			self.lineEdit = PYQT.QLineEdit()
 			self.label = PYQT.QLabel()
 			self.lineEdit_2 = PYQT.QLineEdit()
+			self.Add_Name_Button = PYQT.QPushButton()
+			self.New_Name_Input = PYQT.QLineEdit()
+			self.Remove_Selected_Names_Button = PYQT.QPushButton()
 			self.tableWidget = Custom_TableWidget()
 			self.list_view_tab = PYQT.QWidget()
 			self.widget_4 = PYQT.QWidget()
@@ -293,15 +357,20 @@ class _CODE_COMPLEATION_HELPER(PYQT.QMainWindow):
 			self.verticalLayout = PYQT.QVBoxLayout()
 			self.verticalLayout_6 = PYQT.QVBoxLayout()
 			self.gridLayout_3 = PYQT.QGridLayout()
+			self.gridLayout = PYQT.QGridLayout()
+			self.horizontalLayout = PYQT.QHBoxLayout()
 			self.verticalLayout_4 = PYQT.QVBoxLayout()
 			self.gridLayout_2 = PYQT.QGridLayout()
 			self.horizontalLayout_5 = PYQT.QHBoxLayout()
 			self.horizontalLayout_4 = PYQT.QHBoxLayout()
 			self.verticalLayout_5 = PYQT.QVBoxLayout()
-			self.actionLoad = PYQT.QAction()
-			self.actionSave = PYQT.QAction()
-			self.actionSave_As = PYQT.QAction()
+			self.action_Load_Associations = PYQT.QAction()
+			self.action_Save_Associations = PYQT.QAction()
+			self.action_Save_Associations_As = PYQT.QAction()
 			self.actionAuto_Save = PYQT.QAction()
+			self.action_Load_Names = PYQT.QAction()
+			self.action_Save_Names = PYQT.QAction()
+			self.action_Save_Names_As = PYQT.QAction()
 
 ########################################################################
 class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
@@ -312,46 +381,50 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 		super(Name_Associations_Main_Window,self).__init__(parent=None)
 		self._model_data = Name_Associations_Standered_Item_Model()
 	#----------------------------------------------------------------------
-	def _setup_TableWidget(self):
-		""""""
-		self.tableWidget.setupTable(self._model_data)
-		#self.tableWidget.setItemDelegateForColumn(0,Delegate(self, model_data))
-		#nissan_material_codes = get_Nissan_Material_Codes()
-		#self.tableWidget.setRowCount(len(nissan_material_codes))
-		#for index,item in enumerate(nissan_material_codes):
-			#tableitem = PYQT.QTableWidgetItem(item)
-			#self.tableWidget.setItem(index,1,tableitem)
-			
-			#combox = Custom_Combox(parent=self)
-			#combox.setModel(self._model_data)
-			#lookup = self._model_data.Find_Key_Name_For_Association(item)
-			#try:
-				#combox.setCurrentIndex(lookup.row())
-			#except:
-				#pass
-			#self.tableWidget.setCellWidget(index,0,combox)
-	#----------------------------------------------------------------------
 	def _run_init(self):
 		""""""
 		self.Name_Tab_Association_treeView.setModel(self._model_data)
 		self.Names_List_View.setModel(self._model_data)
 		self.Associations_List_View.setModel(self._model_data)
-		self._setup_TableWidget()
+		self.tableWidget.setupTable(self._model_data)
 		self.Add_Key_Name_Button.clicked.connect(self.Add_Key_Name)
 		self.Remove_Key_Name_Button.clicked.connect(self.Remove_Selected_Key_Names)
 		self.Add_Association_Button.clicked.connect(self.Add_Name_Association)
 		self.Remove_Association_Button.clicked.connect(self.Remove_Selected_Name_Associations)
-		self.actionSave.activated.connect(self.Save_File)
-		self.actionSave_As.activated.connect(self.Save_File_As)
-		self.actionLoad.activated.connect(self.Load_File)
+		self.action_Save_Associations.activated.connect(self.Save_File)
+		self.action_Save_Associations_As.activated.connect(self.Save_File_As)
+		self.action_Load_Associations.activated.connect(self.Load_File)
+		self.Add_Name_Button.clicked.connect(self.Add_Name)
+		self.Remove_Selected_Names_Button.clicked.connect(self.tableWidget.Remove_Selected_Names)
+		self.action_Load_Names.activated.connect(self.tableWidget.Load_Names_Files)
+		self.action_Save_Names.activated.connect(self.Save_Names_File)
+		self.action_Save_Names_As.activated.connect(self.Save_Names_File_As)
+		self.New_Name_Input.returnPressed.connect(self.Add_Name)
+		self.New_Key_Name_Input.returnPressed.connect(self.Add_Key_Name)
+		self.new_name_association_input.returnPressed.connect(self.Add_Name_Association)
+	#----------------------------------------------------------------------
+	def Add_Name(self,name=None):
+		""""""
+		if name == None:
+			name = self.New_Name_Input.text()
+		names = name.split(",")
+		for name in names:
+			name = name.strip()
+			item_search = self.tableWidget.findItems(name,PYQT.Qt.MatchExactly)
+			if not len(item_search):
+				self.tableWidget.Add_Name(name)
+			
 	#----------------------------------------------------------------------
 	def Add_Key_Name(self,name=None):
 		""""""
 		if name == None:
 			name = self.New_Key_Name_Input.text()
-		if not name in self._model_data._data._data and len(name):
-			key_name_association = self._model_data._data.Add_Name_Association(name, associations=[])
-			self._model_data.invisibleRootItem().appendRow(Name_Key_Standered_Item(key_name_association))
+		names = name.split(",")
+		for name in names:
+			name = name.strip()
+			if not name in self._model_data._data._data and len(name):
+				key_name_association = self._model_data._data.Add_Name_Association(name, associations=[])
+				self._model_data.invisibleRootItem().appendRow(Name_Key_Standered_Item(key_name_association))
 	#----------------------------------------------------------------------
 	def Remove_Selected_Key_Names(self):
 		""""""
@@ -367,14 +440,18 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 		""""""
 		if name == None:
 			name = self.new_name_association_input.text()
-		if not name in self._model_data._data._data and len(name):
-			selected_items = self.Names_List_View.selectedIndexes()
-			if len(selected_items) == 1:
-				selected_item = self._model_data.item(selected_items[0].row())
-				isinstance(selected_item,Name_Key_Standered_Item)
-				if not name in selected_item._data:
-					selected_item._data.Add_Association(name)
-					selected_item.appendRow(Name_Association_Standered_Item(name))
+			
+		names = name.split(",")
+		for name in names:
+			name = name.strip()
+			if not name in self._model_data._data._data and len(name):
+				selected_items = self.Names_List_View.selectedIndexes()
+				if len(selected_items) == 1:
+					selected_item = self._model_data.item(selected_items[0].row())
+					isinstance(selected_item,Name_Key_Standered_Item)
+					if not name in selected_item._data:
+						selected_item._data.Add_Association(name)
+						selected_item.appendRow(Name_Association_Standered_Item(name))
 	#----------------------------------------------------------------------
 	def Remove_Selected_Name_Associations(self):
 		""""""
@@ -393,22 +470,41 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 		file_path = openFileName(self,native=False, startFolder=None)
 		if file_path is not None:
 			self._model_data._rebuild(file_path)
-			self._setup_TableWidget()
+			#self.tableWidget.setupTable(self._model_data)
+			self.tableWidget._rebuild_Name_List()
+			#self.tableWidget.setItemDelegateForColumn(0,Delegate(self, self._model_data))
+			
 	#----------------------------------------------------------------------
 	def Save_File(self):
 		""""""
-		success = self._model_data._data.Save()
-		if not success:
-			pass
+		if self._model_data._data.file_location == None:
+			self.Save_File_As()
+		else:
+			success = self._model_data._data.Save()
+			if not success:
+				pass
 	#----------------------------------------------------------------------
 	def Save_File_As(self):
 		""""""
-		file_path = saveFileName(self, native=False,startFolder=os.path.dirname(self._model_data._data.file_location))
+		if self._model_data._data.file_location == None:
+			file_path = saveFileName(self, native=False)
+		else:
+			file_path = saveFileName(self, native=False,startFolder=os.path.dirname(self._model_data._data.file_location))
 		if file_path is not None:
 			success = self._model_data._data.Save(fp=file_path)
 			if not success:
 				pass
-
+	#----------------------------------------------------------------------
+	def Save_Names_File(self):
+		""""""
+		self.tableWidget.Save_Names_File()
+	#----------------------------------------------------------------------
+	def Save_Names_File_As(self):
+		""""""
+		file_path = saveFileName(self, native=False,startFolder=os.path.dirname(self._model_data._data.file_location))
+		if file_path:
+			self.tableWidget.Save_Names_File(file_path=file_path)
+			
 GUI_Loader.registerCustomWidget(Name_Associations_Main_Window)
 
 

@@ -109,7 +109,7 @@ class Name_Associations_Data(_Base_Object):
 		"""Constructor"""
 		self.file_location = file_location
 		self.label = label
-		self._data = None
+		self._data = Name_Associations([Name_Association("None", associations=[])])
 		if file_location != None and self._File_Exists():
 			self.Load()
 		if False:
@@ -160,7 +160,7 @@ class Name_Associations_Data(_Base_Object):
 		"""Loads the json file"""
 		if fp is not None:
 			try:
-				Write_CSV(self.data)
+				Write_CSV(self.data,fp)
 				self.file_location = fp
 				return True
 			except OSError:

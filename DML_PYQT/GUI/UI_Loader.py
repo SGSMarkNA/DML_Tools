@@ -106,7 +106,10 @@ class UiLoader(QT.QUiLoader):
 		However, in your implementation, ensure that you call PySide.QtUiTools.QUiLoader s version first.
 		"""
 		if className in self._custom_wigets:
-			res = self._custom_wigets[className](parent=parent)
+			if not parent == None:
+				res = self._custom_wigets[className](parent=parent)
+			else:
+				res = self._custom_wigets[className]()
 			res.setObjectName(name)
 		else:
 			res = super(UiLoader,self).createWidget(className,parent,name)
