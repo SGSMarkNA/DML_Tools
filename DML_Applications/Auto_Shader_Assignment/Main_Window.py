@@ -3,7 +3,7 @@ import DML_Tools.DML_PYQT as PYQT
 GUI_Loader = PYQT.GUI.UI_Loader.GUI_Loader
 import Data_Structures
 import os
-
+os.sys.path.append(r"V:\aw_config\Git_Live_Code\Global_Systems")
 
 #----------------------------------------------------------------------
 def get_Nissan_Material_Codes():
