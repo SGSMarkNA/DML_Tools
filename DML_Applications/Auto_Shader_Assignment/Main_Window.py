@@ -1,9 +1,13 @@
 from __future__ import print_function
-import DML_Tools.DML_PYQT as PYQT
+import os
+try:
+	import DML_Tools.DML_PYQT as PYQT
+except:
+	os.sys.path.append(r"V:\aw_config\Git_Live_Code\Global_Systems")
+	import DML_Tools.DML_PYQT as PYQT
+	
 GUI_Loader = PYQT.GUI.UI_Loader.GUI_Loader
 import Data_Structures
-import os
-os.sys.path.append(r"V:\aw_config\Git_Live_Code\Global_Systems")
 
 #----------------------------------------------------------------------
 def get_Nissan_Material_Codes():
@@ -46,9 +50,9 @@ class Delegate(PYQT.QStyledItemDelegate):
 	def __init__(self, owner, model_data):
 		super(Delegate,self).__init__(owner)
 		self.model_data = model_data
-		for row in range(self.model_data.rowCount()):
-			item = self.model_data.item(row)
-			self.choices.append(item.text())
+		#for row in range(self.model_data.rowCount()):
+			#item = self.model_data.item(row)
+			#self.choices.append(item.text())
 		#if not len(self.choices):
 			#self.choices.append("None")
 	#----------------------------------------------------------------------
@@ -86,7 +90,7 @@ class Delegate(PYQT.QStyledItemDelegate):
 			editor.setCurrentIndex(num)
 			if not self._first_run:
 				if not self._current_editor_value == editor.itemText(num):
-					print("Active Value Has Been Changed To {}".format(editor.itemText(num)))
+					#print("Active Value Has Been Changed To {}".format(editor.itemText(num)))
 					self._current_editor_value = editor.itemText(num)
 			else:
 				self._first_run = False
@@ -286,8 +290,10 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 		""""""
 		for row in range(self.rowCount()):
 			item = self.item(row)
+			
 			for child_row in range(item.rowCount()):
 				child_item = item.child(child_row)
+				
 				if child_item.text() == val:
 					return item
 		return None
@@ -297,11 +303,14 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 		
 		if oldKeyName != u'None':
 			items = self.findItems(oldKeyName,PYQT.Qt.MatchExactly)
+			
 			if len(items):
 				oldKeyItem = items[0]
 				isinstance(oldKeyItem,Name_Key_Standered_Item)
-				for child_row in range(oldKeyItem.rowCount()-1):
+				
+				for child_row in range(oldKeyItem.rowCount()):
 					child_item = oldKeyItem.child(child_row)
+					
 					if child_item.text() == association:
 						oldKeyItem._data.Remove_Association(association)
 						oldKeyItem.removeRow(child_item.row())
@@ -313,6 +322,9 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 				isinstance(newKeyItem,Name_Key_Standered_Item)
 				newKeyItem.appendRow(Name_Association_Standered_Item(association))
 				newKeyItem._data.Add_Association(association)
+		#else:
+			#oldKeyItem._data.Remove_Association(association)
+			#oldKeyItem.removeRow(child_item.row())
 		#self._data.Save()
 					
 ########################################################################
