@@ -1,14 +1,50 @@
 from __future__ import print_function
+import logging
 import os
+import sys
+
+logging.basicConfig(filename=os.path.join(os.environ["Temp"],"Auto_Shader_Assingment_Debug_Log.txt"),
+					level=logging.DEBUG,
+					format='%(levelname)s - %(lineno)d - "%(message)s"')
+
+logging.debug('Logger Started')
+
+
+logging.debug('Importing DML_Tools.DML_PYQT')
+
 try:
 	import DML_Tools.DML_PYQT as PYQT
+	logging.debug('DML_Tools.DML_PYQT Imported Successfully')
 except:
-	os.sys.path.append(r"V:\aw_config\Git_Live_Code\Global_Systems")
-	import DML_Tools.DML_PYQT as PYQT
+	logging.warn('Failed To Import DML_Tools.DML_PYQT')
 	
+	logging.warn('Adding "V:\aw_config\Git_Live_Code\Global_Systems" to the system paths')
+	
+	os.sys.path.append(r"V:\aw_config\Git_Live_Code\Global_Systems")
+	
+	logging.debug('Retrying Import Of DML_Tools.DML_PYQT')
+	
+	try:
+		import DML_Tools.DML_PYQT as PYQT
+	except Exception as e:
+		e.message
+		logging.error('Failed To Import DML_Tools.DML_PYQT with error {}'.format(e.message))
+		sys.exit()
+
 GUI_Loader = PYQT.GUI.UI_Loader.GUI_Loader
+
 import Data_Structures
 
+try:
+	logging.debug('Attempting To Import Maya')
+	import maya.cmds as cmds
+	cmds.about( version=True)
+	_in_maya = True
+	logging.debug('Import Successfully Maya is running')
+except:
+	logging.debug('Import Falid Running In Standalone Version')
+	_in_maya = False
+	
 #----------------------------------------------------------------------
 def get_Nissan_Material_Codes():
 	""""""
@@ -18,7 +54,21 @@ def get_Nissan_Material_Codes():
 	return data.splitlines()
 	
 
-
+################ Maya Functions
+#----------------------------------------------------------------------
+def get_Shader_In_Namespace(nameSpace):
+	""""""
+	def flatten(x):
+		result = []
+		for el in x:
+			if hasattr(el, "__iter__") and not isinstance(el, basestring):
+				result.extend(flatten(el))
+			else:
+				result.append(el)
+		return result
+	if _in_maya:
+		shader_names = sorted(list(set(flatten([shaders for shaders in [cmds.listConnections(sg+".surfaceShader") for sg in [sg for sg in cmds.ls(nameSpace+":*",typ="shadingEngine") if not sg.startswith("initial")]] if len(shaders) >= 1]))))
+		return shader_names
 
 
 
@@ -172,6 +222,12 @@ class Custom_TableWidget(PYQT.QTableWidget):
 			self._loaded_names = data.splitlines()
 			
 			self._rebuild_Name_List()
+	#----------------------------------------------------------------------
+	def Build_Names_From_List(self,names=[]):
+		""""""
+		if len(names):
+			self._loaded_names = names
+			self._rebuild_Name_List()
 				
 	#----------------------------------------------------------------------
 	def Add_Name(self,name):
@@ -286,6 +342,14 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 			name_item = Name_Key_Standered_Item(item)
 			parentItem.appendRow(name_item)
 	#----------------------------------------------------------------------
+	def Get_Child_Items(self):
+		""""""
+		res = []
+		for row in range(self.rowCount()):
+			item = self.item(row)
+			res.append(item)
+		return res
+	#----------------------------------------------------------------------
 	def Find_Key_Name_For_Association(self,val):
 		""""""
 		for row in range(self.rowCount()):
@@ -322,10 +386,7 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 				isinstance(newKeyItem,Name_Key_Standered_Item)
 				newKeyItem.appendRow(Name_Association_Standered_Item(association))
 				newKeyItem._data.Add_Association(association)
-		#else:
-			#oldKeyItem._data.Remove_Association(association)
-			#oldKeyItem.removeRow(child_item.row())
-		#self._data.Save()
+
 					
 ########################################################################
 class _CODE_COMPLEATION_HELPER(PYQT.QMainWindow):
@@ -339,10 +400,12 @@ class _CODE_COMPLEATION_HELPER(PYQT.QMainWindow):
 			self.centralwidget = PYQT.QWidget()
 			self.tabWidget = PYQT.QTabWidget()
 			self.table_view_tab = PYQT.QWidget()
+			self.Association_Name_Space_Input = PYQT.QLineEdit()
+			self.Names_Name_Space_Input = PYQT.QLineEdit()
 			self.label_2 = PYQT.QLabel()
-			self.lineEdit = PYQT.QLineEdit()
 			self.label = PYQT.QLabel()
-			self.lineEdit_2 = PYQT.QLineEdit()
+			self.Lookup_Name_Space_Scan_Button = PYQT.QPushButton()
+			self.Association_Name_Space_Scan_Button = PYQT.QPushButton()
 			self.Add_Name_Button = PYQT.QPushButton()
 			self.New_Name_Input = PYQT.QLineEdit()
 			self.Remove_Selected_Names_Button = PYQT.QPushButton()
@@ -403,17 +466,49 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 		self.Remove_Key_Name_Button.clicked.connect(self.Remove_Selected_Key_Names)
 		self.Add_Association_Button.clicked.connect(self.Add_Name_Association)
 		self.Remove_Association_Button.clicked.connect(self.Remove_Selected_Name_Associations)
-		self.action_Save_Associations.activated.connect(self.Save_File)
-		self.action_Save_Associations_As.activated.connect(self.Save_File_As)
-		self.action_Load_Associations.activated.connect(self.Load_File)
 		self.Add_Name_Button.clicked.connect(self.Add_Name)
 		self.Remove_Selected_Names_Button.clicked.connect(self.tableWidget.Remove_Selected_Names)
-		self.action_Load_Names.activated.connect(self.tableWidget.Load_Names_Files)
-		self.action_Save_Names.activated.connect(self.Save_Names_File)
-		self.action_Save_Names_As.activated.connect(self.Save_Names_File_As)
 		self.New_Name_Input.returnPressed.connect(self.Add_Name)
 		self.New_Key_Name_Input.returnPressed.connect(self.Add_Key_Name)
 		self.new_name_association_input.returnPressed.connect(self.Add_Name_Association)
+		self.Lookup_Name_Space_Scan_Button.clicked.connect(self.Run_Name_Space_Scan_For_Names)
+		self.Association_Name_Space_Scan_Button.clicked.connect(self.Run_Name_Space_Scan_For_Associations)
+		try:
+			self.action_Save_Associations.activated.connect(self.Save_File)
+			self.action_Save_Associations_As.activated.connect(self.Save_File_As)
+			self.action_Load_Associations.activated.connect(self.Load_File)		
+			self.action_Load_Names.activated.connect(self.tableWidget.Load_Names_Files)
+			self.action_Save_Names.activated.connect(self.Save_Names_File)
+			self.action_Save_Names_As.activated.connect(self.Save_Names_File_As)
+		except:
+			self.action_Save_Associations.triggered.connect(self.Save_File)
+			self.action_Save_Associations_As.triggered.connect(self.Save_File_As)
+			self.action_Load_Associations.triggered.connect(self.Load_File)		
+			self.action_Load_Names.triggered.connect(self.tableWidget.Load_Names_Files)
+			self.action_Save_Names.triggered.connect(self.Save_Names_File)
+			self.action_Save_Names_As.triggered.connect(self.Save_Names_File_As)
+		
+	#----------------------------------------------------------------------
+	def Run_Name_Space_Scan_For_Names(self):
+		""""""
+		if _in_maya:
+			text_val = self.Names_Name_Space_Input.text()
+			if len(text_val):
+				shaders_names = get_Shader_In_Namespace(text_val)
+				shader_nice_names = [name.split(":")[-1] for name in shaders_names]
+				self.tableWidget.Build_Names_From_List(shader_nice_names)
+	#----------------------------------------------------------------------
+	def Run_Name_Space_Scan_For_Associations(self):
+		""""""
+		if _in_maya:
+			text_val = self.Association_Name_Space_Input.text()
+			if len(text_val):
+				shaders_names = get_Shader_In_Namespace(text_val)
+				shader_nice_names = [name.split(":")[-1] for name in shaders_names]
+				current_list_of_key_names = [item.text() for item in self._model_data.Get_Child_Items()]
+				for nice_name in shader_nice_names:
+					if not nice_name in current_list_of_key_names:
+						self.Add_Key_Name(name=nice_name)
 	#----------------------------------------------------------------------
 	def Add_Name(self,name=None):
 		""""""
@@ -425,7 +520,6 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 			item_search = self.tableWidget.findItems(name,PYQT.Qt.MatchExactly)
 			if not len(item_search):
 				self.tableWidget.Add_Name(name)
-			
 	#----------------------------------------------------------------------
 	def Add_Key_Name(self,name=None):
 		""""""
@@ -475,7 +569,6 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 				isinstance(selected_item,Name_Association_Standered_Item)
 				root_item._data.Remove_Association(selected_item.text())
 				root_item.removeRow(selected_item.row())
-				
 	#----------------------------------------------------------------------
 	def Load_File(self):
 		""""""
@@ -484,8 +577,7 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 			self._model_data._rebuild(file_path)
 			#self.tableWidget.setupTable(self._model_data)
 			self.tableWidget._rebuild_Name_List()
-			#self.tableWidget.setItemDelegateForColumn(0,Delegate(self, self._model_data))
-			
+	
 	#----------------------------------------------------------------------
 	def Save_File(self):
 		""""""
@@ -520,13 +612,27 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 GUI_Loader.registerCustomWidget(Name_Associations_Main_Window)
 
 
-if __name__ == '__main__':
-	import sys
-	app = PYQT.QApplication(sys.argv)
-	wig = GUI_Loader.load_file(os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui"))
+#----------------------------------------------------------------------
+def show_Main_Window():
+	""""""
+	main_window_ui_file = os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui")
+	logging.debug('Getting File path to location of Main Window UI File')
+	wig = GUI_Loader.load_file(main_window_ui_file)
+	
 	isinstance(wig,Name_Associations_Main_Window)
 	wig._run_init()
 	wig.show()
+
+if __name__ == '__main__':
+	import sys
+	logging.debug('Starting QApplication Main Run Loop')
+	app = PYQT.QApplication(sys.argv)
+	#wig = GUI_Loader.load_file(os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui"))
+	#isinstance(wig,Name_Associations_Main_Window)
+	#wig._run_init()
+	#wig.show()
+	logging.debug('Loading Main Window')
+	show_Main_Window()
 	sys.exit(app.exec_())
 
 

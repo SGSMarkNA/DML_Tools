@@ -33,7 +33,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="table_view_tab">
        <attribute name="title">
@@ -42,15 +42,18 @@
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="2">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="Association_Name_Space_Input"/>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLineEdit" name="Names_Name_Space_Input"/>
+          </item>
+          <item row="0" column="3">
            <widget class="QLabel" name="label_2">
             <property name="text">
              <string>Lookup Name Space</string>
             </property>
            </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit"/>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label">
@@ -59,8 +62,19 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QLineEdit" name="lineEdit_2"/>
+          <item row="0" column="5">
+           <widget class="QPushButton" name="Lookup_Name_Space_Scan_Button">
+            <property name="text">
+             <string>Run Scan</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="Association_Name_Space_Scan_Button">
+            <property name="text">
+             <string>Run Scan</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -108,11 +122,11 @@
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>
             </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>23</number>
-            </attribute>
             <attribute name="verticalHeaderDefaultSectionSize">
              <number>30</number>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>23</number>
             </attribute>
             <attribute name="verticalHeaderShowSortIndicator" stdset="0">
              <bool>true</bool>
