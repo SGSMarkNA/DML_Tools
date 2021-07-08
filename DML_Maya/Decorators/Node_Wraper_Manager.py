@@ -22,6 +22,15 @@ def get_Plug_Class_Wrapper(plg):
 	except Exception as e:
 		if e.message == 'The value for the attribute could not be retrieved.\n':
 			raise LookupError(e)
+		if e.message == 'Cannot evaluate more than one attribute.\n':
+			try:
+				sel = OpenMaya.MSelectionList()
+				sel.add(plg)
+				strings = sel.getSelectionStrings()
+				if len(strings) == 1:
+					typ = cmds.getAttr(strings[0],typ=True)
+			except Exception as e2:
+				raise RuntimeError(e2)
 		else:
 			raise RuntimeError(e)
 	

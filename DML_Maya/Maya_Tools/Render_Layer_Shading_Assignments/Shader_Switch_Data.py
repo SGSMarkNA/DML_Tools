@@ -185,6 +185,8 @@ class Shader_Switch(object):
 			self.uid = vray_switch_material.uuid
 			Asset_Tracking._GLOBAL_UID_TO_VRAY_SWITCH_MATERIAL_DICT[self.uid]=vray_switch_material
 			for index,material in enumerate(self.shader_pattern.shader_names):
+				if not cmds.objExists(material):
+					material = "DML_Created_Shader:"+material
 				vray_switch_material.Attach_Material(material,index)
 				members = [geo.node for geo in self.geoNodes]
 				cmds.sets(members, edit=True, forceElement=vray_switch_material.shading_engine()[0])
@@ -206,10 +208,17 @@ class Switchs(object):
 	@maya_Acitve_Return_Wrapper
 	def create_Non_Existing_Shaders(self):
 		""""""
+		namespace = "DML_Created_Shader"
+		try:
+			cmds.namespace( addNamespace=namespace)
+		except RuntimeError:
+			pass
 		for switch_shader in self.shader_switches:
 			for shader in switch_shader.shader_pattern.shader_names:
 				if not cmds.objExists(shader):
-					DML_Maya.Maya_Nodes.Shading_Node("lambert",name=shader)
+					shader = namespace+":"+shader
+					if not cmds.objExists(shader):
+						DML_Maya.Maya_Nodes.Shading_Node("lambert",name=shader)
 	#----------------------------------------------------------------------
 	def create_VRay_Switch_Materials(self):
 		""""""
@@ -284,7 +293,7 @@ shader_Switch_Decoder = Shader_Switch_Data_Decoder()
 #----------------------------------------------------------------------
 def Encode_Temp_File(switch_data):
 	""""""
-	Json_File_Path    = os.path.join(os.environ["TEMP"],'shader_switch_build_data.json')
+	Json_File_Path = os.path.join(os.environ["TEMP"],'shader_switch_build_data.json')
 	with file(Json_File_Path, "w") as f:
 			json_out = shader_Switch_Encoder.encode(switch_data)
 			f.write(json_out)
@@ -303,7 +312,7 @@ def Decode_Temp_File():
 #----------------------------------------------------------------------
 def Encode_Location_File(switch_data,fp):
 	""""""
-	Json_File_Path    = os.path.join(os.environ["TEMP"],'shader_switch_build_data.json')
+	Json_File_Path = os.path.join(os.environ["TEMP"],'shader_switch_build_data.json')
 	with file(fp, "w") as f:
 			json_out = shader_Switch_Encoder.encode(switch_data)
 			f.write(json_out)
