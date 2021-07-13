@@ -2,7 +2,7 @@ from __future__ import print_function
 import logging
 import os
 import sys
-
+os.sys.path.append(r"V:\aw_config\Git_Live_Code\Global_Systems")
 _log_file_path = os.path.join(os.environ["Temp"],"Auto_Shader_Assingment_Debug_Log.txt")
 
 try:
