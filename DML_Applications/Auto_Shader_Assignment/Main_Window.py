@@ -3,6 +3,14 @@ import logging
 import os
 import sys
 
+_log_file_path = os.path.join(os.environ["Temp"],"Auto_Shader_Assingment_Debug_Log.txt")
+
+try:
+	if os.path.exists(_log_file_path):
+		os.remove(_log_file_path)
+except:
+	pass
+
 logging.basicConfig(filename=os.path.join(os.environ["Temp"],"Auto_Shader_Assingment_Debug_Log.txt"),
 					level=logging.DEBUG,
 					format='%(levelname)s - %(lineno)d - "%(message)s"')
