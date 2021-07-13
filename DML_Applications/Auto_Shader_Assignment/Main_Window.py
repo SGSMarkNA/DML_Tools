@@ -616,12 +616,19 @@ GUI_Loader.registerCustomWidget(Name_Associations_Main_Window)
 def show_Main_Window():
 	""""""
 	main_window_ui_file = os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui")
-	logging.debug('Getting File path to location of Main Window UI File')
+	logging.debug('Loading Main Window UI File At Location {}'.format(main_window_ui_file))
+	
+	logging.debug('Building Main Window')
 	wig = GUI_Loader.load_file(main_window_ui_file)
+	logging.debug('Main Window Built')
 	
 	isinstance(wig,Name_Associations_Main_Window)
+	logging.debug('running Main Window Post Creation Setup')
 	wig._run_init()
+	logging.debug('Post Creation Setup Ran Successfully')
+	logging.debug('Showing Main Window')
 	wig.show()
+	logging.debug('Main Window Shown Successfully')
 
 if __name__ == '__main__':
 	import sys
