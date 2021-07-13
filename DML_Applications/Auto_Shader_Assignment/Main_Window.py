@@ -623,7 +623,7 @@ GUI_Loader.registerCustomWidget(Name_Associations_Main_Window)
 #----------------------------------------------------------------------
 def show_Main_Window():
 	""""""
-	main_window_ui_file = os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui")
+	main_window_ui_file = "\\\\isln-smb\\aw_config\\Git_Live_Code\\Global_Systems\\DML_Tools\\DML_Applications\\Main_Window.ui" #os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui")
 	logging.debug('Loading Main Window UI File At Location {}'.format(main_window_ui_file))
 	
 	logging.debug('Building Main Window')
