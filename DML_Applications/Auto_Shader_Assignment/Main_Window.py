@@ -627,7 +627,12 @@ def show_Main_Window():
 	logging.debug('Loading Main Window UI File At Location {}'.format(main_window_ui_file))
 	
 	logging.debug('Building Main Window')
-	wig = GUI_Loader.load_file(main_window_ui_file)
+	try:
+		wig = GUI_Loader.load_file(main_window_ui_file)
+	except Exception as e:
+		logging.error('Main Did Not Built')
+		logging.error(e.message)
+		sys.exit()
 	logging.debug('Main Window Built')
 	
 	isinstance(wig,Name_Associations_Main_Window)
