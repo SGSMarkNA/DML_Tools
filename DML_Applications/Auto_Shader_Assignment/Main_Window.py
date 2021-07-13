@@ -646,13 +646,18 @@ def show_Main_Window():
 if __name__ == '__main__':
 	import sys
 	logging.debug('Starting QApplication Main Run Loop')
-	app = PYQT.QApplication(sys.argv)
-	#wig = GUI_Loader.load_file(os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui"))
-	#isinstance(wig,Name_Associations_Main_Window)
-	#wig._run_init()
-	#wig.show()
-	logging.debug('Loading Main Window')
-	show_Main_Window()
+	try:
+		app = PYQT.QApplication(sys.argv)
+		#wig = GUI_Loader.load_file(os.path.join(os.path.dirname(__file__),"UI","Main_Window.ui"))
+		#isinstance(wig,Name_Associations_Main_Window)
+		#wig._run_init()
+		#wig.show()
+		logging.debug('Loading Main Window')
+		show_Main_Window()
+	except Exception as e:
+		logging.error('Could Not Create Tool')
+		logging.error(e.message)
+		sys.exit()
 	sys.exit(app.exec_())
 
 
