@@ -32,6 +32,54 @@ class Object_Type_Command_Attribute(object):
 	#----------------------------------------------------------------------
 	def __set__(self, instance, name):
 		raise AttributeError("is a read only")
+	
+#----------------------------------------------------------------------	
+def listDestinationConnectionsRecursively(node,**kwargs):
+	""" """
+	res = []
+	for flg in ["s","d","p","c"," connections"]:
+		if flg in kwargs:
+			del kwargs[flg]
+	kwargs["source"]=False
+	kwargs["plugs"]=False
+	kwargs["destination"]=True
+	destinations = cmds.listConnections(node,**kwargs)
+
+	if destinations == None:
+		return res
+
+	if len(destinations):
+		res.extend(destinations)
+
+		for destination in destinations:
+			res.extend(listDestinationConnectionsRecursively(destination))
+
+	res = list(set(res))
+	return res
+
+#----------------------------------------------------------------------	
+def listSourceConnectionsRecursively(node,**kwargs):
+	""" """
+	res = []
+	for flg in ["s","d","p","c"," connections"]:
+		if flg in kwargs:
+			del kwargs[flg]
+	kwargs["source"]=True
+	kwargs["plugs"]=False
+	kwargs["destination"]=False
+	sources = cmds.listConnections(node,**kwargs)
+
+	if sources == None:
+		return res
+
+	if len(sources):
+		res.extend(sources)
+
+		for source in sources:
+			res.extend(listSourceConnectionsRecursively(source))
+
+	res = list(set(res))
+	return res
 
 ########################################################################
 class Dependency_Node(DML_Node):
@@ -81,6 +129,32 @@ class Dependency_Node(DML_Node):
 	def listConnections(self,**kwargs):
 		""""""
 		return cmds.listConnections(self,**kwargs)
+	#----------------------------------------------------------------------
+	@node_Return_Wrapper
+	def listSourceConnectionsRecursively(self,**kwargs):
+		""""""
+		return listSourceConnectionsRecursively(self,**kwargs)
+	#----------------------------------------------------------------------
+	@node_Return_Wrapper
+	def listDestinationConnectionsRecursively(self,**kwargs):
+		""""""
+		return listDestinationConnectionsRecursively(self,**kwargs)
+	#----------------------------------------------------------------------
+	@node_Return_Wrapper
+	def duplicate(self,**kwargs):
+		""""""
+		return cmds.duplicate(self,**kwargs)
+	#----------------------------------------------------------------------
+	@node_Return_Wrapper
+	def duplicate_upstreamNodes(self,**kwargs):
+		""""""
+		singleReturn = kwargs.pop("singleReturn",False)
+		kwargs["upstreamNodes"]=True
+		res = cmds.duplicate(self,**kwargs)
+		if singleReturn:
+			return res[0]
+		else:
+			return res
 	#----------------------------------------------------------------------
 	def attributeExists(self,attr):
 		return cmds.attributeQuery( attr, node=self, exists=True )
