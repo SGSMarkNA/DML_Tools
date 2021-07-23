@@ -127,6 +127,6 @@ def Apply_Switch_Data():
 		if cmds.objExists(switch):
 			switch  = DML_Maya.dml.to_DML_Node(switch)
 			members = [geo.node for geo in sdswch.geoNodes]
-			cmds.sets(members, edit=True, forceElement=switch.shading_engine()[0])
+			cmds.sets(members, edit=True, forceElement=switch.shading_engine())
 		else:
 			print "obect did not exits {}".format(switch)
