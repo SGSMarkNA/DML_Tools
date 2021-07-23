@@ -12,7 +12,11 @@ def Read_CSV(fp=r'D:\aw_config\Git_Live_Code\Global_Systems\DML_Tools\DML_Applic
 		reader = csv.DictReader(csvfile)
 		buffer_data = {}
 		for row in reader:
-			buffer_data[row[__Column_1_Key]] = sorted(row[__Column_2_Key].split(":"))
+			__Column_1_value  = row[__Column_1_Key]
+			__Column_2_values = [value for value in row[__Column_2_Key].split(":") if len(value)]
+			__Column_2_values.sort()
+			
+			buffer_data[__Column_1_value] = __Column_2_values
 		for name in sorted(buffer_data.keys()):
 			res.append( [name, buffer_data[name]])
 	res.insert(0, ["None", []])
