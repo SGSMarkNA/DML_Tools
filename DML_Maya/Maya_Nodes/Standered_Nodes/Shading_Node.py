@@ -12,7 +12,21 @@ class Shading_Node(Dependency_Node):
 	CREATE_COMMAND          = cmds.joint
 	#----------------------------------------------------------------------
 	def shading_engine(self):
-		return self.listConnections(s=0,d=1,type="shadingEngine")
+		sg = self.listConnections(s=0,d=1,type="shadingEngine")
+		if len(sg):
+			sg = sg[0]
+			isinstance(sg,Shading_Engine)
+			return sg
+		else:
+			return None
+	#----------------------------------------------------------------------
+	def add_Elements(self,*elements):
+		""""""
+		sg = self.shading_engine()
+		if sg is not None:
+			sg.forceElement(*elements)
+		else:
+			raise RuntimeError("Shader {} is not attached to a shadingEngine".format(self.name))
 	#----------------------------------------------------------------------
 	@classmethod
 	def createNode(cls,shaderType,**kwargs):
