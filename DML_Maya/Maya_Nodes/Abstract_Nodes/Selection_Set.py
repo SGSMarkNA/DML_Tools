@@ -8,8 +8,8 @@ from ...Decorators.Node_Lock_Manager import locked_Node_Management
 ########################################################################
 class Selection_Set(Dependency_Node):
 	#----------------------------------------------------------------------
-	def __init__(self,nodeName):
-		super(Selection_Set,self).__init__(nodeName)
+	def __init__(self,*args,**kwargs):
+		super(Selection_Set,self).__init__(*args,**kwargs)
 		#if False:
 			#self.dagSetMembers = Base_Classes.Named_Plug
 	#----------------------------------------------------------------------
