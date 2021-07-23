@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>802</width>
     <height>547</height>
    </rect>
   </property>
@@ -41,70 +41,47 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="Association_Name_Space_Input"/>
-          </item>
-          <item row="0" column="4">
-           <widget class="QLineEdit" name="Names_Name_Space_Input"/>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Lookup Name Space</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Association Name Space</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="5">
-           <widget class="QPushButton" name="Lookup_Name_Space_Scan_Button">
-            <property name="text">
-             <string>Run Scan</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="Association_Name_Space_Scan_Button">
-            <property name="text">
-             <string>Run Scan</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QFrame" name="Name_Space_Scanning_Frame">
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="Association_Name_Space_Input"/>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLineEdit" name="Names_Name_Space_Input"/>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Lookup Name Space</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Association Name Space</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QPushButton" name="Lookup_Name_Space_Scan_Button">
+             <property name="text">
+              <string>Run Scan</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="Association_Name_Space_Scan_Button">
+             <property name="text">
+              <string>Run Scan</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="1,0">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QPushButton" name="Add_Name_Button">
-              <property name="text">
-               <string>Add Name</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="New_Name_Input">
-              <property name="placeholderText">
-               <string>Add New Name Association when finished just hit return key to Add mulit can be added by sep them with a ,</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="Remove_Selected_Names_Button">
-            <property name="text">
-             <string>Remove Selected Names</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0" colspan="2">
            <widget class="Custom_TableWidget" name="tableWidget">
             <property name="editTriggers">
@@ -146,7 +123,41 @@
             </column>
            </widget>
           </item>
+          <item row="0" column="0">
+           <widget class="QFrame" name="Add_Remove_Names_Frame">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QPushButton" name="Add_Name_Button">
+               <property name="text">
+                <string>Add Name</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="New_Name_Input">
+               <property name="placeholderText">
+                <string>Add New Name Association when finished just hit return key to Add mulit can be added by sep them with a ,</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Remove_Selected_Names_Button">
+               <property name="text">
+                <string>Remove Selected Names</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Apply_Associations_Button">
+          <property name="text">
+           <string>Apply Associations</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -171,9 +182,9 @@
          <number>0</number>
         </property>
         <item>
-         <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,1" columnstretch="0,0" rowminimumheight="0,0">
-          <item row="0" column="1">
-           <widget class="QWidget" name="widget_4" native="true">
+         <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,1" columnstretch="0,0" rowminimumheight="0,0,0">
+          <item row="1" column="1">
+           <widget class="QWidget" name="Add_Association_Widget" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <property name="spacing">
               <number>1</number>
@@ -190,25 +201,6 @@
              <property name="bottomMargin">
               <number>1</number>
              </property>
-             <item>
-              <widget class="QLabel" name="Association_Label_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::Box</enum>
-               </property>
-               <property name="text">
-                <string>Associations</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
              <item>
               <widget class="QPushButton" name="Add_Association_Button">
                <property name="sizePolicy">
@@ -257,12 +249,16 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QListView" name="Associations_List_View"/>
+          <item row="2" column="0">
+           <widget class="QListView" name="Names_List_View">
+            <property name="selectionMode">
+             <enum>QAbstractItemView::ExtendedSelection</enum>
+            </property>
+           </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QWidget" name="widget_2" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,0,0">
+          <item row="1" column="0">
+           <widget class="QWidget" name="Add_Name_Widget" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,0">
              <property name="spacing">
               <number>1</number>
              </property>
@@ -278,25 +274,6 @@
              <property name="bottomMargin">
               <number>1</number>
              </property>
-             <item>
-              <widget class="QLabel" name="Name_Label_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::Box</enum>
-               </property>
-               <property name="text">
-                <string>Name</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
              <item>
               <widget class="QPushButton" name="Add_Key_Name_Button">
                <property name="sizePolicy">
@@ -345,10 +322,44 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QListView" name="Names_List_View">
-            <property name="selectionMode">
-             <enum>QAbstractItemView::ExtendedSelection</enum>
+          <item row="2" column="1">
+           <widget class="QListView" name="Associations_List_View"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="Name_Label_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="text">
+             <string>Name</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="Association_Label_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
+            </property>
+            <property name="text">
+             <string>Associations</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -375,7 +386,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>871</width>
+     <width>802</width>
      <height>21</height>
     </rect>
    </property>
@@ -383,13 +394,35 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="action_Load_Associations"/>
-    <addaction name="action_Save_Associations"/>
-    <addaction name="action_Save_Associations_As"/>
+    <widget class="QMenu" name="menuAssociations">
+     <property name="title">
+      <string>Associations</string>
+     </property>
+     <addaction name="action_Load_Associations"/>
+     <addaction name="action_Save_Associations"/>
+     <addaction name="action_Save_Associations_As"/>
+    </widget>
+    <widget class="QMenu" name="menuNames">
+     <property name="title">
+      <string>Names</string>
+     </property>
+     <addaction name="action_Load_Names"/>
+     <addaction name="action_Save_Names"/>
+     <addaction name="action_Save_Names_As"/>
+    </widget>
+    <widget class="QMenu" name="menuName_Assocations">
+     <property name="title">
+      <string>Name Assocations</string>
+     </property>
+     <addaction name="action_Load_Name_Assocations"/>
+     <addaction name="action_Save_Name_Assocations"/>
+     <addaction name="action_Save_Name_Assocations_As"/>
+    </widget>
+    <addaction name="menuName_Assocations"/>
     <addaction name="separator"/>
-    <addaction name="action_Load_Names"/>
-    <addaction name="action_Save_Names"/>
-    <addaction name="action_Save_Names_As"/>
+    <addaction name="menuAssociations"/>
+    <addaction name="separator"/>
+    <addaction name="menuNames"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
@@ -455,6 +488,21 @@
    </property>
    <property name="toolTip">
     <string>Save Names As</string>
+   </property>
+  </action>
+  <action name="action_Load_Name_Assocations">
+   <property name="text">
+    <string>Load Name Assocations</string>
+   </property>
+  </action>
+  <action name="action_Save_Name_Assocations">
+   <property name="text">
+    <string>Save Name Assocations</string>
+   </property>
+  </action>
+  <action name="action_Save_Name_Assocations_As">
+   <property name="text">
+    <string>Save Name Assocations As</string>
    </property>
   </action>
  </widget>
