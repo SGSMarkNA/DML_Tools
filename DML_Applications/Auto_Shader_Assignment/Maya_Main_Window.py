@@ -20,7 +20,7 @@ def get_Shaders_In_Namespace(nameSpace):
 	
 	shader_engine_names = [sg for sg in cmds.ls(typ="shadingEngine") if not sg.startswith("initial")]
 	shader_names = list(set(flatten([cmds.listConnections(sg+".surfaceShader") for sg in shader_engine_names])))
-	
+	shader_names = [str(shader_name) for shader_name in shader_names]
 	if len(nameSpace):
 		nameSpace = nameSpace+":"
 		shader_names = sorted([shader_name for shader_name in shader_names if nameSpace in shader_name])
