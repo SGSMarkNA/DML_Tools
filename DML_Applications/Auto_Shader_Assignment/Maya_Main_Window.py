@@ -35,7 +35,7 @@ def replace_Shader(shaderToReplace,shaderToUse):
 	isinstance(shaderToUse,DML_Maya.Maya_Nodes.Shading_Node)
 	shaderToReplace_name = shaderToReplace.name
 	shaderToReplace.rename(shaderToReplace_name+"_Replaced")
-	newShader = shaderToUse.duplicate_upstreamNodes(name=shaderToReplace_name,singleReturn=True)
+	newShader = shaderToUse.duplicate(inputConnections=True,name=shaderToReplace_name)[0]
 	newShader.addAttr("AwOriginalShaderName",dataType="string").value = shaderToUse.nice_name
 	isinstance(newShader,DML_Maya.Maya_Nodes.Shading_Node)
 	sg = shaderToReplace.shading_engine()
@@ -51,10 +51,7 @@ def replace_Shader(shaderToReplace,shaderToUse):
 		for plg in vray_switch_mtl_check:
 			newShader.outColor.connect(plg)
 	
-	ignored_nodes = cmds.ls( undeletable=True, defaultNodes=True)
-	cleanup_nodes = [shaderToReplace]+[node for node in shaderToReplace.listSourceConnectionsRecursively() if not node in ignored_nodes]
-	if len(cleanup_nodes):
-		cmds.delete(cleanup_nodes)
+	cmds.delete(shaderToReplace)
 
 #----------------------------------------------------------------------
 def find_Shader_Within_Namespaces(name,namespaces=[]):
