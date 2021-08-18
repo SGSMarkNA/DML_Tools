@@ -43,7 +43,7 @@ def listDestinationConnectionsRecursively(node,**kwargs):
 	kwargs["source"]=False
 	kwargs["plugs"]=False
 	kwargs["destination"]=True
-	destinations = cmds.listConnections(node,**kwargs)
+	destinations = [destination for destination in cmds.listConnections(node,**kwargs) if not destination == node]
 
 	if destinations == None:
 		return res
@@ -67,11 +67,13 @@ def listSourceConnectionsRecursively(node,**kwargs):
 	kwargs["source"]=True
 	kwargs["plugs"]=False
 	kwargs["destination"]=False
-	sources = cmds.listConnections(node,**kwargs)
-
-	if sources == None:
-		return res
-
+	
+	connections = cmds.listConnections(node,**kwargs)
+	if connections == None:
+		sources = []
+	else:
+		sources = [source for source in connections if not source == node]
+	
 	if len(sources):
 		res.extend(sources)
 

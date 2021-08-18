@@ -114,7 +114,7 @@ def collect_Render_Layers_Geo_Switch_Data():
 def Apply_Switch_Data():
 	""""""
 	new_data = Shader_Switch_Data.Decode_Temp_File()
-	new_data.switches.create_Non_Existing_Shaders()
+	created_shaders = new_data.switches.create_Non_Existing_Shaders()
 	new_data.switches.create_VRay_Switch_Materials()
 	for sdswch in new_data.switches.shader_switches:
 		shaders = sdswch.shader_pattern.pattern.split(",")
@@ -130,3 +130,5 @@ def Apply_Switch_Data():
 			cmds.sets(members, edit=True, forceElement=switch.shading_engine())
 		else:
 			print "obect did not exits {}".format(switch)
+	for shader in created_shaders:
+		shader.rename("extracted_shaders:"+shader.nice_name)

@@ -39,7 +39,7 @@ def replace_Shader(shaderToReplace,shaderToUse):
 	newShader.addAttr("AwOriginalShaderName",dataType="string").value = shaderToUse.nice_name
 	isinstance(newShader,DML_Maya.Maya_Nodes.Shading_Node)
 	sg = shaderToReplace.shading_engine()
-	if not sg == None:
+	if sg == None:
 		sg = DML_Maya.Maya_Nodes.Shading_Engine(name=newShader.nice_name + "SG")
 	else:
 		sg.rename(newShader.nice_name + "SG")
@@ -83,7 +83,12 @@ class Name_Associations_Main_Window(mayaMixin.MayaQWidgetBaseMixin,Main_Window.N
 		self.Add_Association_Widget.setHidden(True)
 		self.Add_Name_Widget.setHidden(True)
 		self.Add_Remove_Names_Frame.setHidden(True)
-		
+		name_spaces = [namespace for namespace in cmds.namespaceInfo( listOnlyNamespaces=True) if not namespace in (u'UI', u'shared')]
+		if len(name_spaces):
+			completer = PYQT.QCompleter(name_spaces,parent=self)
+			completer.setCaseSensitivity(PYQT.Qt.CaseInsensitive)
+			self.Association_Name_Space_Input.setCompleter(completer)
+			self.Names_Name_Space_Input.setCompleter(completer)
 	#----------------------------------------------------------------------
 	def showEvent(self,event):
 		""""""
@@ -123,8 +128,9 @@ class Name_Associations_Main_Window(mayaMixin.MayaQWidgetBaseMixin,Main_Window.N
 			for item in self._model_data.iterate_Names_With_Associations():
 				shaderToUse = find_Shader_Within_Namespaces(item.name, namespaces=association_name_spaces)
 				for shaderToReplace in item.associations:
-					shaderToReplace = find_Shader_Within_Namespaces(shaderToReplace,names_name_spaces)
-					replace_Shader(shaderToReplace, shaderToUse)
+					shaderToReplace_lookup = find_Shader_Within_Namespaces(shaderToReplace,names_name_spaces)
+					if not shaderToReplace_lookup == None:
+						replace_Shader(shaderToReplace_lookup, shaderToUse)
 					
 	#----------------------------------------------------------------------
 	def contextMenuEvent(self, event):
