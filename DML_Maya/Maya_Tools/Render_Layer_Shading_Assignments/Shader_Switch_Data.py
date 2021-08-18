@@ -206,10 +206,12 @@ class Switchs(object):
 	@maya_Acitve_Return_Wrapper
 	def create_Non_Existing_Shaders(self):
 		""""""
+		res = []
 		for switch_shader in self.shader_switches:
 			for shader in switch_shader.shader_pattern.shader_names:
 				if not cmds.objExists(shader):
-					DML_Maya.Maya_Nodes.Shading_Node("lambert",name=shader)
+					res.append(DML_Maya.Maya_Nodes.Shading_Node("lambert",name=shader))
+		return res
 	#----------------------------------------------------------------------
 	def create_VRay_Switch_Materials(self):
 		""""""
