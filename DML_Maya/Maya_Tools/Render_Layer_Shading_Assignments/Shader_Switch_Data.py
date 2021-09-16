@@ -185,7 +185,10 @@ class Shader_Switch(object):
 			self.uid = vray_switch_material.uuid
 			Asset_Tracking._GLOBAL_UID_TO_VRAY_SWITCH_MATERIAL_DICT[self.uid]=vray_switch_material
 			for index,material in enumerate(self.shader_pattern.shader_names):
-				vray_switch_material.Attach_Material(material,index)
+				try:
+					vray_switch_material.Attach_Material(material,index)
+				except:
+					vray_switch_material.Attach_Material("extracted_shaders:"+material,index)
 				members = [geo.node for geo in self.geoNodes]
 				cmds.sets(members, edit=True, forceElement=vray_switch_material.shading_engine())
 	#----------------------------------------------------------------------
@@ -209,7 +212,7 @@ class Switchs(object):
 		res = []
 		for switch_shader in self.shader_switches:
 			for shader in switch_shader.shader_pattern.shader_names:
-				if not cmds.objExists(shader):
+				if not cmds.objExists(shader) and not cmds.objExists("extracted_shaders:"+shader):
 					res.append(DML_Maya.Maya_Nodes.Shading_Node("lambert",name=shader))
 		return res
 	#----------------------------------------------------------------------
