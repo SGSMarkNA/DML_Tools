@@ -81,6 +81,7 @@ def create_PSD_Build_Info_V2(frames):
 		isinstance(psd_node,Layers_To_Gimped_PSD_Nodes.DML_Layers_To_Gimped_PSD)
 		
 		for frame in frames:
+			nuke.frame(int(frame))
 			for build in psd_node.generate_Json_Data(frame,multi):
 				baked_data["builds"].append(build)
 	return baked_data
@@ -261,7 +262,7 @@ def process_Gimp_PSD_Build(psd_file,image_files,image_width,image_height):
 	""""""
 	python_script_path = os.path.join(os.path.dirname(__file__),"Files_To_PSD_Layers.py").replace("\\","/")
 	#python_script_path = r"//isln-smb/aw_config/Pipeline/Deadline/DeadlineRepository10/custom/plugins/GimpPSD/Files_To_PSD_Layers.py"
-	cmd = "\\\\isln-smb\\aw_config\\Apps\\GIMP\\bin\\gimp-2.10.exe -idf --batch-interpreter python-fu-eval -b "
+	cmd = "V:\\aw_config\\Apps\\GIMP\\bin\\gimp-2.10.exe -idf --batch-interpreter python-fu-eval -b "
 	cmd += '''"execfile('{}', dict(psd_file='{}',image_files={},image_width={},image_height={}),dict())"'''.format(python_script_path,psd_file,image_files,image_width,image_height)
 	pip = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	#pip = subprocess.Popen(cmd)
