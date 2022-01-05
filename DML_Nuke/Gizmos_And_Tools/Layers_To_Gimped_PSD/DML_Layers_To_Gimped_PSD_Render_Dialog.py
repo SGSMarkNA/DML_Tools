@@ -33,9 +33,13 @@ class DML_Nuke_RenderDialog(nukescripts.RenderDialog):
 			self.all_gimp_groups.append(grp)
 			self.all_psd_nodes.append(psd)
 			
-			for view in psd.knob("DML_Nuke_View_Selection").value().split():
-				if not view in self.views_to_render:
-					self.views_to_render.append(view)
+			selected_views = psd.knob("DML_Nuke_View_Selection").value().split()
+			if len(selected_views):
+				for view in selected_views:
+					if not view in self.views_to_render:
+						self.views_to_render.append(view)
+			else:
+				self.views_to_render = None
 			
 	def _addViewKnob(self):
 		"""Add knobs for view selection."""
