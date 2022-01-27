@@ -28,7 +28,7 @@ def locked_Node_Management(func):
 			if cmds.objExists(args[0]):
 				# restore the orig lock state
 				cmds.lockNode(args[0], lock=locked)
-		except StandardError, error:
+		except Exception as error:
 			# store the error
 			err=error
 		finally:
@@ -36,6 +36,6 @@ def locked_Node_Management(func):
 			if err:
 				# get the error info and raise a new StandardError
 				traceback = sys.exc_info()[2]  # get the full traceback
-				raise StandardError(StandardError(err), traceback)
+				raise Exception(Exception(err), traceback)
 			return res
 	return wrapper

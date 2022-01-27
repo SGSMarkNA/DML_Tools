@@ -1,11 +1,11 @@
 import os
-import DML_General_Utilities
+from . import DML_General_Utilities
 
 
 
 if os.environ.get("DML_TOOLS_USE_WING_DEBUG","0") == "1":
 	try:
-		import wingdbstub
+		from . import wingdbstub
 		try:
 			wingdbstub.Ensure()
 		except ValueError:
@@ -33,17 +33,17 @@ def test_For_Nuke():
 		return False
 
 try:
-	import DML_PYQT
+	from . import DML_PYQT
 except ImportError:
 	pass
 
 if test_For_Maya():
 	try:
-		import DML_Maya
+		from . import DML_Maya
 	except ImportError:
 		pass
 if test_For_Nuke():
-	import DML_Nuke
+	from . import DML_Nuke
 	
 #if False:
 	#import DML_Nuke

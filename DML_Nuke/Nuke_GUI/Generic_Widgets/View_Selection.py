@@ -25,7 +25,7 @@ def get_QColor(arg):
 			color = DML_PYQT.QColor(r,g,b)
 		else:
 			raise ValueError("bad input value")
-	elif isinstance(arg,(int,long)):
+	elif isinstance(arg,int):
 		color = DML_PYQT.QColor.fromRgba(arg)
 		return color
 	elif isinstance(arg,str):
@@ -45,7 +45,7 @@ def RGB_To_Hex(*args):
 		if isinstance(args[0],DML_PYQT.QColor):
 			r,g,b = args[0].red(), args[0].green(), args[0].blue()
 			hexCol = '#%02x%02x%02x' % (r,g,b)
-		elif isinstance(args[0],(int,long)):
+		elif isinstance(args[0],int):
 			color = DML_PYQT.QColor.fromRgb(args[0])
 			r,g,b = color.red(), color.green(), color.blue()
 			hexCol = '#%02x%02x%02x' % (r,g,b)	

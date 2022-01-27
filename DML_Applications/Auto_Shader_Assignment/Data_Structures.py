@@ -1,5 +1,5 @@
 import os
-from Data_Encoding import Read_CSV,Write_CSV
+from .Data_Encoding import Read_CSV,Write_CSV
 ########################################################################
 class _Base_Object(object):
 	"""The Base Class That All Other Classes"""
@@ -63,7 +63,7 @@ class Name_Associations(_Base_Object):
 	def Add_Name_Association(self,name,associations=[]):
 		"""Adds a new association if it does not allready exist"""
 		if not name in self:
-			if isinstance(name,basestring):
+			if isinstance(name,str):
 				name = Name_Association(name, associations=associations)
 			self._name_associations.append(name)
 			return name
@@ -73,7 +73,7 @@ class Name_Associations(_Base_Object):
 	def Remove_Name_Association(self,name):
 		"""Removes the given name from the list of associations"""
 		if name in self:
-			if isinstance(name,basestring):
+			if isinstance(name,str):
 				for item in self:
 					if item.name == name:
 						self._name_associations.remove(item)
@@ -102,7 +102,7 @@ class Name_Associations(_Base_Object):
 		""""""
 		if type(val) == int or type(val) == slice:
 			return self._name_associations[val]
-		if isinstance(val,basestring):
+		if isinstance(val,str):
 			if not val in self:
 				raise KeyError("{} does not exist in the name associations".format(val))
 			else:

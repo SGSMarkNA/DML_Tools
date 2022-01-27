@@ -1,9 +1,9 @@
 
 import maya.cmds as cmds
 import DML_Tools.Maya.DML_Maya as DML_Maya
-from DML_Asset_Views_View_State_Collection import Asset_Views_View_State_Collection
+from .DML_Asset_Views_View_State_Collection import Asset_Views_View_State_Collection
 if False:
-	from DML_Asset_Views_Manager import Asset_Views_Manager
+	from .DML_Asset_Views_Manager import Asset_Views_Manager
 
 ########################################################################
 class Asset_Views_View_State_Collections(DML_Maya.Maya_Nodes.Network):

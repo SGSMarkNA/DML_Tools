@@ -1,6 +1,6 @@
 
 import DML_Tools.Maya.DML_Maya
-import Custom_Nodes
+from . import Custom_Nodes
 
 #----------------------------------------------------------------------
 def view_Manager_Create(name=None):

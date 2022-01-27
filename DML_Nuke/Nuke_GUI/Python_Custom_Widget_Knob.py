@@ -7,9 +7,8 @@ from .. import dml
 from .Utils import remove_Tab
 
 ########################################################################
-class Registered_Knob_Widgets(dict):
+class Registered_Knob_Widgets(dict, metaclass=DML_General_Utilities.Generic_Classes.Singleton):
 	""""""
-	__metaclass__ = DML_General_Utilities.Generic_Classes.Singleton
 
 
 registered_knob_widgets = Registered_Knob_Widgets()
@@ -18,8 +17,8 @@ Default_Ui_Loader = DML_PYQT.QT.QUiLoader()
 
 
 def load_Widget_command(clsName,modual):
-	if not clsName in registered_knob_widgets.keys():		
-		if modual not in os.sys.modules.keys():
+	if not clsName in list(registered_knob_widgets.keys()):		
+		if modual not in list(os.sys.modules.keys()):
 			nuke.executeInMainThread(__import__,modual)
 		modual = os.sys.modules[modual]
 		registered_knob_widgets[clsName] = getattr(modual,clsName)
@@ -31,7 +30,7 @@ def add_Widget_Knob(clsName, modual, node, name, label='',tab="Widget"):
 	
 	cmd = __name__+'.load_Widget_command("{}","{}")'.format(clsName,modual)
 	
-	if tab in node.knobs().keys():
+	if tab in list(node.knobs().keys()):
 		remove_Tab(node,tab)
 	tab_knb = nuke.Tab_Knob(tab)
 	node.addKnob(tab_knb)
@@ -114,7 +113,7 @@ class Python_Widget_Knob(DML_PYQT.QWidget):
 	def _add_imbeded_data_knob(self):
 		""""""
 		name = "DML_EMBEDED_WIDGET_DATA"
-		if not name in self._nuke_node.knobs().keys():
+		if not name in list(self._nuke_node.knobs().keys()):
 			knb = nuke.String_Knob(name)
 			#knb.setVisible(False)
 			knb.setTooltip("No Touchy")
@@ -125,7 +124,7 @@ class Python_Widget_Knob(DML_PYQT.QWidget):
 	#----------------------------------------------------------------------
 	def add_data_knob(self,name,knbtype):
 		""""""
-		if not name in self._nuke_node.knobs().keys():
+		if not name in list(self._nuke_node.knobs().keys()):
 			knb = knbtype(name)
 			#knb.setVisible(False)
 			knb.setTooltip("No Touchy")

@@ -129,7 +129,7 @@ def SubmitButtonPressed( *args ):
     writer = StreamWriter( jobInfoFilename, False, Encoding.Unicode )
     writer.WriteLine( "Plugin=GimpPSD" )
 
-    for option, value in jobOptions.iteritems():
+    for option, value in list(jobOptions.items()):
         writer.WriteLine( "%s=%s" % ( option, value ) )
     
     writer.WriteLine( "Frames=0-" + str(frame_count-1))

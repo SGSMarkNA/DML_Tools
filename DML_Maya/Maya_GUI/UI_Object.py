@@ -23,7 +23,7 @@ def getMayaWindow():
 	"""
 	ptr = apiUI.MQtUtil.mainWindow()
 	if ptr is not None:
-		return wrapInstance(long(ptr), QWidget)
+		return wrapInstance(int(ptr), QWidget)
 
 def toQtObject(mayaName):
 	"""
@@ -38,7 +38,7 @@ def toQtObject(mayaName):
 	if ptr is None:
 		ptr = apiUI.MQtUtil.findMenuItem(mayaName)
 	if ptr is not None:
-		res = wrapInstance(long(ptr), QWidget)
+		res = wrapInstance(int(ptr), QWidget)
 	isinstance(res, QWidget)
 	return res
 
@@ -63,7 +63,7 @@ class UI(object):
 			if self._widget == None:
 				raise LookupError("Could Not Find A Valid GUI Object With The Name %s" % name)
 			
-			if kwargs.has_key("qtParent") and not str(kwargs.get("qt_parent")) == "None":
+			if "qtParent" in kwargs and not str(kwargs.get("qt_parent")) == "None":
 				qt_parent = kwargs.get("qtParent")
 				if isinstance(qt_parent, UI):
 					self._widget.setParent(qt_parent._widget)
@@ -112,10 +112,10 @@ class UI(object):
 		return hash(self.name)
 	#----------------------------------------------------------------------
 	def __eq__(self, other):
-		return unicode(self.name) == unicode(other)
+		return str(self.name) == str(other)
 	#----------------------------------------------------------------------
 	def __ne__(self, other):
-		return unicode(self.name) != unicode(other)
+		return str(self.name) != str(other)
 	#----------------------------------------------------------------------
 	def _get_name(self):
 		if self._isWidgetless:

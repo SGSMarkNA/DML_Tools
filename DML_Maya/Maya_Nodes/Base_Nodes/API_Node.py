@@ -96,8 +96,7 @@ class Maya_Api_Uuid_Attribute(object):
 		raise AttributeError("apiUuid is read only")
 
 ########################################################################
-class DML_Node(object):
-	__metaclass__             = Node_Return_Type_Publication
+class DML_Node(object, metaclass=Node_Return_Type_Publication):
 	MAYA_NODE_TYPE_RELATION   = None
 	RETURN_OVERIDE_CHECK_TYPE = None
 	IS_CREATABLE              = False

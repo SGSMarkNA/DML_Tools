@@ -121,7 +121,7 @@ class AnimationCurve(DML_Nuke_Object):
 	@nuke_Object_Return_Wrapper
 	def keys(self):
 		"""self.keys() -> List of keys. @return: List of keys."""
-		return self.nuke_object.keys()
+		return list(self.nuke_object.keys())
 	#----------------------------------------------------------------------
 	def evaluate(self,t):
 		"""self.evaluate(t) -> float Value at time 't'. @param t: Time. @return: The value of the animation at time 't'."""

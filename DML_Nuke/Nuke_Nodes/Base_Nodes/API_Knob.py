@@ -67,8 +67,7 @@ def set_nuke_knob_visible(self, value):
 		self._nuke_object.setVisible(value)
 
 ########################################################################
-class DML_Knob(object):
-	__metaclass__             = Knob_Return_Type_Publication
+class DML_Knob(object, metaclass=Knob_Return_Type_Publication):
 	KNOB_TYPE_RELATION        = None
 	IS_CREATABLE              = False
 	CREATE_COMMAND            = None
@@ -91,7 +90,7 @@ class DML_Knob(object):
 				return obj
 			elif isinstance(args[0], DML_Knob):
 				return args[0]
-			elif isinstance(args[0], basestring):
+			elif isinstance(args[0], str):
 				obj = object.__new__(cls)
 				fn = getattr(nuke,cls.__name__)
 				nuke_knob = fn(args[0])

@@ -53,7 +53,7 @@ import platform
 import traceback
 import colorsys
 
-import W_hotboxManager
+from . import W_hotboxManager
 
 preferencesNode = nuke.toNode('preferences')
 operatingSystem = platform.system()
@@ -509,7 +509,7 @@ class NodeButtons(QtWidgets.QVBoxLayout):
                 results = {}
                 exec(ruleString, {}, results)
                   
-                if 'ret' in results.keys():
+                if 'ret' in list(results.keys()):
                     result = bool(results['ret'])
             except:
                 error = traceback.format_exc()
@@ -735,7 +735,7 @@ class HotboxButton(QtWidgets.QLabel):
         with nuke.toNode(hotboxInstance.groupRoot):
 
             try:
-                exec self.function
+                exec(self.function)
             except:
                 printError(traceback.format_exc(), self.filePath, self.text())
 
@@ -821,7 +821,7 @@ def addToPreferences(knobObject, tooltip = None):
     Save current preferences to the prefencesfile in the .nuke folder.
     '''
 
-    if knobObject.name() not in preferencesNode.knobs().keys():
+    if knobObject.name() not in list(preferencesNode.knobs().keys()):
 
         if tooltip != None:
             knobObject.setTooltip(tooltip)
@@ -857,7 +857,7 @@ def deletePreferences():
     '''
 
     firstLaunch = True
-    for i in preferencesNode.knobs().keys():
+    for i in list(preferencesNode.knobs().keys()):
         if 'hotbox' in i:
             preferencesNode.removeKnob(preferencesNode.knob(i))
             firstLaunch = False
@@ -1090,7 +1090,7 @@ def addPreferences():
 
     #hide the iconLocation knob if environment varible called 'W_HOTBOX_HIDE_ICON_LOC' is set to 'true' or '1'
     preferencesNode.knob('hotboxIconLocation').setVisible(True)
-    if 'W_HOTBOX_HIDE_ICON_LOC' in os.environ.keys():
+    if 'W_HOTBOX_HIDE_ICON_LOC' in list(os.environ.keys()):
         if os.environ['W_HOTBOX_HIDE_ICON_LOC'].lower() in ['true','1']:
             preferencesNode.knob('hotboxIconLocation').setVisible(False)
 
@@ -1101,7 +1101,7 @@ def updatePreferences():
     Check whether the hotbox was updated since the last launch. If so refresh the preferences.
     '''
 
-    allKnobs = preferencesNode.knobs().keys()
+    allKnobs = list(preferencesNode.knobs().keys())
 
     #Older versions of the hotbox had a knob called 'iconLocation'.
     #This was a mistake and the knob was supposed to be called
@@ -1123,7 +1123,7 @@ def updatePreferences():
 
         forceUpdate = True
 
-    allKnobs = preferencesNode.knobs().keys()
+    allKnobs = list(preferencesNode.knobs().keys())
     proceedUpdate = True
 
     if 'hotboxVersion' in allKnobs or forceUpdate:
@@ -1145,7 +1145,7 @@ def updatePreferences():
             addPreferences()
 
             #Restore
-            for knob in currentSettings.keys():
+            for knob in list(currentSettings.keys()):
                 try:
                     preferencesNode.knob(knob).setValue(currentSettings[knob])
                 except:
@@ -1309,7 +1309,7 @@ def printError(error, path = '', buttonName = '', rule = False):
     hotboxError = '\nW_HOTBOX %sERROR: %s%s:\n%s'%('RULE '*int(bool(rule)), '/'.join(buttonName), lineNumber, errorDescription)
 
     #print error
-    print hotboxError
+    print(hotboxError)
     nuke.tprint(hotboxError)
 
 #----------------------------------------------------------------------------------------------------------
@@ -1436,7 +1436,7 @@ W_HOTBOX_REPO_NAMES=name1:name2:name3
 
 extraRepositories = []
 
-if 'W_HOTBOX_REPO_PATHS' in os.environ and 'W_HOTBOX_REPO_NAMES' in os.environ.keys():
+if 'W_HOTBOX_REPO_PATHS' in os.environ and 'W_HOTBOX_REPO_NAMES' in list(os.environ.keys()):
 
     extraRepositoriesPaths = os.environ['W_HOTBOX_REPO_PATHS'].split(os.pathsep)
     extraRepositoriesNames = os.environ['W_HOTBOX_REPO_NAMES'].split(os.pathsep)

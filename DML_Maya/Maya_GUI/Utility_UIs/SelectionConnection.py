@@ -9,22 +9,22 @@ class Named_Object(object):
 		self._name = name
 	#----------------------------------------------------------------------
 	def __str__(self):
-		return unicode(self.name)
+		return str(self.name)
 	#----------------------------------------------------------------------
 	def __repr__(self):
-		return unicode(self.name)
+		return str(self.name)
 	#----------------------------------------------------------------------
 	def __hash__(self):
 		return hash(self.name)
 	#----------------------------------------------------------------------
 	def __eq__(self, other):
-		return unicode(self.name) == unicode(other)
+		return str(self.name) == str(other)
 	#----------------------------------------------------------------------
 	def __ne__(self, other):
-		return unicode(self.name) != unicode(other)
+		return str(self.name) != str(other)
 	#----------------------------------------------------------------------
 	def get_name(self):
-		return unicode(self._name)
+		return str(self._name)
 	#----------------------------------------------------------------------
 	name          = property(get_name)
 

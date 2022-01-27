@@ -7,7 +7,7 @@ import Qt_Roles_And_Enums
 import QStandardItemModel
 import QSortFilterProxyModel
 import QStandardItem
-import MimeData
+from . import MimeData
 
 QStandardItem         = QStandardItem.Standard_QStandardItem
 QSortFilterProxyModel = QSortFilterProxyModel.Standered_QSortFilterProxyModel
@@ -133,7 +133,7 @@ class _Named_Data_Item(_Data_Item):
 
 	def setData(self, value, role=Data_Roles.EDIT):
 		if role in self.Item_Data_Roles.DP_ED:
-			if isinstance(value, (unicode, str)):
+			if isinstance(value, str):
 				self._data.name = value
 			else:
 				self._data = value

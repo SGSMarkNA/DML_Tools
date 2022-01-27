@@ -2,7 +2,7 @@
 import maya.cmds as cmds
 #import uuid
 import DML_Tools.DML_Maya as DML_Maya
-import Shader_Switch_Data
+from . import Shader_Switch_Data
 
 cmds.loadPlugin("vrayformaya",qt=True)
 if not cmds.pluginInfo("vrayformaya",q=True,loaded=True):
@@ -79,7 +79,7 @@ def collect_Render_Layers_Geo_Switch_Data():
 					except LookupError:
 						pass
 		except:
-			print "Error"
+			print("Error")
 		finally:
 			cmds.progressWindow(endProgress=1)
 			
@@ -93,7 +93,7 @@ def collect_Render_Layers_Geo_Switch_Data():
 		for key in tracked_geo_dict:
 			shaders = tracked_geo_dict[key]
 			pattern =  ",".join([shader for shader in shaders])
-			if not pattern in unique_lists.keys():
+			if not pattern in list(unique_lists.keys()):
 				unique_lists[pattern] = []
 			unique_lists[pattern].append(key)
 					
@@ -129,6 +129,6 @@ def Apply_Switch_Data():
 			members = [geo.node for geo in sdswch.geoNodes]
 			cmds.sets(members, edit=True, forceElement=switch.shading_engine())
 		else:
-			print "obect did not exits {}".format(switch)
+			print(("obect did not exits {}".format(switch)))
 	for shader in created_shaders:
 		shader.rename("extracted_shaders:"+shader.nice_name)

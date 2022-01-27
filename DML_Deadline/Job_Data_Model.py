@@ -1,7 +1,7 @@
 
 import os
-import Command_Access
-import Deadline_Commands
+from . import Command_Access
+from . import Deadline_Commands
 
 Active = "Active"
 Suspended = "Suspended"

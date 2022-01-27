@@ -2,7 +2,7 @@ import os
 import nuke
 import nuke
 import DML_Tools
-import Nuke_Layer_Merge_Builder_Nodes
+from . import Nuke_Layer_Merge_Builder_Nodes
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
 

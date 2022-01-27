@@ -5,7 +5,7 @@ import maya.api.OpenMaya as OpenMaya
 from ...Mata_Classes.Plug_Return_Type_Publication_Metaclass import Plug_Return_Type_Publication
 from ...Decorators.Node_Wraper_Manager import node_Return_Wrapper,to_DML_Node,to_DML_Nodes
 from ... import Data_Storage
-from DML_MPlug import MPlug
+from .DML_MPlug import MPlug
 from ... import General_Utils
 # This Has Reason Other Then To Compensate For Wing IDS Code Analizer
 if False:
@@ -86,8 +86,7 @@ class MTypes(object):
 	CTS = ['double2', 'double3','float2', 'float3','long2', 'long3','short2', 'short3']
 
 ########################################################################
-class API_Plug(object):
-	__metaclass__          = Plug_Return_Type_Publication
+class API_Plug(object, metaclass=Plug_Return_Type_Publication):
 	if False:
 		apiPlug = OpenMaya.MPlug()
 	_is_dml_maya_node         = None

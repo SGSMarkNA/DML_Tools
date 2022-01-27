@@ -3,7 +3,7 @@ import maya.cmds as cmds
 from ..Abstract_Nodes.Dependency_Node import Dependency_Node
 #from ...Decorators.Node_Wraper_Manager import node_Return_Wrapper
 #from ...Decorators.Node_Lock_Manager import locked_Node_Management
-from Shading_Engine import Shading_Engine
+from .Shading_Engine import Shading_Engine
 
 __all__ = ["Shading_Node"]
 ########################################################################

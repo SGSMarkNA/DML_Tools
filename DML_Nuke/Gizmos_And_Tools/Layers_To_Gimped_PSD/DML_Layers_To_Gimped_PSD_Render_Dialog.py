@@ -2,7 +2,7 @@
 import nuke
 import nukescripts
 import os
-import Layers_To_Gimped_PSD_Utils
+from . import Layers_To_Gimped_PSD_Utils
 
 ########################################################################
 class DML_Nuke_RenderDialog(nukescripts.RenderDialog):
@@ -67,7 +67,7 @@ class DML_Nuke_RenderDialog(nukescripts.RenderDialog):
 		try:
 			nuke.executeMultiple([n.nuke_object for n in self.all_write_nodes], frame_ranges, self.views_to_render, continueOnError = self._continueOnError.value())
 			rendered_check = True
-		except RuntimeError, e:
+		except RuntimeError as e:
 			rendered_check = False
 			if self._exceptOnError or e.args[0][0:9] != "Cancelled":   # TO DO: change this to an exception type
 				raise

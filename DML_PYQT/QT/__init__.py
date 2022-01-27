@@ -39,6 +39,6 @@ except:
 if not hasattr(Qt, 'MiddleButton'):
 	Qt.MiddleButton = Qt.MidButton # some Qt code uses MidButton and other places it uses MiddleButton
 	
-from User_Data_Generators import userRole_generator
-from User_Data_Generators import userType_generator
-import Constants
+from .User_Data_Generators import userRole_generator
+from .User_Data_Generators import userType_generator
+from . import Constants

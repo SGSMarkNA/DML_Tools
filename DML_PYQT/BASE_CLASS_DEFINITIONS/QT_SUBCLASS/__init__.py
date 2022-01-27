@@ -1,1 +1,1 @@
-from Mime_Data import MimeData
+from .Mime_Data import MimeData

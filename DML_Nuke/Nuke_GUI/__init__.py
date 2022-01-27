@@ -1,5 +1,5 @@
 import nuke
-import Python_Custom_Widget_Knob
-import Utils
-import Generic_Widgets
+from . import Python_Custom_Widget_Knob
+from . import Utils
+from . import Generic_Widgets
 

@@ -9,7 +9,7 @@ import uuid
 ########################################################################
 class View_Modes(nuke.FnPySingleton):
 	""""""
-	viewMode,imageMode = range(2)
+	viewMode,imageMode = list(range(2))
 	def __init__(self):
 		"""Constructor"""
 		self.mode = 0

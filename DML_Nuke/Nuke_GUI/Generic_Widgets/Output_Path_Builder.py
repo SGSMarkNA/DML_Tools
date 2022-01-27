@@ -4,8 +4,8 @@ import nuke
 import DML_Tools
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
-import View_Selection
-import Utils
+from . import View_Selection
+from . import Utils
 #----------------------------------------------------------------------
 def get_Folder_Dialog(label="Output Folder", UseNativeDialog=False, folder="", parent=None):
 	""""""

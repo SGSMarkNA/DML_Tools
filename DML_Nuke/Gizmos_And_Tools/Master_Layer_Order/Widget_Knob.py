@@ -4,7 +4,7 @@ import nuke
 import DML_Tools
 DML_PYQT = DML_Tools.DML_PYQT
 from DML_Tools.DML_Nuke.Nuke_GUI import Python_Custom_Widget_Knob
-import Master_Layer_Order_Nodes
+from . import Master_Layer_Order_Nodes
 
 	
 ########################################################################

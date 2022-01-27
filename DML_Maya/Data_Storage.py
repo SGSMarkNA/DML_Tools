@@ -1,44 +1,36 @@
-import General_Utils
-import Maya_Util_Classes
+from . import General_Utils
+from . import Maya_Util_Classes
 
 ########################################################################
-class Node_Container(dict):
+class Node_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton
 ########################################################################
-class Maya_Node_Type_To_Class_Wapper_Container(dict):
+class Maya_Node_Type_To_Class_Wapper_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton
 
 ########################################################################
-class Maya_Node_Type_Overide_Return_Wapper_Check_Container(dict):
+class Maya_Node_Type_Overide_Return_Wapper_Check_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton
 
 ########################################################################
-class Maya_Plug_Type_To_Class_Wapper_Container(dict):
+class Maya_Plug_Type_To_Class_Wapper_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton	
 
 ########################################################################
-class Maya_Plug_Type_Overide_Return_Wapper_Check_Container(dict):
+class Maya_Plug_Type_Overide_Return_Wapper_Check_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton
 	
 ########################################################################
-class Maya_Component_Type_To_Class_Wapper_Container(dict):
+class Maya_Component_Type_To_Class_Wapper_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton	
 
 ########################################################################
-class Maya_Component_Type_Overide_Return_Wapper_Check_Container(dict):
+class Maya_Component_Type_Overide_Return_Wapper_Check_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton
 	
 ########################################################################
-class Maya_Option_Variable_Type_To_Class_Wapper_Container(dict):
+class Maya_Option_Variable_Type_To_Class_Wapper_Container(dict, metaclass=General_Utils.Singleton):
 	""""""
-	__metaclass__ = General_Utils.Singleton
 	
 Cashed_Nodes_Container          = Node_Container()
 Node_Return_Type_Relations      = Maya_Node_Type_To_Class_Wapper_Container()

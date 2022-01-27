@@ -1,10 +1,10 @@
 import maya.cmds as cmds
 import DML_Tools.Maya.DML_Maya as DML_Maya
 
-from DML_Asset_Views_View_State_Object_Set import Asset_Views_View_State_Object_Set
+from .DML_Asset_Views_View_State_Object_Set import Asset_Views_View_State_Object_Set
 
 if False:
-	from DML_Asset_Views_View_State_Collection import Asset_Views_View_State_Collection
+	from .DML_Asset_Views_View_State_Collection import Asset_Views_View_State_Collection
 ########################################################################
 class Objects_Plug(DML_Maya.Maya_Nodes.Base_Nodes.API_Plug.API_Plug):
 	""""""

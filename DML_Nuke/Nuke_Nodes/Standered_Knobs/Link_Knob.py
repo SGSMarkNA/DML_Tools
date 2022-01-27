@@ -31,7 +31,7 @@ class Link_Knob(Knob):
 	#----------------------------------------------------------------------
 	def setLink(self,s):
 		"""setLink(s) -> None """
-		if isinstance(s,basestring):
+		if isinstance(s,str):
 			self.nuke_object.setLink(s)
 		elif isinstance(s,Knob):
 			self.nuke_object.setLink(s.fullName)
@@ -42,7 +42,7 @@ class Link_Knob(Knob):
 	#----------------------------------------------------------------------
 	def makeLink(self,node,knob):
 		"""makeLink(node, knob) -> None """
-		if not isinstance(node,basestring):
+		if not isinstance(node,str):
 			if isinstance(node,Node):
 				node = node.fullName
 			elif isinstance(s,nuke.Node):
@@ -50,7 +50,7 @@ class Link_Knob(Knob):
 			else:
 				raise ValueError("node Must be a string or nuke Node")
 		
-		if not isinstance(knob,basestring):
+		if not isinstance(knob,str):
 			if isinstance(knob,Knob):
 				knob = knob.name
 			elif isinstance(knob,nuke.Knob):

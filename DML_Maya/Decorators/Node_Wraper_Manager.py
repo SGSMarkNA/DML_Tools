@@ -34,7 +34,7 @@ def get_Plug_Class_Wrapper(plg):
 		else:
 			raise RuntimeError(e)
 	
-	if Data_Storage.Plug_Return_Type_Overides.has_key(typ):
+	if typ in Data_Storage.Plug_Return_Type_Overides:
 		# if so start scanning over them and see if the check returns true
 		# if so then return that instead of the class related to the type
 		for cls in Data_Storage.Plug_Return_Type_Overides[typ]:
@@ -42,7 +42,7 @@ def get_Plug_Class_Wrapper(plg):
 				return cls
 			
 	# check if the type has a designated class related to it
-	if Data_Storage.Plug_Return_Type_Relations.has_key(typ):
+	if typ in Data_Storage.Plug_Return_Type_Relations:
 		# if so return it
 		cls = Data_Storage.Plug_Return_Type_Relations.get(typ)
 	else:
@@ -57,7 +57,7 @@ def to_DML_Plug(*args):
 			res = args[0]
 		elif isinstance(args[0],OpenMaya.MPlug):
 			plg = args[0]
-			node = cmds.ls(plg,long=True)[0].split(".",1)[0]
+			node = cmds.ls(plg,int=True)[0].split(".",1)[0]
 			node = to_DML_Node(node)
 			wrapper_class = get_Plug_Class_Wrapper(plg)
 			res = wrapper_class(node,plg)
@@ -101,14 +101,14 @@ def to_DML_Node(node,**kwargs):
 		# get the type of node
 		typ = cmds.objectType(node)
 		# using the type of node check if this type has possible overide checks
-		if Data_Storage.Node_Return_Type_Overides.has_key(typ):
+		if typ in Data_Storage.Node_Return_Type_Overides:
 			# if so start scanning over them and see if the check returns true
 			# if so then return that instead of the class related to the type
 			for cls in reversed(Data_Storage.Node_Return_Type_Overides[typ]):
 				if cls._overide_Return_Check(node):
 					return cls(node,**kwargs)
 		# check if the type has a designated class related to it
-		if Data_Storage.Node_Return_Type_Relations.has_key(typ):
+		if typ in Data_Storage.Node_Return_Type_Relations:
 			# if so return it
 			cls = Data_Storage.Node_Return_Type_Relations.get(typ)
 			return cls(node,**kwargs)
@@ -140,11 +140,11 @@ def node_Return_Wrapper(func):
 				if not len(res):
 					res = []
 				res = [to_DML_Node(name) for name in res]
-			elif isinstance(res,(basestring,OpenMaya.MPlug)):
+			elif isinstance(res,(str,OpenMaya.MPlug)):
 				res = to_DML_Node(res)
 			else:
 				res = []
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:

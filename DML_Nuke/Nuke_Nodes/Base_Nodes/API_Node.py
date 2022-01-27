@@ -106,8 +106,7 @@ def get_nuke_node_proxy(self):
 	return self.nuke_object.proxy()
 
 ########################################################################
-class DML_Node(object):
-	__metaclass__             = Node_Return_Type_Publication
+class DML_Node(object, metaclass=Node_Return_Type_Publication):
 	NODE_TYPE_RELATION        = None
 	NODE_CLASS_NAME           = None
 	RETURN_OVERIDE_CHECK_TYPE = None
@@ -151,7 +150,7 @@ class DML_Node(object):
 		
 		tcl_parts  = []
 		# if node_knobs was given then split the tcl stype arguments apart
-		if isinstance(node_knobs,basestring):
+		if isinstance(node_knobs,str):
 			tcl_parts = node_knobs.split()
 		# if arg count is 1 and spliting it gives a len greater then 1 then split the tcl stype arguments apart
 		elif arg_count == 1 and len(args[0].split()) > 1:
@@ -169,14 +168,14 @@ class DML_Node(object):
 		# if not start checking for a name
 		if nuke_node is None:
 			# check if the name was given in the key words and if the node exists
-			if kwargs.has_key("name") and nuke.exists(kwargs.get("name")):
+			if "name" in kwargs and nuke.exists(kwargs.get("name")):
 				nuke_node = nuke.toNode(kwargs.get("name"))
 			
 			# check if there are tcl_parts and the word name is in the tcl style arguments and if the node exists
 			elif len(tcl_parts) and "name" in tcl_parts and nuke.exists(tcl_parts[ tcl_parts.index("name")+1 ]):
 				nuke_node = nuke.toNode(tcl_parts[ tcl_parts.index("name")+1 ])
 			# check if there is 1 arg and that the arg is a string and the input arg exists in the nuke scene
-			elif arg_count == 1 and isinstance(args[0],basestring) and nuke.exists(args[0].strip()):
+			elif arg_count == 1 and isinstance(args[0],str) and nuke.exists(args[0].strip()):
 				nuke_node = nuke.toNode(args[0].strip())
 			
 		# check for the nuke_node
@@ -207,7 +206,7 @@ class DML_Node(object):
 			else:
 				# check if there are kwargs
 				# if so then use the node constructer
-				if len(kwargs.keys()):
+				if len(list(kwargs.keys())):
 					fn = getattr(nuke.nodes,cls.NODE_TYPE_RELATION)
 					nuke_node = fn(**kwargs)
 				# else use the createNode function
@@ -247,7 +246,7 @@ class DML_Node(object):
 		return '{}.{}("{}")'.format(self.__module__,self.__class__.__name__,self.fullName)
 	#----------------------------------------------------------------------
 	def __ne__(self, other):
-		if isinstance(other,basestring):
+		if isinstance(other,str):
 			return self.fullName != other
 		elif isinstance(other,nuke.Node):
 			return self.nuke_object != other
@@ -258,7 +257,7 @@ class DML_Node(object):
 	#----------------------------------------------------------------------
 	def __eq__(self,other):
 		""""""
-		if isinstance(other,basestring):
+		if isinstance(other,str):
 			return self.fullName == other
 		elif isinstance(other,nuke.Node):
 			return self.nuke_object == other

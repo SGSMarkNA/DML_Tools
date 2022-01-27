@@ -24,15 +24,15 @@ try:
 	from PySide2.QtWidgets import *
 	from shiboken2 import wrapInstance, getCppPointer
 	_qtImported = 'PySide2'
-except ImportError, e1:
+except ImportError as e1:
 	try:
 		from PyQt4.QtCore import Qt, QPoint, QSize
 		from PyQt4.QtCore import pyqtSignal as Signal
 		from PyQt4.QtGui import *
 		from sip import wrapinstance as wrapInstance
 		_qtImported = 'PyQt4'
-	except ImportError, e2:
-		raise ImportError, '%s, %s'%(e1,e2)   
+	except ImportError as e2:
+		raise ImportError('%s, %s'%(e1,e2))   
 
 
 mixinWorkspaceControls = dict()
@@ -110,7 +110,7 @@ class MayaQWidgetBaseMixin(object):
 
 		# Parent under the main Maya window
 		mainWindowPtr = omui.MQtUtil.mainWindow()
-		mainWindow = wrapInstance(long(mainWindowPtr), QMainWindow)
+		mainWindow = wrapInstance(int(mainWindowPtr), QMainWindow)
 		self.setParent(mainWindow)
 
 		# Make this widget appear as a standalone window even though it is parented
@@ -170,10 +170,10 @@ class MayaQDockWidget(MayaQWidgetBaseMixin,QDockWidget):
 		# WORKAROUND: The mainWindow.handleDockWidgetVisChange may not be present on some PyQt and PySide systems.
 		#             Handle case if it fails to connect to the attr.
 		mainWindowPtr = omui.MQtUtil.mainWindow()
-		mainWindow = wrapInstance(long(mainWindowPtr), QMainWindow)
+		mainWindow = wrapInstance(int(mainWindowPtr), QMainWindow)
 		try:
 			self.visibilityChanged.connect(mainWindow.handleDockWidgetVisChange)
-		except AttributeError, e: 
+		except AttributeError as e: 
 			# Error connecting visibilityChanged trigger to mainWindow.handleDockWidgetVisChange. 
 			# Falling back to using MEL command directly.
 			mel.eval('evalDeferred("updateEditorToggleCheckboxes()")')  # Currently mainWindow.handleDockWidgetVisChange only makes this updateEditorToggleCheckboxes call
@@ -187,7 +187,7 @@ class MayaQDockWidget(MayaQWidgetBaseMixin,QDockWidget):
 			return
 
 		# Mimic operations performed by Maya dockControl command
-		mainWindow = self.parent()  if isinstance(self.parent(), QMainWindow) else wrapInstance(long(omui.MQtUtil.mainWindow()), QMainWindow)
+		mainWindow = self.parent()  if isinstance(self.parent(), QMainWindow) else wrapInstance(int(omui.MQtUtil.mainWindow()), QMainWindow)
 
 		childrenList = mainWindow.children()
 		foundDockWidgetToTab = False
@@ -255,7 +255,7 @@ class MayaQWidgetDockableMixin(MayaQWidgetBaseMixin):
 
 	def __init__(self, parent=None, *args, **kwargs):
 		# In Qt 5.12.5, immediate parenting of the main window crashes in QWindow::setFlags and we need to deffer it.
-		if parent is not None and long(getCppPointer(parent)[0]) == long(omui.MQtUtil.mainWindow()):
+		if parent is not None and int(getCppPointer(parent)[0]) == int(omui.MQtUtil.mainWindow()):
 			parent = None
 		super(MayaQWidgetDockableMixin, self).__init__(parent=parent, *args, **kwargs) # Init all baseclasses (including QWidget) of the main class
 
@@ -335,7 +335,7 @@ class MayaQWidgetDockableMixin(MayaQWidgetBaseMixin):
 					else:
 						workspaceControlName = cmds.workspaceControl(workspaceControlName, label=self.windowTitle(), retain=retain, loadImmediately=True, floating=True, initialWidth=width, widthProperty=widthSizingProperty, minimumWidth=minWidth, initialHeight=height, heightProperty=heightSizingProperty, requiredPlugin=plugins, requiredControl=controls)
 				else:
-					if self.parent() is None or (long(getCppPointer(self.parent())[0]) == long(omui.MQtUtil.mainWindow())):
+					if self.parent() is None or (int(getCppPointer(self.parent())[0]) == int(omui.MQtUtil.mainWindow())):
 						# If parented to the Maya main window or nothing, dock into the Maya main window
 						if minWidth is None:
 							workspaceControlName = cmds.workspaceControl(workspaceControlName, label=self.windowTitle(), retain=retain, loadImmediately=True, dockToMainWindow=(area, False), initialWidth=width, widthProperty=widthSizingProperty, initialHeight=height, heightProperty=heightSizingProperty, requiredPlugin=plugins, requiredControl=controls)
@@ -367,7 +367,7 @@ class MayaQWidgetDockableMixin(MayaQWidgetBaseMixin):
 				currParent = omui.MQtUtil.getCurrentParent()
 				mixinPtr = omui.MQtUtil.findControl(self.objectName())
 				if mixinPtr is not None:
-					omui.MQtUtil.addWidgetToMayaLayout(long(mixinPtr), long(currParent))
+					omui.MQtUtil.addWidgetToMayaLayout(int(mixinPtr), int(currParent))
 
 				if uiScript is not None and len(uiScript):
 					cmds.workspaceControl(workspaceControlName, e=True, uiScript=uiScript)
@@ -569,7 +569,7 @@ class MayaQWidgetDockableMixin(MayaQWidgetBaseMixin):
 			return None
 		else:
 			mainWindow = self.parent().parent() if isinstance(self.parent().parent(), QMainWindow) \
-                else wrapInstance(long(omui.MQtUtil.mainWindow()), QMainWindow)
+                else wrapInstance(int(omui.MQtUtil.mainWindow()), QMainWindow)
 
 			dockAreaMap = {    
                 Qt.LeftDockWidgetArea   : 'left',
@@ -622,7 +622,7 @@ class MayaQWidgetDockableMixin(MayaQWidgetBaseMixin):
 		reprDict['height'] = sz.height()
 
 		# Construct the repr show() string
-		reprShowList = ['%s=%r'%(k,v) for k,v in reprDict.items() if v != None]
+		reprShowList = ['%s=%r'%(k,v) for k,v in list(reprDict.items()) if v != None]
 		reprShowStr = 'show(%s)'%(', '.join(reprShowList))
 		return reprShowStr
 # ===========================================================================

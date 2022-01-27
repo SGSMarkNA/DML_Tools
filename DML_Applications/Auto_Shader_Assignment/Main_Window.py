@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import logging
 import os
 import sys
@@ -41,7 +41,7 @@ except:
 
 #GUI_Loader = PYQT.GUI.UI_Loader.GUI_Loader
 
-import Data_Structures
+from . import Data_Structures
 
 try:
 	#logging.debug('Attempting To Import Maya')
@@ -69,7 +69,7 @@ def get_Shader_In_Namespace(nameSpace):
 	def flatten(x):
 		result = []
 		for el in x:
-			if hasattr(el, "__iter__") and not isinstance(el, basestring):
+			if hasattr(el, "__iter__") and not isinstance(el, str):
 				result.extend(flatten(el))
 			else:
 				result.append(el)
@@ -179,11 +179,11 @@ class Custom_Combox(PYQT.QComboBox):
 	#----------------------------------------------------------------------
 	def onChanged(self,val):
 		""""""
-		print("Active Value Has Been Changed To {}".format(self.itemText(val)))
+		print(("Active Value Has Been Changed To {}".format(self.itemText(val))))
 	#----------------------------------------------------------------------
 	def do_activated(self,index):
 		""""""
-		print("Active Value Has Been Changed To {}".format(self.itemText(index)))
+		print(("Active Value Has Been Changed To {}".format(self.itemText(index))))
 	
 ########################################################################
 class Custom_TableWidget(PYQT.QTableWidget):
@@ -370,7 +370,7 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 	def Update_Association_Data(self,oldKeyName,newKeyName,association):
 		""""""
 		
-		if oldKeyName != u'None':
+		if oldKeyName != 'None':
 			items = self.findItems(oldKeyName,PYQT.Qt.MatchExactly)
 			
 			if len(items):
@@ -385,7 +385,7 @@ class Name_Associations_Standered_Item_Model(PYQT.QStandardItemModel):
 						oldKeyItem.removeRow(child_item.row())
 						break
 					
-		if newKeyName != u'None':
+		if newKeyName != 'None':
 			items = self.findItems(newKeyName,PYQT.Qt.MatchExactly)
 			if len(items):
 				newKeyItem = items[0]
@@ -708,6 +708,6 @@ class Name_Associations_Main_Window(_CODE_COMPLEATION_HELPER):
 	def Apply_Associations(self):
 		""""""
 		for item in self._model_data.iterate_Names_With_Associations():
-			print("{} = {}".format(item.name,",".join(item.associations)))
+			print(("{} = {}".format(item.name,",".join(item.associations))))
 
 

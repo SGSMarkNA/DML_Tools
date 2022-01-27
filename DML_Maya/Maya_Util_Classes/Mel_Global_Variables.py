@@ -4,9 +4,7 @@ from ..General_Utils import Singleton
 from .Mel_Variable import Mel_Variable 
 
 ########################################################################
-class Mel_Global_Variables(object):
-	__metaclass__ = Singleton
-	#----------------------------------------------------------------------
+class Mel_Global_Variables(object, metaclass=Singleton):
 	def __init__(self):
 		""""""
 		self.rebuild()

@@ -33,9 +33,9 @@ class FrameRange(DML_Nuke_Object):
 		"""self.setFirst(n) -> None   set the first frame of the range."""
 		return self.nuke_object.setFirst(n)
 	#----------------------------------------------------------------------
-	def next(self):
+	def __next__(self):
 		"""x.next() -> the next value, or raise StopIteration"""
-		return self.nuke_object.next()
+		return next(self.nuke_object)
 	#----------------------------------------------------------------------
 	def isInRange(self,n):
 		"""self.isInRange(n) -> int   return if the frame is inside the range."""

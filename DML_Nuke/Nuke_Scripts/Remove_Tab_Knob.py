@@ -37,7 +37,7 @@ def Remove_Tab(*args):
 		if hasattr(node,"_is_dml_object"):
 			node = node.nuke_object
 		# check if input 1 was the name of a node
-		elif isinstance(node,basestring):
+		elif isinstance(node,str):
 			node = nuke.toNode(node)
 			
 		# make sure that input 1 was a nuke node
@@ -45,7 +45,7 @@ def Remove_Tab(*args):
 			raise TypeError("node was not a correct Type")
 		
 		# make sure input 2 was the name of a tab on this node
-		if not isinstance(tab_knob,basestring):
+		if not isinstance(tab_knob,str):
 			raise ValueError("arg 2 must be the name of the tab knob")
 		
 		# make sure a knob was found

@@ -1,7 +1,6 @@
 from .. import General_Utils 
 ########################################################################
-class MDT(object):
-	__metaclass__ = General_Utils.Singleton	
+class MDT(object, metaclass=General_Utils.Singleton):
 	Int32Array     ='Int32Array'
 	doubleArray    ='doubleArray'
 	lattice        ='lattice'
@@ -18,8 +17,7 @@ class MDT(object):
 	def items(cls):
 		return [cls.Int32Array, cls.doubleArray, cls.lattice, cls.matrix, cls.mesh, cls.nurbsCurve, cls.nurbsSurface, cls.pointArray, cls.string, cls.stringArray, cls.vectorArray]
 ########################################################################
-class MAT(object):
-	__metaclass__ = General_Utils.Singleton
+class MAT(object, metaclass=General_Utils.Singleton):
 	bool           ='bool'
 	byte           ='byte'
 	char           ='char'
@@ -66,8 +64,7 @@ class MAT(object):
 	def numerical(cls):
 		return [cls.bool, cls.byte, cls.char, cls.double, cls.doubleAngle, cls.doubleLinear, cls.float, cls.long, cls.reflectance, cls.short, cls.spectrum, cls.time,cls.floatLinear]
 ########################################################################
-class MTypes(object):
-	__metaclass__ = General_Utils.Singleton
+class MTypes(object, metaclass=General_Utils.Singleton):
 	DTS = ['Int32Array', 'doubleArray', 'lattice', 'matrix', 'mesh', 'nurbsCurve', 'nurbsSurface', 'pointArray', 'string', 'stringArray', 'vectorArray']
 	ATS = ['bool', 'byte', 'char', 'TdataCompound','compound', 'double', 'double2', 'double3', 'doubleAngle', 'doubleLinear', 'enum', 'float', 'float2', 'float3', 'fltMatrix', 'long', 'long2', 'long3', 'message', 'reflectance', 'short', 'short2', 'short3', 'spectrum', 'time']
 	NTS = ['bool', 'byte', 'char','double', 'doubleAngle', 'doubleLinear','float','floatLinear','long', 'reflectance', 'short','spectrum','time']

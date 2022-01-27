@@ -6,7 +6,7 @@ import nukescripts
 import json
 import time
 import nuke
-import Layers_To_Gimped_PSD_Utils
+from . import Layers_To_Gimped_PSD_Utils
 import DML_Tools.DML_Deadline.Command_Access
 import DML_Tools.DML_Deadline.Deadline_Commands
 import DML_Tools.DML_Deadline.Job_Data_Model

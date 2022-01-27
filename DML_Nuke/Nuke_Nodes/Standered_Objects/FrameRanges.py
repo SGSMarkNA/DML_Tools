@@ -28,9 +28,9 @@ class FrameRanges(DML_Nuke_Object):
 		"""add(r) -> None   add a new frame range."""
 		return self.nuke_object.add(r)
 	#----------------------------------------------------------------------
-	def next(self):
+	def __next__(self):
 		"""x.next() -> the next value, or raise StopIteration"""
-		return self.nuke_object.next()
+		return next(self.nuke_object)
 	#----------------------------------------------------------------------
 	def maxFrame(self):
 		"""maxFrame() -> int   get maximun frame of all ranges."""

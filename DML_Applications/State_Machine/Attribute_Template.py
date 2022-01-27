@@ -22,7 +22,7 @@ class Base_Template_Attribute(object):
 	#----------------------------------------------------------------------
 	def __init__(self,name,dataType,defaultValue=None):
 		"""Constructor"""
-		if not isinstance(name,basestring):
+		if not isinstance(name,str):
 			raise TypeError("can initialize class with name of {} name must be Derived From basestring".format(name.__class__.__name__))
 		self._name = name
 		self._data_type = dataType
@@ -105,9 +105,9 @@ class Base_Template(object):
 		"""Constructor"""
 		if not isinstance(attributes,Base_Template_Attribute_List):
 			raise TypeError("can not initialize class with attributes of {} attributes must be Derived From Base_Template_Attribute_List".format(attributes.__class__.__name__))
-		if not isinstance(applicationName,basestring):
+		if not isinstance(applicationName,str):
 			raise TypeError("can not initialize class with applicationName of {} applicationName must be Derived From basestring".format(applicationName.__class__.__name__))
-		if not isinstance(templateName,basestring):
+		if not isinstance(templateName,str):
 			raise TypeError("can not initialize class with templateName of {} templateName must be Derived From basestring".format(templateName.__class__.__name__))		
 		
 		self._template_name    = templateName
@@ -120,7 +120,7 @@ class Base_Template(object):
 	#----------------------------------------------------------------------
 	def set_TemplateName(self,name):
 		"""set the name of this template"""
-		if not isinstance(name,basestring):
+		if not isinstance(name,str):
 			raise TypeError("can not templateName of {} templateName must be Derived basestring".format(name.__class__.__name__))		
 		self._template_name = name
 	#----------------------------------------------------------------------

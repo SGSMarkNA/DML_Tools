@@ -5,7 +5,7 @@ DML_Maya = DML_Tools.Maya.DML_Maya
 
 from ..UI_Callbacks import Callbacks_Collection_Storage
 if False:
-	import Base_Item
+	from . import Base_Item
 
 
 ########################################################################
@@ -60,7 +60,7 @@ class Maya_Node_Item_Data(Base_Item.Item_Data):
 		return self.internal_data.nice_name
 	#----------------------------------------------------------------------
 	def _fn_set_display_name_value(self, value):
-		if not isinstance(value,basestring):
+		if not isinstance(value,str):
 			raise ValueError("input value must be an instance of basestring and a %r was given" % type(value))
 		self.internal_data.rename(value)
 		

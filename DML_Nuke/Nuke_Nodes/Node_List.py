@@ -13,12 +13,12 @@ def wrapper_Empty_List_To_Selected(func):
 			if len(kws.get("listOfNodes",[])):
 				kws["listOfNodes"]=nuke.selectedNodes()
 			res=func(*args, **kws)
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
 				traceback = sys.exc_info()[2]  # get the full traceback
-				raise StandardError(Exception(err), traceback)
+				raise Exception(Exception(err), traceback)
 			return res
 	return wrapper
 

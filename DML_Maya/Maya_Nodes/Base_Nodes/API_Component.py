@@ -5,7 +5,7 @@ import maya.api.OpenMaya as OpenMaya
 from ...Mata_Classes.Component_Return_Type_Publication_Metaclass import Component_Return_Type_Publication
 from ...Decorators.Node_Wraper_Manager import to_DML_Node
 from ... import Data_Storage
-from DML_MPlug import MPlug
+from .DML_MPlug import MPlug
 # This Has Reason Other Then To Compensate For Wing IDS Code Analizer
 if False:
 	from DML_Maya import Data_Storage
@@ -32,8 +32,7 @@ class Maya_Component_Path_Attribute(object):
 	def __set__(self, instance, name):
 		raise AttributeError("plug_path is a read only")
 ########################################################################
-class API_Component(object):
-	__metaclass__                = Component_Return_Type_Publication
+class API_Component(object, metaclass=Component_Return_Type_Publication):
 	py_Node                      = Py_Mel_Node_Attribute()
 	component_path               = Maya_Component_Path_Attribute()
 	_is_dml_maya_node            = None

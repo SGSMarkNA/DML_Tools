@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import os
 import sys
 
@@ -20,12 +20,12 @@ except:
 
 GUI_Loader = PYQT.GUI.UI_Loader.GUI_Loader
 
-import Main_Window
+from . import Main_Window
 
 GUI_Loader.registerCustomWidget(Main_Window.Custom_TableWidget)
 
 if _in_maya:
-	import Maya_Main_Window
+	from . import Maya_Main_Window
 	GUI_Loader.registerCustomWidget(Maya_Main_Window.Name_Associations_Main_Window)
 else:
 	GUI_Loader.registerCustomWidget(Main_Window.Name_Associations_Main_Window)

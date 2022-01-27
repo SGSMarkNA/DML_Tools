@@ -17,7 +17,7 @@ class Plug_Return_Type_Publication(type):
 			Data_Storage.Plug_Return_Type_Relations[MAYA_PLUG_TYPE_RELATION]=res
 			
 		if RETURN_OVERIDE_CHECK_TYPE is not None:
-			if not Data_Storage.Plug_Return_Type_Overides.has_key(RETURN_OVERIDE_CHECK_TYPE):
+			if RETURN_OVERIDE_CHECK_TYPE not in Data_Storage.Plug_Return_Type_Overides:
 				Data_Storage.Plug_Return_Type_Overides[RETURN_OVERIDE_CHECK_TYPE]=[]
 				
 			if not res in Data_Storage.Plug_Return_Type_Overides[RETURN_OVERIDE_CHECK_TYPE]:

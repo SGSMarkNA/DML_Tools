@@ -40,7 +40,7 @@ def generate_Layer_Thumbnail(node,layer='rgba',size=32,prgsbar=None):
 	i = 0
 	image = DML_PYQT.QImage(icon_w, icon_h, DML_PYQT.QImage.Format_ARGB32_Premultiplied)
 	for w_pixal in range(icon_w):
-		for h_pixal in reversed(range(icon_h)):
+		for h_pixal in reversed(list(range(icon_h))):
 			image.setPixel(w_pixal, h_pixal, pix_colors[i])
 			i+=1
 			if isinstance(prgsbar,DML_PYQT.QProgressBar):

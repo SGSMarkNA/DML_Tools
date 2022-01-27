@@ -1,5 +1,5 @@
 
-from MenuItem import MenuItem
+from .MenuItem import MenuItem
 
 ################################################################################
 class Menu(MenuItem):
@@ -30,7 +30,7 @@ class Menu(MenuItem):
 	#----------------------------------------------------------------------
 	def items(self):
 		"""self.items() -> None Returns a list of sub menu items."""
-		return self.nuke_object.items()
+		return list(self.nuke_object.items())
 	#----------------------------------------------------------------------
 	def findItem(self,name):
 		"""self.findItem(name) -> Menu or None Finds a submenu or command with a particular name. @param name: The name to search for. @return: The submenu or command we found, or None if we could not find anything."""

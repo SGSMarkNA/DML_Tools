@@ -16,7 +16,7 @@ def flatten_Input_Args(func):
 				res = func(args[0], **kws)
 			else:
 				res = func(args, **kws)
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:

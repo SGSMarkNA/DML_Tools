@@ -21,8 +21,7 @@ class Nuke_Object_Attribute(Read_Only_Attribute):
 		instance.__dict__["_nuke_object"] = value
 		
 ########################################################################
-class DML_Nuke_Object(object):
-	__metaclass__             = Nuke_Object_Return_Type_Publication
+class DML_Nuke_Object(object, metaclass=Nuke_Object_Return_Type_Publication):
 	IS_CREATABLE              = False
 	CREATE_COMMAND            = None
 	DEFAULT_ARGS              = ""

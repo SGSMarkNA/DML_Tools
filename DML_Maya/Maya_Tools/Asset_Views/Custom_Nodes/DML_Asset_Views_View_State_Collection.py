@@ -1,10 +1,10 @@
 import maya.cmds as cmds
 import DML_Tools.Maya.DML_Maya as DML_Maya
 
-from DML_Asset_Views_View_State import Asset_Views_View_State
+from .DML_Asset_Views_View_State import Asset_Views_View_State
 
 if False:
-	from DML_Asset_Views_View_State_Collections import Asset_Views_View_State_Collections
+	from .DML_Asset_Views_View_State_Collections import Asset_Views_View_State_Collections
 ########################################################################
 class Asset_Views_View_State_Collection(DML_Maya.Maya_Nodes.Network):
 	RETURN_OVERIDE_CHECK_TYPE = "network"

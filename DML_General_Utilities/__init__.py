@@ -1,3 +1,3 @@
 
-import Generic_Functions
-import Generic_Classes
+from . import Generic_Functions
+from . import Generic_Classes

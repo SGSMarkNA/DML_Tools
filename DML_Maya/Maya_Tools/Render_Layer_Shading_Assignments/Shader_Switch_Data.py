@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import functools
-import Asset_Tracking
+from . import Asset_Tracking
 try:
 	import maya.cmds as cmds
 	import DML_Tools.DML_Maya as DML_Maya
@@ -20,7 +20,7 @@ def maya_Acitve_Return_Wrapper(func):
 		if maya_active:
 			try:
 				res = func(*args, **kws)
-			except Exception, error:
+			except Exception as error:
 				err=error
 			finally:
 				if err:

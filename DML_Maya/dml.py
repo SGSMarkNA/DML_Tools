@@ -1,9 +1,9 @@
 import maya.cmds as cmds
-import General_Utils
-from Data_Storage import Cashed_Nodes_Container
+from . import General_Utils
+from .Data_Storage import Cashed_Nodes_Container
 __all__ = ["ls","selectedNodes","listConnections"]
 
-from Decorators.Node_Wraper_Manager import node_Return_Wrapper,to_DML_Node,to_DML_Nodes
+from .Decorators.Node_Wraper_Manager import node_Return_Wrapper,to_DML_Node,to_DML_Nodes
 
 #----------------------------------------------------------------------
 def clear_Node_Cash():

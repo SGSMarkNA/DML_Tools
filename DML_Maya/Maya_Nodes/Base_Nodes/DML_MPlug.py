@@ -17,7 +17,7 @@ def DML_Plug_Return_Wrapper(func):
 				res = MPlug(res)
 			else:
 				res = []
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
@@ -85,7 +85,7 @@ class MPlug(OM.MPlug):
 			super(MPlug,self).__init__()
 		elif len(args) == 1:
 			arg = args[0]
-			if isinstance(arg,basestring):
+			if isinstance(arg,str):
 				selList = OM.MGlobal.getSelectionListByName(arg)
 				if not selList.length():
 					raise LookupError("input was not found {}".format(arg))

@@ -1,1 +1,1 @@
-from SelectionConnection import SelectionConnection
+from .SelectionConnection import SelectionConnection

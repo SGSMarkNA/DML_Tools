@@ -1,1 +1,1 @@
-from VRaySwitchMtl import VRaySwitchMtl
+from .VRaySwitchMtl import VRaySwitchMtl

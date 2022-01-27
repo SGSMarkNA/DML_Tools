@@ -1,4 +1,4 @@
-from Command_Access import CallDeadlineCommand
+from .Command_Access import CallDeadlineCommand
 
 def About():
 	"""Displays the about text"""

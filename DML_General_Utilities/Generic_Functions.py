@@ -26,7 +26,7 @@ def string_To_Valid_Attribute_Name(value):
 def flatten(x):
 	result = []
 	for el in x:
-		if hasattr(el, "__iter__") and not isinstance(el, basestring):
+		if hasattr(el, "__iter__") and not isinstance(el, str):
 			result.extend(flatten(el))
 		else:
 			result.append(el)

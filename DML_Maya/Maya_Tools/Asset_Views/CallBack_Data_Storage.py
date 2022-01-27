@@ -9,7 +9,7 @@ def name_To_MObject(mobject):
 	""""""
 	res = None
 	if not isinstance(mobject,OM.MObject):
-		if not isinstance(mobject,basestring):
+		if not isinstance(mobject,str):
 			raise ValueError("input must be a MObject or string")
 		sel_list = OM.MSelectionList()
 		sel_list.add(mobject)

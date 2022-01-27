@@ -6,9 +6,8 @@ import _nuke
 import uuid
 
 ########################################################################
-class Update_Actions(object):
+class Update_Actions(object, metaclass=DML_Tools.DML_General_Utilities.Generic_Classes.Singleton):
 	""""""
-	__metaclass__ = DML_Tools.DML_General_Utilities.Generic_Classes.Singleton
 	#----------------------------------------------------------------------
 	def __init__(self):
 		"""Constructor"""
@@ -104,7 +103,7 @@ def RGB_To_Hex(*args):
 		if isinstance(args[0],DML_PYQT.QColor):
 			r,g,b = args[0].red(), args[0].green(), args[0].blue()
 			hexCol = '#%02x%02x%02x' % (r,g,b)
-		elif isinstance(args[0],(int,long)):
+		elif isinstance(args[0],int):
 			color = DML_PYQT.QColor.fromRgb(args[0])
 			r,g,b = color.red(), color.green(), color.blue()
 			hexCol = '#%02x%02x%02x' % (r,g,b)	
@@ -126,7 +125,7 @@ def get_QColor(arg):
 			color = DML_PYQT.QColor(r,g,b)
 		else:
 			raise ValueError("bad input value")
-	elif isinstance(arg,(int,long)):
+	elif isinstance(arg,int):
 		color = DML_PYQT.QColor.fromRgba(arg)
 		return color
 	elif isinstance(arg,str):
@@ -243,9 +242,8 @@ class Nuke_View(object):
 		else:
 			return False
 ########################################################################
-class Nuke_Views(object):
+class Nuke_Views(object, metaclass=DML_Tools.DML_General_Utilities.Generic_Classes.Singleton):
 	""""""
-	__metaclass__ = DML_Tools.DML_General_Utilities.Generic_Classes.Singleton
 	#----------------------------------------------------------------------
 	def __init__(self):
 		"""Constructor"""
@@ -464,7 +462,7 @@ def scriptOpen(*args):
 	res = _nuke.scriptOpen(*args)
 	nuke.DML_Nuke_View_System._full_Rebuild()
 	CallBack_Singles.Root_Views_Knob_Chaged.emit()
-	print "scriptOpen"
+	print("scriptOpen")
 	return res
 #----------------------------------------------------------------------
 def scriptClear():
@@ -472,7 +470,7 @@ def scriptClear():
 	res = _nuke.scriptClear()
 	nuke.DML_Nuke_View_System._full_Rebuild()
 	CallBack_Singles.Root_Views_Knob_Chaged.emit()
-	print "scriptClear"
+	print("scriptClear")
 	return res
 
 #----------------------------------------------------------------------
@@ -481,7 +479,7 @@ def scriptNew(*args):
 	res = _nuke.scriptNew(*args)
 	nuke.DML_Nuke_View_System._full_Rebuild()
 	CallBack_Singles.Root_Views_Knob_Chaged.emit()
-	print "scriptNew"
+	print("scriptNew")
 	return res
 
 #----------------------------------------------------------------------
@@ -490,7 +488,7 @@ def scriptClose():
 	res = _nuke.scriptClose()
 	nuke.DML_Nuke_View_System._full_Rebuild()
 	CallBack_Singles.Root_Views_Knob_Chaged.emit()
-	print "scriptClose"
+	print("scriptClose")
 	return res
 	
 	

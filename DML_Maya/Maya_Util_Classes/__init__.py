@@ -1,6 +1,6 @@
-from Mel_Global_Variables import Mel_Global_Variables
-from Maya_Option_Variable import Option_Variable,All_Option_Variables,Represnted_Option_Variable
-from Mel_Variable import Mel_Variable
-import Maya_API_Callback_ID
-from Maya_Script_Job import Maya_Script_Job
-from Selection_Connection import SelectionConnection
+from .Mel_Global_Variables import Mel_Global_Variables
+from .Maya_Option_Variable import Option_Variable,All_Option_Variables,Represnted_Option_Variable
+from .Mel_Variable import Mel_Variable
+from . import Maya_API_Callback_ID
+from .Maya_Script_Job import Maya_Script_Job
+from .Selection_Connection import SelectionConnection

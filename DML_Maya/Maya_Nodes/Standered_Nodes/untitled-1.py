@@ -1,6 +1,6 @@
 import csv
 from bs4 import BeautifulSoup
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 get_set_code = '''
 	#----------------------------------------------------------------------
@@ -29,7 +29,7 @@ set_code = '''
 		self._edit({command_dict[name]}=value)'''
 
 
-website = urllib2.urlopen("http://help.autodesk.com/cloudhelp/2018/ENU/Maya-Tech-Docs/CommandsPython/camera.html")
+website = urllib.request.urlopen("http://help.autodesk.com/cloudhelp/2018/ENU/Maya-Tech-Docs/CommandsPython/camera.html")
 website_html = website.read()
 soup   = BeautifulSoup(website_html, 'html.parser')
 html   = soup.find(name="html", recursive=False)
@@ -41,7 +41,7 @@ flags = table.findAll(name="tr", recursive=False)[2:]
 for index in range(0,len(flags),2):
 	flag_data,flag_doc = flags[index],flags[index+1]
 	
-	flag_items  = [item for item in flag_data.findAll(name="td", recursive=False) if not item.next == "\\n"]
+	flag_items  = [item for item in flag_data.findAll(name="td", recursive=False) if not item.__next__ == "\\n"]
 	
 	flag_name, flag_typ, flag_modes = flag_items
 	code = flag_name.find("code")
@@ -54,9 +54,9 @@ for index in range(0,len(flags),2):
 	command_doc_lines = command_doc.splitlines()
 	command_doc = "\n".join(["\t\t"+line for line in command_doc_lines]).strip()+"\n\t\t"
 	if can_edit and can_query:
-		print get_set_code.format(command_dict=dict(name=command_name,doc=command_doc))
+		print((get_set_code.format(command_dict=dict(name=command_name,doc=command_doc))))
 	elif can_edit and not can_query:
-		print get_code.format(command_dict=dict(name=command_name,doc=command_doc))
+		print((get_code.format(command_dict=dict(name=command_name,doc=command_doc))))
 	elif can_query and not can_edit:
-		print set_code.format(command_dict=dict(name=command_name,doc=command_doc))
+		print((set_code.format(command_dict=dict(name=command_name,doc=command_doc))))
 	

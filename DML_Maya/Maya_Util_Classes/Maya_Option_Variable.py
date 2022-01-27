@@ -17,11 +17,11 @@ def get_Optional_Variable_Type(option_name):
 	else:
 		val = cmds.optionVar(  q=option_name)[0]
 	
-	if isinstance(val,(types.LongType,types.IntType)):
+	if isinstance(val,int):
 		return int
-	elif isinstance(val,(types.StringType,types.UnicodeType)):
+	elif isinstance(val,(bytes,str)):
 		return str
-	elif isinstance(val,types.FloatType):
+	elif isinstance(val,float):
 		return float
 	else:
 		return None
@@ -82,7 +82,7 @@ class Option_Variable(Base_Option_Variable):
 			cmds.optionVar(intValue=[self.name, int(val)])
 		elif typ == bool:
 			cmds.optionVar(intValue=[self.name, 1 if val else 0])
-		elif typ == str or typ == unicode:
+		elif typ == str or typ == str:
 			cmds.optionVar(stringValue=[self.name, str(val)])
 		elif typ == float:
 			cmds.optionVar(floatValue=[self.name, float(val)])
@@ -140,9 +140,7 @@ class Represnted_Option_Variable(Base_Option_Variable):
 		else:
 			return len(self.value)
 ########################################################################
-class All_Option_Variables(object):
-	__metaclass__ = Singleton
-	#----------------------------------------------------------------------
+class All_Option_Variables(object, metaclass=Singleton):
 	def __init__(self):
 		""""""
 		self._last_rebuild_collected_names = []

@@ -35,29 +35,24 @@ class Singleton(type):
 		return newcls
 
 ########################################################################
-class Nuke_Node_Type_To_Class_Wapper_Container(dict):
+class Nuke_Node_Type_To_Class_Wapper_Container(dict, metaclass=Singleton):
 	""""""
-	__metaclass__ = Singleton
 
 ########################################################################
-class Nuke_Node_Type_Overide_Return_Wapper_Check_Container(dict):
+class Nuke_Node_Type_Overide_Return_Wapper_Check_Container(dict, metaclass=Singleton):
 	""""""
-	__metaclass__ = Singleton
 
 ########################################################################
-class Nuke_Knob_Type_To_Class_Wapper_Container(dict):
+class Nuke_Knob_Type_To_Class_Wapper_Container(dict, metaclass=Singleton):
 	""""""
-	__metaclass__ = Singleton
 	
 ########################################################################
-class Nuke_Knob_Type_Overide_Return_Wapper_Check_Container(dict):
+class Nuke_Knob_Type_Overide_Return_Wapper_Check_Container(dict, metaclass=Singleton):
 	""""""
-	__metaclass__ = Singleton
 	
 ########################################################################
-class Nuke_Object_Type_To_Class_Wapper_Container(dict):
+class Nuke_Object_Type_To_Class_Wapper_Container(dict, metaclass=Singleton):
 	""""""
-	__metaclass__ = Singleton
 	
 Node_Return_Type_Relations      = Nuke_Node_Type_To_Class_Wapper_Container()
 Node_Return_Type_Overides       = Nuke_Node_Type_Overide_Return_Wapper_Check_Container()

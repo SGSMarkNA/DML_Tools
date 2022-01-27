@@ -193,7 +193,7 @@ def to_New_MObject(nodeName):
 			isinstance(obj,V2_OM.MObject)
 			return obj
 	# CHECK THE INPUT TO SEE IF IT IS THE OBJECT NAME
-	if isinstance(nodeName, (str, unicode)):
+	if isinstance(nodeName, str):
 		sel = V2_OM.MSelectionList()
 		# ADD IT TO STORAGE CONTAINER
 		sel.add( nodeName )
@@ -218,7 +218,7 @@ def to_Old_MObject(nodeName):
 				obj = nodeName
 			return obj
 	# CHECK THE INPUT TO SEE IF IT IS THE OBJECT NAME
-	if isinstance(nodeName, (str, unicode)):
+	if isinstance(nodeName, str):
 		# CREATE A MOBJECT AND A DAGPATH MEMORY OBJECT VARIBLE
 		obj = V1_OM.MObject()
 		# MAKE A SELECTIONLIST STORAGE CONTAINER
@@ -248,7 +248,7 @@ def to_New_MPlug(plugName):
 			isinstance(plugName,V2_OM.MPlug)
 			return plugName
 	# CHECK THE INPUT TO SEE IF IT IS THE OBJECT NAME
-	if isinstance(plugName, (str, unicode)):
+	if isinstance(plugName, str):
 		# MAKE A SELECTIONLIST STORAGE CONTAINER
 		sel = V2_OM.MSelectionList()
 		# ADD IT TO STORAGE CONTAINER
@@ -270,7 +270,7 @@ def to_Old_MPlug(plugName):
 			isinstance(plugName,V1_OM.MPlug)
 			return plugName
 	# CHECK THE INPUT TO SEE IF IT IS THE OBJECT NAME
-	if isinstance(plugName, (str, unicode)):
+	if isinstance(plugName, str):
 		# CREATE A MOBJECT AND A DAGPATH MEMORY OBJECT VARIBLE
 		plug = V1_OM.MPlug()
 		# MAKE A SELECTIONLIST STORAGE CONTAINER
@@ -363,11 +363,11 @@ def nameToPlug( node, attrName=None, OldApi=False):
 	"""function that finds a plug given a node object and plug name"""
 	# CHECK IF THE INPUT NODE IS NOT AND NODE OBJECT BUT THE NAME OF AN OBJECT
 	plug = None
-	if isinstance(node, (str, unicode)):
+	if isinstance(node, str):
 		if node.count("."):
 			plug = toMPlug(node, OldApi=OldApi)
 		else:
-			if isinstance(attrName, (str, unicode)):
+			if isinstance(attrName, str):
 				node_fn = nameToNode(node, OldApi=OldApi)
 				node_name = ".".join([node_fn.name(), attrName])
 				plug = toMPlug(node_name, OldApi=OldApi)

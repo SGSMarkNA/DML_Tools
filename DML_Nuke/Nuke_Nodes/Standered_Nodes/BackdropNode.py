@@ -18,12 +18,12 @@ def wrapper_Auto_Apply_Offset(func):
 		try:
 			res=func(*args, **kws)
 			args[0].apply_node_Offset(offset_data)
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
 				traceback = sys.exc_info()[2]  # get the full traceback
-				raise StandardError(Exception(err), traceback)
+				raise Exception(Exception(err), traceback)
 			return res
 	return wrapper
 #----------------------------------------------------------------------
@@ -35,12 +35,12 @@ def wrapper_Auto_Update_Box(func):
 		try:
 			res=func(*args, **kws)
 			args[0].update_box()
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
 				traceback = sys.exc_info()[2]  # get the full traceback
-				raise StandardError(Exception(err), traceback)
+				raise Exception(Exception(err), traceback)
 			return res
 	return wrapper
 
@@ -53,7 +53,7 @@ class BackdropNode(Node):
 		post_keys = kwargs.get("post_kwargs",dict())
 		self._make_backdrop_BBox()
 		self.update_backdrop()
-		if "nodes" in post_keys.keys():
+		if "nodes" in list(post_keys.keys()):
 			self.set_To_Nodes(post_keys.get("nodes"))
 		if False:
 			isinstance(self.bd_WH,Vector2)
@@ -207,7 +207,7 @@ class BackdropNode(Node):
 	#----------------------------------------------------------------------
 	def apply_node_Offset(self,offset_data):
 		v1 = Vector2(self.xpos(),self.ypos())
-		for n,v in offset_data.items():
+		for n,v in list(offset_data.items()):
 			v = v1 + v
 			n.setXYpos(int(v.x),int(v.y))
 	#----------------------------------------------------------------------

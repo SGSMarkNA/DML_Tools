@@ -75,7 +75,7 @@ class On_State_Collection_Added_Or_Removed_Callback(object):
 			
 			if Node_Messages.Was_Connection_Made(msg):
 				fn  = OM.MFnDependencyNode(otherPlug.node())
-				print("View State Collecion {} Was Added To {}".format(fn.name(),clientData.name))
+				print(("View State Collecion {} Was Added To {}".format(fn.name(),clientData.name)))
 				child_tree_item = self.model_item.find_child(fn.uuid().asString(), role=self.model_item.ID_ROLE.INTERNAL_ID)
 				
 				if child_tree_item is None:
@@ -84,7 +84,7 @@ class On_State_Collection_Added_Or_Removed_Callback(object):
 				
 			elif Node_Messages.Was_Connection_Broken(msg):
 				fn  = OM.MFnDependencyNode(otherPlug.node())
-				print("View State Collecion {} Was Removed From {}".format(fn.name(),clientData.name))
+				print(("View State Collecion {} Was Removed From {}".format(fn.name(),clientData.name)))
 				
 				child_tree_item = self.model_item.find_child(fn.uuid().asString(), role=self.model_item.ID_ROLE.INTERNAL_ID)
 				

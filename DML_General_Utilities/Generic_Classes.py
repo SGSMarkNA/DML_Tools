@@ -1,11 +1,11 @@
-from Generic_Functions import string_To_Valid_Attribute_Name
+from .Generic_Functions import string_To_Valid_Attribute_Name
 import warnings
 
 #################################################################################
 class Dict_Keys_Attribute_Object(object):
 	def __init__(self, data):
 		self._orig_data = data
-		for key, value in data.iteritems():
+		for key, value in list(data.items()):
 			key = string_To_Valid_Attribute_Name(key)
 			if isinstance(value, dict):
 				self.__dict__[key] = Dict_Keys_Attribute_Object(value)

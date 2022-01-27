@@ -13,7 +13,7 @@ class Network(Dependency_Node):
 		if "name" in kwargs:
 			if not kwargs["name"] == None:
 				new_keys["name"] = kwargs.get("name")
-		if kwargs.has_key("parent"):
+		if "parent" in kwargs:
 			new_keys["parent"] = kwargs.get("parent")
 		if "skipSelect" in kwargs:
 			new_keys["skipSelect"] = kwargs.get("skipSelect")

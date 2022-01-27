@@ -5,16 +5,16 @@ os.environ["W_HOTBOX_REPO_PATHS"] = os.path.join(os.path.dirname(__file__),"App_
 os.environ["W_HOTBOX_REPO_NAMES"] = "AW"
 
 import nuke
-import Nuke_Scripts
+from . import Nuke_Scripts
 import nukescripts
-from Mata_Classes import Data_Storage
-from Mata_Classes import Node_Return_Type_Publication_Metaclass
-from Mata_Classes import Knob_Return_Type_Publication_Metaclass
-import Nuke_Nodes
-import dml
-import Decorators
-import Nuke_GUI
-import Gizmos_And_Tools
-import Nuke_Scripts
-import callbacks
+from .Mata_Classes import Data_Storage
+from .Mata_Classes import Node_Return_Type_Publication_Metaclass
+from .Mata_Classes import Knob_Return_Type_Publication_Metaclass
+from . import Nuke_Nodes
+from . import dml
+from . import Decorators
+from . import Nuke_GUI
+from . import Gizmos_And_Tools
+from . import Nuke_Scripts
+from . import callbacks
 

@@ -21,7 +21,7 @@ DML_Maya = DML_Tools.Maya.DML_Maya
 
 from ..Custom_Nodes.DML_Asset_Views_Manager import Asset_Views_Manager
 
-import ITEM_DATA_TYPES
+from . import ITEM_DATA_TYPES
 
 from ..CallBack_Data_Storage import Callbacks_Collection_Storage
 

@@ -24,7 +24,7 @@ _cashed_deadline_executable = None
 class Dict_Attribute_Keys(object):
 	def __init__(self, data):
 		self._orig_data = data
-		for key, value in data.iteritems():
+		for key, value in list(data.items()):
 			key = "_".join(key.split())
 			key = "".join([k for k in list(key) if not k in invalid_chars])
 			key = str("n_" + key) if key[0] in string_digits else key
@@ -112,7 +112,7 @@ def CallDeadlineCommand(command,hideWindow=True,no_Json=False,as_PrittyJson=Fals
 	command   = deadline_exacutble + " " + command
 
 	environment = {}
-	for key in os.environ.keys():
+	for key in list(os.environ.keys()):
 		environment[key] = str(os.environ[key])
 
 	# Need to set the PATH, cuz windows seems to load DLLs from the PATH earlier that cwd....

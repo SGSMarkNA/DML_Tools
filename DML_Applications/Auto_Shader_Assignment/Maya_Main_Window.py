@@ -1,9 +1,9 @@
-from __future__ import print_function
+
 import DML_Tools.DML_PYQT as PYQT
 import DML_Tools.DML_Maya as DML_Maya
 import maya.cmds as cmds
-import mayaMixin
-import Main_Window
+from . import mayaMixin
+from . import Main_Window
 
 ################ Maya Functions
 #----------------------------------------------------------------------
@@ -12,7 +12,7 @@ def get_Shaders_In_Namespace(nameSpace):
 	def flatten(x):
 		result = []
 		for el in x:
-			if hasattr(el, "__iter__") and not isinstance(el, basestring):
+			if hasattr(el, "__iter__") and not isinstance(el, str):
 				result.extend(flatten(el))
 			else:
 				result.append(el)
@@ -80,7 +80,7 @@ class Name_Associations_Main_Window(mayaMixin.MayaQWidgetBaseMixin,Main_Window.N
 		self.Add_Association_Widget.setHidden(True)
 		self.Add_Name_Widget.setHidden(True)
 		self.Add_Remove_Names_Frame.setHidden(True)
-		name_spaces = [namespace for namespace in cmds.namespaceInfo( listOnlyNamespaces=True) if not namespace in (u'UI', u'shared')]
+		name_spaces = [namespace for namespace in cmds.namespaceInfo( listOnlyNamespaces=True) if not namespace in ('UI', 'shared')]
 		if len(name_spaces):
 			completer = PYQT.QCompleter(name_spaces,parent=self)
 			completer.setCaseSensitivity(PYQT.Qt.CaseInsensitive)
@@ -137,7 +137,7 @@ class Name_Associations_Main_Window(mayaMixin.MayaQWidgetBaseMixin,Main_Window.N
 			if len(selectedItems):
 				item = selectedItems[0]
 				if item.column() == 1:
-					print(item.text())
+					print((item.text()))
 					shader = find_Shader_Within_Namespaces(item.text(), namespaces=self.Names_Name_Space_Input.text().split(","))
 					sg = shader.shading_engine()
 					def select_shader_members():

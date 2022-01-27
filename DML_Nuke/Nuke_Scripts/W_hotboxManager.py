@@ -56,7 +56,7 @@ import colorsys
 from datetime import datetime as dt
 from webbrowser import open as openURL
 
-import W_hotbox
+from . import W_hotbox
 
 preferencesNode = nuke.toNode('preferences')
 
@@ -511,7 +511,7 @@ class HotboxManager(QtWidgets.QWidget):
         if selectItem:
 
             #select based on string
-            if isinstance(selectItem, basestring):
+            if isinstance(selectItem, str):
                 foundItems = self.classesList.findItems(selectItem, QtCore.Qt.MatchExactly)
                 if foundItems:
                     self.classesList.setCurrentItem(foundItems[0])
@@ -1057,7 +1057,7 @@ class HotboxManager(QtWidgets.QWidget):
 
         newItems = []
         for i in importedArchive:
-            if i[1] in currentArchive.keys():
+            if i[1] in list(currentArchive.keys()):
                 #if a file with the same name was found in the same folder, replace it with the new one
                 shutil.copy(importedArchiveLocation + i[0],self.rootLocation + currentArchive[i[1]])
             else:
@@ -1068,10 +1068,10 @@ class HotboxManager(QtWidgets.QWidget):
 
         #gather information about which folders are already present on disk, and which should be created
         allFoldersNeeded = {os.path.dirname(i[1]).replace('\\','/'): os.path.dirname(i[0]).replace('\\','/') for i in newItems}
-        allFoldersNeededInverted = {allFoldersNeeded[i] : i for i in allFoldersNeeded.keys()}
+        allFoldersNeededInverted = {allFoldersNeeded[i] : i for i in list(allFoldersNeeded.keys())}
 
-        for i in allFoldersNeeded.keys():
-            if os.path.dirname(i) in allFoldersNeeded.values():
+        for i in list(allFoldersNeeded.keys()):
+            if os.path.dirname(i) in list(allFoldersNeeded.values()):
                 dirname1 = os.path.dirname(i).replace('\\','/')
                 dirname2 = allFoldersNeededInverted[os.path.dirname(i).replace('\\','/')]
                 if dirname1 != dirname2:
@@ -1386,7 +1386,7 @@ class ColorSwatch(QtWidgets.QLabel):
 
     def dropEvent(self, e):
 
-        print e.mimeData().colorData().rgb()
+        print((e.mimeData().colorData().rgb()))
 
         #find color
         node = nuke.toNode(nuke.tcl('stack 0'))
@@ -1853,7 +1853,7 @@ class ScriptEditorWidget(QtWidgets.QPlainTextEdit):
             painter.drawText(0, top, self.lineNumberArea.width(), self.fontMetrics().height(), QtCore.Qt.AlignRight, number)
 
             #Move to the next block
-            block = block.next()
+            block = next(block)
             top = bottom
             bottom = top + int(self.blockBoundingRect(block).height())
             blockNumber += 1
@@ -2528,7 +2528,7 @@ class QTreeViewCustom(QtWidgets.QTreeView):
             #find currently collapsed menus
             self.collapsedMenus = []
 
-            for button in self.buttonsList.values():
+            for button in list(self.buttonsList.values()):
 
                 index = self.dataModel.indexFromItem(button)
 
@@ -2551,7 +2551,7 @@ class QTreeViewCustom(QtWidgets.QTreeView):
         #closeall the menus when updating
         if self.update:
             for path in self.collapsedMenus:
-                if path in self.buttonsList.keys():
+                if path in list(self.buttonsList.keys()):
                     button = self.buttonsList[path]
                     index = self.dataModel.indexFromItem(button)
                     self.collapse(index)
@@ -2760,7 +2760,7 @@ class QTreeViewCustom(QtWidgets.QTreeView):
 
         #update path for button objects
 
-        for path in [path for path in self.buttonsList.keys() if path.startswith(origPath)]:
+        for path in [path for path in list(self.buttonsList.keys()) if path.startswith(origPath)]:
 
             button = self.buttonsList[path]
 

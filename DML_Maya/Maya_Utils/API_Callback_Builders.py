@@ -1,17 +1,17 @@
 import sys, os
 import maya.api.OpenMaya as OpenMaya
 import maya.cmds as cmds
-import API_Version_Convershions
+from . import API_Version_Convershions
 from .. import Maya_Util_Classes
 Maya_API_Callback_ID = Maya_Util_Classes.Maya_API_Callback_ID.Maya_API_Callback_ID
-import Call_Back_Constants
+from . import Call_Back_Constants
 #--------------------------
 # PyNode Exceptions
 #--------------------------
 class Input_Convershion_Error(TypeError):
 	_objectDescription = 'Object'
 	def __init__(self, node=None):
-		self.node = unicode(node)
+		self.node = str(node)
 	def __str__(self):
 		msg = "Maya %s does not exist (or is not unique) And Could Not Be Converted To An MObject:" % (self._objectDescription)
 		if self.node:

@@ -6,8 +6,8 @@ import DML_Tools
 
 DML_PYQT = DML_Tools.DML_PYQT
 DML_Nuke = DML_Tools.DML_Nuke
-import Layers_To_Gimped_PSD_Nodes
-import Layers_To_Gimped_PSD_Utils
+from . import Layers_To_Gimped_PSD_Nodes
+from . import Layers_To_Gimped_PSD_Utils
 import DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.View_Selection
 import threading
 
@@ -26,7 +26,7 @@ class Collect_Nodes_QTimer(DML_PYQT.QTimer):
 	def do_check(self):
 		""""""		
 		self.scaner._nodes = Layers_To_Gimped_PSD_Utils.find_All_DML_Layers_To_Gimped_PSD()
-		print "did Collection"
+		print("did Collection")
 
 ########################################################################
 class Check_For_Errors_QTimer(DML_PYQT.QTimer):
@@ -51,7 +51,7 @@ class Check_For_Errors_QTimer(DML_PYQT.QTimer):
 		""""""
 		for psd_node in self._nodes:
 			psd_node.do_Error_Check()
-		print "did check"
+		print("did check")
 		
 	
 #DML_Layers_To_Gimped_PSD_Error_Check_Timmer = Check_For_Errors_QTimer()

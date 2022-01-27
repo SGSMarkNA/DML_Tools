@@ -10,7 +10,7 @@ if False:
 class Base_Model_Item(object):
 	ITEM_TYPE  = QT.userType_generator()
 	ID_ROLES   = Base_Item_Data_Roles
-	CHILDREN_CONTEXT, ITEMS_CONTEXT =  range(2)
+	CHILDREN_CONTEXT, ITEMS_CONTEXT =  list(range(2))
 	_Context_Attribute_Return = {CHILDREN_CONTEXT: "childItems", ITEMS_CONTEXT: "_column_items",}
 	#----------------------------------------------------------------------
 	def __init__(self, model=None, parent_item=None, items=[], column_count=1):
@@ -31,7 +31,7 @@ class Base_Model_Item(object):
 				else:
 					raise ValueError("index %i in items arg must be a instance of Tree_Item and a %r was found" % (i, type(column_item)) )
 				self._column_items.items.append(column_item)
-		elif isinstance(items,basestring):
+		elif isinstance(items,str):
 			column_item = Item_Data_Storage.Internal_Item_Data(self,display_name=items)
 			self._column_items.items.append(column_item)
 		else:
@@ -281,7 +281,7 @@ class Base_Model_Item(object):
 		item_data = {}
 		item_data["column_items"] = self._get_Current_State()
 		item_data["child_items"] = []
-		if collection.has_key("child_items"):
+		if "child_items" in collection:
 			collection["child_items"].append(item_data)
 		for child in self.childItems:
 			child.get_Current_Tree_State(item_data)
@@ -360,7 +360,7 @@ class Base_Model_Item(object):
 	#----------------------------------------------------------------------
 	def context_data(self):
 		""""""
-		if self.current_context_state in self._Context_Attribute_Return.keys():
+		if self.current_context_state in list(self._Context_Attribute_Return.keys()):
 			return getattr(self, self._Context_Attribute_Return[self.current_context_state])
 		else:
 			return self.childItems

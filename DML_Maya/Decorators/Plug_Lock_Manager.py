@@ -22,7 +22,7 @@ def locked_Plug_Management(func):
 			cmds.setAttr(args[0],lock=False)
 			# run the orig function
 			res=func(*args, **kws)
-		except StandardError, error:
+		except Exception as error:
 			# store the error
 			err=error
 		finally:
@@ -32,6 +32,6 @@ def locked_Plug_Management(func):
 			if err:
 				# get the error info and raise a new StandardError
 				traceback = sys.exc_info()[2]  # get the full traceback
-				raise StandardError(StandardError(err), traceback)
+				raise Exception(Exception(err), traceback)
 			return res
 	return wrapper

@@ -5,7 +5,7 @@ DML_Nuke = DML_Tools.DML_Nuke
 DML_PYQT = DML_Tools.DML_PYQT
 import os
 import subprocess
-import Layers_To_Gimped_PSD_Nodes
+from . import Layers_To_Gimped_PSD_Nodes
 
 #----------------------------------------------------------------------
 def is_Single_Frame_Comp():
@@ -323,7 +323,7 @@ def run_Json_Build_Data(arg):
 				break				
 			for proc in all_procs:
 				if not proc.poll() == None:
-					print proc.returncode
+					print((proc.returncode))
 					all_procs.remove(proc)
 					compleated+=1
 					task.setProgress( int( float(compleated)/build_count * 100 ) )

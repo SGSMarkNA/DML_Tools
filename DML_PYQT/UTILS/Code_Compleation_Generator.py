@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import os
 import xml.etree.ElementTree as etree
 
@@ -133,7 +133,7 @@ _Tag_To_Class["action"] = Code_widget
 #----------------------------------------------------------------------
 def UI_Element_Factory(parent,tag, attrib={}, **extra):
 	""""""
-	if tag in _Tag_To_Class.keys():
+	if tag in list(_Tag_To_Class.keys()):
 		cls = _Tag_To_Class[tag]
 		return cls(parent, tag, attrib)
 	else:
@@ -163,7 +163,7 @@ def Xml_From_File(file_path):
 #----------------------------------------------------------------------
 def Print_Code(file_path,classBase="QWidget",modual_prefix="PYQT"):
 	data = Xml_From_File(file_path)
-	print(data.generate_Code_Compleatshion(classBase,modual_prefix))
+	print((data.generate_Code_Compleatshion(classBase,modual_prefix)))
 
 if __name__ == "__main__":
 	classBase = "QWidget"

@@ -11,7 +11,7 @@ if False:
 def flatten(x):
 	result = []
 	for el in x:
-		if hasattr(el, "__iter__") and not isinstance(el, basestring):
+		if hasattr(el, "__iter__") and not isinstance(el, str):
 			result.extend(flatten(el))
 		else:
 			result.append(el)
@@ -45,14 +45,14 @@ def nuke_Object_Return_Wrapper(func):
 				res = to_DML_Nuke_Objects(res)
 			elif isinstance(res,dict):
 				buffer_res = dict()
-				for k,val in res.iteritems():
+				for k,val in list(res.items()):
 					buffer_res[k]=to_DML_Nuke_Object(val)
 				res = buffer_res
 			elif hasattr(res,"_is_dml_object"):
 				return res
 			else:
 				res = to_DML_Nuke_Object(res)
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
@@ -74,7 +74,7 @@ def to_DML_Node(node):
 		res = node
 		return res
 	else:
-		if isinstance(node,basestring):
+		if isinstance(node,str):
 			if nuke.exists(node):
 				node = nuke.toNode(node)
 			else:
@@ -83,7 +83,7 @@ def to_DML_Node(node):
 		# get the type of node
 		typ = node.Class()
 		# using the type of node check if this type has possible overide checks
-		if Data_Storage.Node_Return_Type_Overides.has_key(typ):
+		if typ in Data_Storage.Node_Return_Type_Overides:
 			# if so start scanning over them and see if the check returns true
 			# if so then return that instead of the class related to the type
 			for cls in Data_Storage.Node_Return_Type_Overides[typ]:
@@ -91,7 +91,7 @@ def to_DML_Node(node):
 					res = cls(nuke_node=node)
 					return res
 		# check if the type has a designated class related to it
-		if Data_Storage.Node_Return_Type_Relations.has_key(typ):
+		if typ in Data_Storage.Node_Return_Type_Relations:
 			# if so return it
 			cls = Data_Storage.Node_Return_Type_Relations.get(typ)
 			res = cls(nuke_node=node)
@@ -114,13 +114,13 @@ def node_Return_Wrapper(func):
 			res = func(*args, **kws)
 			if isinstance(res,list):
 				res = Node_List([to_DML_Node(name) for name in res])
-			elif isinstance(res,basestring):
+			elif isinstance(res,str):
 				res = to_DML_Node(res)
 			elif isinstance(res,nuke.Node):
 				res = to_DML_Node(res)
 			else:
 				res = None
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
@@ -142,7 +142,7 @@ def Dml_Node_Arg_Wrapper(func):
 			else:
 				args = to_DML_Nodes(args)
 				res = func(*args, **kws)
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
@@ -160,9 +160,9 @@ def to_DML_Knob(knob,node=None):
 		return knob
 	# check if the knob is a name and not the knob itself
 	# and that the node was give to get the knob from
-	if isinstance(knob,basestring) and node is not None:
+	if isinstance(knob,str) and node is not None:
 		# check if the node is the name and not the node itself
-		if isinstance(node,basestring):
+		if isinstance(node,str):
 			# make sure the node exists
 			if not nuke.exists(node):
 				raise LookupError("The node name given does not exist {}".format(node))
@@ -172,12 +172,12 @@ def to_DML_Knob(knob,node=None):
 			if node == None:
 				raise LookupError("The node name give was not a nuke node")
 		# check if the node has a knob with knob name given
-		if node.knobs().has_key(knob):
+		if knob in node.knobs():
 			# aquaire the knob
 			knob = node.knob(knob)
 		else:
 			raise LookupError("the name of knob given does not exist on the node give {},{}".format(node.name(),knob))
-	elif isinstance(knob,basestring) and node is None:
+	elif isinstance(knob,str) and node is None:
 		raise Exception("node must be given when knob is a name")
 	
 	# make sure the knob is wrapperable
@@ -185,14 +185,14 @@ def to_DML_Knob(knob,node=None):
 		# the knob type
 		typ = knob.Class()
 		# using the type of knob check if this type has possible overide checks
-		if Data_Storage.Knob_Return_Type_Overides.has_key(typ):
+		if typ in Data_Storage.Knob_Return_Type_Overides:
 			# if so start scanning over them and see if the check returns true
 			# if so then return that instead of the class related to the type
 			for cls in Data_Storage.Knob_Return_Type_Overides[typ]:
 				if cls._overide_Return_Check(knob):
 					return cls(knob)
 		# check if the there is a wrapper for this type of know
-		if Data_Storage.Knob_Return_Type_Relations.has_key(typ):
+		if typ in Data_Storage.Knob_Return_Type_Relations:
 			cls = Data_Storage.Knob_Return_Type_Relations.get(typ)
 		# if not use the default one
 		else:
@@ -216,7 +216,7 @@ def knob_Return_Wrapper(func):
 				res = [to_DML_Knob(name) for name in res]
 			elif isinstance(res,dict):
 				buffer_res = dict()
-				for k,val in res.iteritems():
+				for k,val in list(res.items()):
 					buffer_res[k]=to_DML_Knob(val)
 				res = buffer_res
 			elif isinstance(res,nuke.Knob):
@@ -225,7 +225,7 @@ def knob_Return_Wrapper(func):
 				return res
 			else:
 				res = []
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
@@ -245,7 +245,7 @@ def to_Real_Nuke_Node(node):
 		return node.nuke_object
 	elif isinstance(node,(nuke.Node,nuke.Knob)):
 		return node
-	elif isinstance(node,Data_Storage.Object_Return_Type_Relations.values()):
+	elif isinstance(node,list(Data_Storage.Object_Return_Type_Relations.values())):
 		return node.nuke_object
 	else:
 		raise LookupError("node could not be converted {}".format(node))
@@ -275,12 +275,12 @@ def nuke_Node_Return_Wrapper(func):
 				new_kwargs[k]=new_value
 			new_args.extend(standerdized_item_list(args[1:]))
 			res=func(*new_args, **new_kwargs)
-		except Exception, error:
+		except Exception as error:
 			err=error
 		finally:
 			if err:
 				traceback = sys.exc_info()[2]  # get the full traceback
-				raise StandardError(Exception(err), traceback)
+				raise Exception(Exception(err), traceback)
 			return res
 	return wrapper
 

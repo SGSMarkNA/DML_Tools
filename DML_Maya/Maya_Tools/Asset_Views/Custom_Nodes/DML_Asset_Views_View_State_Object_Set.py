@@ -2,7 +2,7 @@ import maya.cmds as cmds
 import DML_Tools.Maya.DML_Maya as DML_Maya
 
 if False:
-	from DML_Asset_Views_View_State import Asset_Views_View_State
+	from .DML_Asset_Views_View_State import Asset_Views_View_State
 
 ########################################################################
 class Asset_Views_View_State_Object_Set(DML_Maya.Maya_Nodes.Object_Set):

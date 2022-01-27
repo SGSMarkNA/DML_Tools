@@ -34,7 +34,7 @@ def string_To_Valid_Attribute_Name(value):
 def flatten(x):
 	result = []
 	for el in x:
-		if hasattr(el, "__iter__") and not isinstance(el, basestring):
+		if hasattr(el, "__iter__") and not isinstance(el, str):
 			result.extend(flatten(el))
 		else:
 			result.append(el)
@@ -128,7 +128,7 @@ def itersubclasses(cls, _seen=None):
 class Dict_Keys_Attribute_Object(object):
 	def __init__(self, data):
 		self._orig_data = data
-		for key, value in data.iteritems():
+		for key, value in list(data.items()):
 			key = string_To_Valid_Attribute_Name(key)
 			if isinstance(value, dict):
 				self.__dict__[key] = Dict_Keys_Attribute_Object(value)

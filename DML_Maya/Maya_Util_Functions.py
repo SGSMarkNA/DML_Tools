@@ -1,7 +1,7 @@
 import os,sys,logging,inspect
 import maya.cmds as cmds
 import maya.mel as mel
-import General_Utils
+from . import General_Utils
 from PySide2.QtWidgets import qApp
 logging.basicConfig()
 log = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ def inspectFunctionSource(value):
 		elif path=="Command":
 			cmds.warning('%s : is a Command not a script' % value)
 			return False
-	except StandardError, error:
+	except Exception as error:
 		log.info(error)
 	#Inspect for Python
 	if not path or not os.path.exists(path):
@@ -57,7 +57,7 @@ def inspectFunctionSource(value):
 			if path:
 				#sourceType='python'
 				log.info('path : %s' % path)
-		except StandardError, error:
+		except Exception as error:
 			log.exception(error)
 
 	#Open the file with the default editor

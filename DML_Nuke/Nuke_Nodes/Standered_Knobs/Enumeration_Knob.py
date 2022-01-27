@@ -62,7 +62,7 @@ class Enumeration_Knob(Unsigned_Knob):
 			k.values()
 
 		"""
-		return self.nuke_object.values()
+		return list(self.nuke_object.values())
 
 	#----------------------------------------------------------------------
 	def setValue(self,val):

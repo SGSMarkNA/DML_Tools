@@ -1,7 +1,7 @@
 import nuke
 __all__ = ["ls","selectedNodes","listConnections"]
 
-from Decorators.Node_Wraper_Manager import node_Return_Wrapper, to_DML_Node,to_DML_Nodes,to_DML_Knob
+from .Decorators.Node_Wraper_Manager import node_Return_Wrapper, to_DML_Node,to_DML_Nodes,to_DML_Knob
 
 #----------------------------------------------------------------------
 @node_Return_Wrapper

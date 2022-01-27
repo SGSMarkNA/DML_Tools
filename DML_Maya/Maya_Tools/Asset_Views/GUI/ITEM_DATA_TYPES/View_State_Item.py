@@ -54,7 +54,7 @@ class View_State_Item_Data(Maya_Node_Item.Maya_Node_Item_Data):
 		return self.internal_data.get_View_Name()
 	#----------------------------------------------------------------------
 	def _fn_set_display_name_value(self, value):
-		if not isinstance(value,basestring):
+		if not isinstance(value,str):
 			raise ValueError("input value must be an instance of basestring and a %r was given" % type(value))
 		self.internal_data.set_View_Name(value)
 

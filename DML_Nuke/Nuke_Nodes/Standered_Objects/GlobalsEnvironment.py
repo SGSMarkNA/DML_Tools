@@ -19,11 +19,11 @@ class GlobalsEnvironment(DML_Nuke_Object):
 	#----------------------------------------------------------------------
 	def keys(self):
 		""""""
-		return self.nuke_object.keys()
+		return list(self.nuke_object.keys())
 	#----------------------------------------------------------------------
 	def items(self):
 		""""""
-		return self.nuke_object.items()
+		return list(self.nuke_object.items())
 	#----------------------------------------------------------------------
 	def get(self):
 		""""""
@@ -39,7 +39,7 @@ class GlobalsEnvironment(DML_Nuke_Object):
 	#----------------------------------------------------------------------
 	def values(self):
 		""""""
-		return self.nuke_object.values()
+		return list(self.nuke_object.values())
 	#----------------------------------------------------------------------
 	def __repr__(self):
 		"""x.__repr__() <==> repr(x)"""

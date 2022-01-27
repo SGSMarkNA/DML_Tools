@@ -1,6 +1,6 @@
 
 import urllib.request
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import pathlib
 import lxml.html
 import os
@@ -248,7 +248,7 @@ def extract_Command_Url(command_file):
 					cls_data.command_data.append(data)
 			return cls_data
 		else:
-			print("skiping {}".format(command_name))
+			print(("skiping {}".format(command_name)))
 			return None
 #----------------------------------------------------------------------
 def extract_Main_Catagory_Doc_Url(url):
