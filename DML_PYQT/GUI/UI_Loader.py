@@ -1,4 +1,4 @@
-from .. import QT
+import QT
 
 class UiLoader(QT.QUiLoader):
 	''''''

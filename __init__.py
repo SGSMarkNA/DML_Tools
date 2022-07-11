@@ -1,5 +1,5 @@
 import os
-from . import DML_General_Utilities
+#from . import DML_General_Utilities
 
 
 
@@ -33,7 +33,8 @@ def test_For_Nuke():
 		return False
 
 try:
-	from . import DML_PYQT
+	#from . import DML_PYQT
+	import DML_PYQT
 except ImportError:
 	pass
 
@@ -43,7 +44,9 @@ if test_For_Maya():
 	except ImportError:
 		pass
 if test_For_Nuke():
-	from . import DML_Nuke
+	#from . import DML_Nuke
+	import DML_Tools.DML_Nuke
+	DML_Nuke = DML_Tools.DML_Nuke
 	
 #if False:
 	#import DML_Nuke

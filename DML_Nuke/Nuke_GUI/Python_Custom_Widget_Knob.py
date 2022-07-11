@@ -2,7 +2,7 @@ import nuke
 import os
 import DML_Tools
 from DML_Tools import DML_General_Utilities
-DML_PYQT = DML_Tools.DML_PYQT
+from DML_Tools import DML_PYQT
 from .. import dml
 from .Utils import remove_Tab
 
@@ -13,7 +13,7 @@ class Registered_Knob_Widgets(dict, metaclass=DML_General_Utilities.Generic_Clas
 
 registered_knob_widgets = Registered_Knob_Widgets()
 
-Default_Ui_Loader = DML_PYQT.QT.QUiLoader()
+Default_Ui_Loader = DML_PYQT.QUiLoader()
 
 
 def load_Widget_command(clsName,modual):
