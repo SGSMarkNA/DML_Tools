@@ -119,7 +119,10 @@ class Shuffle(Node):
 	#----------------------------------------------------------------------
 	def __init__(self,*args,**kwargs):
 		""""""
-		super(Shuffle,self).__init__(*args,**kwargs)
+		try:
+			super(Shuffle,self).__init__(*args,**kwargs)
+		except:
+			pass
 		self.channels_knobs = Shuffle_Channel_Knobs(self)
 	#----------------------------------------------------------------------
 	def set_In_Layer(self,layerName,section=1):
