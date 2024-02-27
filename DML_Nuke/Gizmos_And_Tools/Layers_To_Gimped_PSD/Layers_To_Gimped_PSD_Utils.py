@@ -89,7 +89,7 @@ def create_PSD_Build_Info_V2(frames):
 def Bake_PSD_Build_Info(gimped_psd_data):
 	""""""
 	json_file_path = get_Json_File_Path()
-	with file(json_file_path,"w") as fp:
+	with open(json_file_path,"w") as fp:
 		json.dump(gimped_psd_data, fp,indent=4)
 
 #----------------------------------------------------------------------
@@ -272,7 +272,7 @@ def run_Json_Build_Data(arg):
 	"""This Runs The Gimp Psd Builder For Local Renders"""
 	all_procs = []
 	if isinstance(arg,str):
-		with file(arg,"r") as fp:
+		with open(arg,"r") as fp:
 			build_data = json.load(fp)
 	elif isinstance(arg,dict):
 		build_data = arg
