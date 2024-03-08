@@ -4,7 +4,7 @@ DML_PYQT = DML_Tools.DML_PYQT
 import nuke
 import _nuke
 import uuid
-
+import functools
 ########################################################################
 class Update_Actions(object, metaclass=DML_Tools.DML_General_Utilities.Generic_Classes.Singleton):
 	""""""
@@ -42,7 +42,7 @@ def view_To_Image_Name(filepath):
 			filepath = filepath.replace(nuke.thisView(),DML_Nuke_View_System.get_Image_Name_From_View_Name(nuke.thisView()))
 			return filepath
 	else:
-		for view in sorted(nuke.views(),cmp=lenght_compare):
+		for view in sorted(nuke.views(),key=functools.cmp_to_key(lenght_compare)):
 			if view in filepath:
 				filepath = filepath.replace(view,DML_Nuke_View_System.get_Image_Name_From_View_Name(view))
 				return filepath

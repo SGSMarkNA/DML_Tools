@@ -363,11 +363,10 @@ class DML_Layers_To_Gimped_PSD(DML_Tools.DML_Nuke.Nuke_GUI.Generic_Widgets.Gener
 				# because we don't know what view is the active view we have to find it useing the layers_folder
 				for image_name in all_image_names:
 					# check if the image_name is in the layers_folder path
-					if image_name in layers_folder.split("/"):
+					if image_name in layers_folder.split("/") or len([part for part in layers_folder.split("/") if image_name in part]):
 						# if so replace it and we are done searching
 						layers_folder_exp = layers_folder.replace(image_name,"{input_name}")
 						break
-	
 				# this is to make sure that we found the view to replace
 				if layers_folder_exp is not None:
 					# get the image names for the views this write node is using 
